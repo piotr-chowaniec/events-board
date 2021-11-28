@@ -1,0 +1,12 @@
+version: '3.8'
+
+services:
+  events-board:
+    container_name: events-board
+    restart: on-failure
+    build: .
+    command: npm run dev
+    volumes:
+      - .:/app
+    ports:
+      - 3000:3000

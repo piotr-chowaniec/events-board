@@ -1,0 +1,23 @@
+{
+  "name": "event-board",
+  "version": "0.1.0",
+  "description": "Event-board",
+  "author": "Piotr Chowaniec",
+  "private": true,
+  "scripts": {
+    "install:ci": "npm ci && npm ci --prefix server && npm ci --prefix client",
+    "install:all": "npm i && npm i --prefix server && npm i --prefix client",
+    "client:dev": "npm run start --prefix client",
+    "server:dev": "npm run start:dev --prefix server",
+    "dev": "concurrently \"npm run server:dev\" \"npm run client:dev\"",
+    "lint": "npm run lint --prefix server && npm run lint --prefix client",
+    "lint:fix": "npm run lint:fix --prefix server && npm run lint:fix --prefix client",
+    "pre-commit": "npm run pre-commit --prefix server && npm run pre-commit --prefix client",
+    "pre-push": "npm run lint"
+  },
+  "devDependencies": {
+    "concurrently": "^6.4.0",
+    "husky": "^7.0.4",
+    "prettier": "^2.5.0"
+  }
+}

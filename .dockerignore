@@ -1,0 +1,18 @@
+# ignore files when you run the docker build
+.git
+.gitignore
+.vscode
+.editorconfig
+.eslintrc
+README.md
+
+# testing
+coverage
+
+# misc
+.DS_Store
+.env
+
+#docker
+docker-*
+docker-compose*

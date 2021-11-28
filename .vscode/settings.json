@@ -1,0 +1,14 @@
+{
+  "explorer.compactFolders": false,
+  "eslint.workingDirectories": [
+    "./client",
+    "./server",
+  ],
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": true
+  },
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "editor.formatOnSave": false,
+  "[typescript]": { "editor.formatOnSave": true },
+  "[typescriptreact]": { "editor.formatOnSave": true }
+}
