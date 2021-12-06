@@ -8,5 +8,26 @@ services:
     command: npm run dev
     volumes:
       - .:/app
+      - /app/node_modules
+      - /app/client/node_modules
+      - /app/server/node_modules
     ports:
       - 3000:3000
+    depends_on:
+      - events-db
+
+  events-db:
+    container_name: events-db
+    restart: always
+    image: postgres:14
+    volumes:
+      - postgres:/var/lib/postgresql/data
+    ports:
+      - 5432:5432
+    environment:
+      - POSTGRES_USER
+      - POSTGRES_PASSWORD
+      - POSTGRES_DB
+
+volumes:
+  postgres:

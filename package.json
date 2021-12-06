@@ -5,8 +5,11 @@
   "author": "Piotr Chowaniec",
   "private": true,
   "scripts": {
-    "install:ci": "npm ci && npm ci --prefix server && npm ci --prefix client",
     "install:all": "npm i && npm i --prefix server && npm i --prefix client",
+    "db:migrate:dev": "dotenv -- npm run db:migrate:dev --prefix commonPackages/dataAccessLayer",
+    "db:migrate:deploy": "dotenv -- npm run db:migrate:deploy --prefix commonPackages/dataAccessLayer",
+    "db:seed": "dotenv -- npm run db:seed --prefix commonPackages/dataAccessLayer",
+    "db:dev": "npm run db:migrate:deploy && npm run db:seed",
     "client:dev": "npm run start --prefix client",
     "server:dev": "npm run start:dev --prefix server",
     "dev": "concurrently \"npm run server:dev\" \"npm run client:dev\"",
@@ -19,6 +22,7 @@
   },
   "devDependencies": {
     "concurrently": "^6.4.0",
+    "dotenv-cli": "^4.1.1",
     "husky": "^7.0.0",
     "prettier": "^2.5.0"
   }

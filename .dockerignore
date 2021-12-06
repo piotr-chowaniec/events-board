@@ -12,6 +12,8 @@ coverage
 # misc
 .DS_Store
 .env
+mode-modules
+npm-debug.log
 
 #docker
 docker-*
