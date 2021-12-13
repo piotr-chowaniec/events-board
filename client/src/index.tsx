@@ -5,8 +5,9 @@ import { QueryClient, QueryClientProvider } from 'react-query';
 import { ReactQueryDevtools } from 'react-query/devtools';
 
 import App from './App';
+import config from './config';
 
-const queryClient = new QueryClient();
+const queryClient = new QueryClient(config.QUERY_CONFIG);
 
 ReactDOM.render(
   <React.StrictMode>

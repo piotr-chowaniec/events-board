@@ -27,6 +27,8 @@
     "@typescript-eslint/explicit-module-boundary-types": "off",
     "@typescript-eslint/no-explicit-any": "off",
     "import/extensions": ["error", "ignorePackages", { "ts": "never" }],
-    "import/no-namespace": "off"
+    "import/no-namespace": "off",
+    "no-useless-constructor": "off",
+    "class-methods-use-this": "off"
   }
 }
