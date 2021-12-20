@@ -1,16 +1,16 @@
 import { Method } from 'axios';
 
 import fetchServiceCreator, { postHeaders } from './fetchServiceCreator';
-import { handleErrors, stringifyJson } from './requestHelpers';
+import { handleErrors } from './requestHelpers';
 import { storeToken, extractToken } from './tokenUtils';
-import { AuthHeaders, BodyType } from './types';
+import { AuthHeaders, BodyType, RequestParamsType } from './types';
+
+export * from './types';
 
 type HttpFetchParams = {
   route: string;
-  errorMessage: string;
-  parseResponseErrorMessage?: boolean;
   body?: BodyType;
-};
+} & RequestParamsType;
 
 const httpFetch =
   (method: Method) =>
@@ -27,7 +27,7 @@ const httpFetch =
         ...(method.toUpperCase() === 'GET' ? {} : postHeaders),
         ...(token ? { [AuthHeaders.AUTHORIZATION]: token } : {}),
       },
-      ...(body ? { body: stringifyJson(body) } : {}),
+      ...(body ? { data: body } : {}),
     })
       .then(handleErrors({ errorMessage, parseResponseErrorMessage }))
       .then(storeToken());

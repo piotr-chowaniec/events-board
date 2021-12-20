@@ -1,0 +1,12 @@
+@import '../styles/helpers/helpers';
+
+.showcase {
+  height: rem(400px);
+
+  .header {
+    text-align: center;
+    padding: 2rem;
+    background: $color-main-background;
+    border-radius: 1rem;
+  }
+}

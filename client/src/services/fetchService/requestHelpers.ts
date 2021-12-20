@@ -1,20 +1,15 @@
 import { StatusCodes } from 'http-status-codes';
 
 import ErrorsFactory from './errorsFactory';
-import { BodyType, ResponseType } from './types';
+import { ResponseType, RequestParamsType } from './types';
 
 const { OK, MULTIPLE_CHOICES, UNAUTHORIZED } = StatusCodes;
 
-const replacer = (key: string, value: string | number | undefined) =>
-  typeof value === 'undefined' ? null : value;
+const GENERAL_ERROR = 'GENERAL ERROR';
 
-export const stringifyJson = (object: BodyType): string =>
-  JSON.stringify(object, replacer);
-
-type HandleErrors = (options: {
-  errorMessage: string;
-  parseResponseErrorMessage?: boolean;
-}) => (response: ResponseType) => ResponseType | Error;
+type HandleErrors = (
+  options: RequestParamsType,
+) => (response: ResponseType) => ResponseType | Error;
 
 export const handleErrors: HandleErrors =
   ({ errorMessage, parseResponseErrorMessage = false }) =>
@@ -27,7 +22,7 @@ export const handleErrors: HandleErrors =
     }
 
     if (response.status === UNAUTHORIZED) {
-      throw ErrorsFactory.UnauthorizedError(errorMessage);
+      throw ErrorsFactory.UnauthorizedError(errorMessage || GENERAL_ERROR);
     }
 
     if (parseResponseErrorMessage) {
@@ -35,5 +30,8 @@ export const handleErrors: HandleErrors =
       throw ErrorsFactory.FetchingError(message, response.status);
     }
 
-    throw ErrorsFactory.FetchingError(errorMessage, response.status);
+    throw ErrorsFactory.FetchingError(
+      errorMessage || GENERAL_ERROR,
+      response.status,
+    );
   };

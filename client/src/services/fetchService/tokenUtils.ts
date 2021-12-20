@@ -24,7 +24,7 @@ const extractToken: ExtractTokenType = ({
   key = AuthHeaders.ACCESS_TOKEN,
   storage = window.localStorage,
 } = {}) => {
-  if (headers?.has(key)) {
+  if (headers?.has && headers.has(key)) {
     return headers.get(key);
   }
 
