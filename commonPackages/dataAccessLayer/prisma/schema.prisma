@@ -16,6 +16,7 @@ model User {
   id           String        @id @default(cuid())
   role         Role          @default(USER)
   email        String        @unique
+  password     String
   firstName    String?       @map("first_name")
   lastName     String?       @map("last_name")
   nickName     String?       @map("nick_name")

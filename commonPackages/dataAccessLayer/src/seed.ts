@@ -10,6 +10,7 @@ async function main() {
       role: 'ADMIN',
       firstName: 'Admin',
       lastName: 'Admin',
+      password: 'password',
       nickName: 'Adm',
       events: {
         create: {
@@ -18,6 +19,19 @@ async function main() {
           eventDate: new Date(),
         },
       },
+    },
+  });
+
+  await prisma.user.upsert({
+    where: { email: 'piotr@events.com' },
+    update: {},
+    create: {
+      email: 'piotr@events.com',
+      role: 'USER',
+      firstName: 'Piotr',
+      lastName: 'Chowaniec',
+      password: '123',
+      nickName: 'PiotrCh',
     },
   });
 }

@@ -6,6 +6,7 @@ CREATE TABLE "users" (
     "id" TEXT NOT NULL,
     "role" "Role" NOT NULL DEFAULT E'USER',
     "email" TEXT NOT NULL,
+    "password" TEXT NOT NULL,
     "first_name" TEXT,
     "last_name" TEXT,
     "nick_name" TEXT,
