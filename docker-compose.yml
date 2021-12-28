@@ -13,6 +13,8 @@ services:
       - /app/server/node_modules
     ports:
       - 3000:3000
+    environment:
+      - DATABASE_URL
     depends_on:
       - events-db
 
