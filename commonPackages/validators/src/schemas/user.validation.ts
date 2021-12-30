@@ -1,11 +1,21 @@
 import * as Yup from 'yup';
 
-const loginUserSchema = Yup.object().shape({
+const Email = Yup.object().shape({
   email: Yup.string().email().required().label('Email'),
-  password: Yup.string().required().label('Password'),
 });
 
-const updateProfileSchema = Yup.object().shape({
+const Password = Yup.object().shape({
+  password: Yup.string().label('Password').required(),
+});
+
+const ConfirmPasswordSchema = Yup.object().shape({
+  confirmPassword: Yup.string()
+    .label('Confirm Password')
+    .required()
+    .oneOf([Yup.ref('password'), null], 'Passwords must match'),
+});
+
+const Name = Yup.object().shape({
   firstName: Yup.string()
     .label('First Name')
     .required()
@@ -14,31 +24,27 @@ const updateProfileSchema = Yup.object().shape({
     .label('Last Name')
     .required()
     .min(5, 'Last Name must be at least 5 characters long'),
-  email: Yup.string().email().required().label('Email'),
 });
 
-const updatePasswordSchema = Yup.object().shape({
-  password: Yup.string().label('Password').required(),
-  confirmPassword: Yup.string()
-    .label('Confirm Password')
-    .required()
-    .oneOf([Yup.ref('password'), null], 'Passwords must match'),
+const Role = Yup.object().shape({
+  role: Yup.string().label('Role').required().oneOf(['admin', 'participant']),
 });
 
-const registerUserSchema = updateProfileSchema.concat(updatePasswordSchema);
+const loginUserSchema = Email.concat(Password);
+const updateProfileSchema = Name.concat(Email);
+const updatePasswordSchema = Password.concat(ConfirmPasswordSchema);
 
-const updateUserSchema = updateProfileSchema.concat(
-  Yup.object().shape({
-    role: Yup.string().label('Role').required().oneOf(['admin', 'participant']),
-  }),
-);
+const registerUserSchema = updateProfileSchema.concat(Password);
+const registerUserFormSchema = updatePasswordSchema
+  .concat(Password)
+  .concat(updatePasswordSchema);
 
-export type LoginUserDto = Yup.InferType<typeof loginUserSchema>;
-export type RegisterUserDto = Yup.InferType<typeof registerUserSchema>;
+const updateUserSchema = updateProfileSchema.concat(Role);
 
 export default {
   loginUserSchema,
   registerUserSchema,
+  registerUserFormSchema,
   updateProfileSchema,
   updatePasswordSchema,
   updateUserSchema,

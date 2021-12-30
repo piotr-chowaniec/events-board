@@ -1,8 +1,11 @@
 import React, { useCallback } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { Formik } from 'formik';
 import { userSchemas } from '@common-packages/validators';
 
 import FaIcon from '../displayComponents/faIcon/faIcon.component';
+import { useLogin } from '../shared/api/hooks';
+import routes from '../routes';
 
 import RegisterForm from './registerForm.component';
 import { useRegister } from './api/hooks';
@@ -17,22 +20,21 @@ const newAccount = {
 };
 
 const Register = (): JSX.Element => {
-  // const dispatch = useDispatch();
+  const navigate = useNavigate();
   const { call: registerUser, isLoading: isRegistering } = useRegister();
-  // const { call: fetchProfileData, isLoading: isFetchingProfile } =
-  //   useFetchProfileData();
+  const { call: loginUser, isLoading: isLogging } = useLogin();
 
   const submitRegisterForm = useCallback(
     async (values: RegisterFormValues) => {
-      await registerUser(values);
-      // const userData = await fetchProfileData();
-      // dispatch(setUserData(userData));
-      // history.push(routes.APPLICATION.PATH);
-    },
-    [registerUser],
-  );
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
+      const { confirmPassword, ...user } = values;
 
-  // const isLoading = isRegistering || isFetchingProfile;
+      await registerUser(user);
+      await loginUser(user);
+      navigate(routes.MAIN.PATH);
+    },
+    [registerUser, loginUser, navigate],
+  );
 
   return (
     <div className="full-heigh default-background d-flex align-items-center">
@@ -47,7 +49,7 @@ const Register = (): JSX.Element => {
                 <h2 className="card-title my-3">Register</h2>
                 <Formik
                   initialValues={newAccount}
-                  validationSchema={userSchemas.registerUserSchema}
+                  validationSchema={userSchemas.registerUserFormSchema}
                   component={RegisterForm}
                   onSubmit={submitRegisterForm}
                 />

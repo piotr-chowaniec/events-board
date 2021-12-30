@@ -1,5 +1,5 @@
 import { Controller, Post, Body, UseGuards } from '@nestjs/common';
-import { RegisterUserDto } from '@common-packages/validators';
+import { Prisma } from '@common-packages/data-access-layer';
 
 import { Public } from '../common/decorators/public.decorator';
 
@@ -19,7 +19,7 @@ export class AuthController {
 
   @Public()
   @Post('register')
-  async register(@Body() registerUserDto: RegisterUserDto) {
-    return this.authService.register(registerUserDto);
+  async register(@Body() newUser: Prisma.UserCreateInput) {
+    return this.authService.register(newUser);
   }
 }

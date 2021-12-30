@@ -1,10 +1,7 @@
 import type { Asserts } from 'yup';
 import { Injectable } from '@nestjs/common';
-import {
-  validate,
-  userSchemas,
-  RegisterUserDto,
-} from '@common-packages/validators';
+import { validate, userSchemas } from '@common-packages/validators';
+import { Prisma } from '@common-packages/data-access-layer';
 
 import { PrismaService } from '../common/prisma/prisma.service';
 import { UsersService } from '../users/users.service';
@@ -31,20 +28,23 @@ export class AuthService {
     return { message: 'Successfully logged in' };
   }
 
-  async register(registerUserDto: RegisterUserDto) {
+  async register(newUser: Prisma.UserCreateInput) {
     await validate<Asserts<typeof userSchemas.registerUserSchema>>(
       userSchemas.registerUserSchema,
-      registerUserDto,
+      newUser,
     );
 
-    delete registerUserDto.confirmPassword;
-
     const createdUser = await this.prismaService.user.create({
-      data: registerUserDto,
+      data: {
+        email: newUser.email,
+        password: newUser.password,
+        firstName: newUser.firstName,
+        lastName: newUser.lastName,
+      },
     });
 
     return {
-      message: `You'll be able to register soon`,
+      message: `${createdUser.firstName} ${createdUser.lastName} successfully registered`,
     };
   }
 }
