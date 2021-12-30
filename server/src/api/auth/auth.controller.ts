@@ -1,4 +1,5 @@
 import { Controller, Post, Body, UseGuards } from '@nestjs/common';
+import { RegisterUserDto } from '@common-packages/validators';
 
 import { Public } from '../common/decorators/public.decorator';
 
@@ -18,7 +19,7 @@ export class AuthController {
 
   @Public()
   @Post('register')
-  async register(@Body() body) {
-    return this.authService.register(body);
+  async register(@Body() registerUserDto: RegisterUserDto) {
+    return this.authService.register(registerUserDto);
   }
 }

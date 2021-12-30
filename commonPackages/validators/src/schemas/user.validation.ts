@@ -35,6 +35,9 @@ const updateUserSchema = updateProfileSchema.concat(
   }),
 );
 
+export type LoginUserDto = Yup.InferType<typeof loginUserSchema>;
+export type RegisterUserDto = Yup.InferType<typeof registerUserSchema>;
+
 export default {
   loginUserSchema,
   registerUserSchema,

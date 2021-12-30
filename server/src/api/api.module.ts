@@ -7,9 +7,10 @@ import { JwtAuthGuard } from './auth/jwt-auth.guard';
 import { UsersModule } from './users/users.module';
 import { EventsModule } from './events/events.module';
 import { AuthInterceptor } from './common/interceptors/auth.interceptor';
+import { PrismaModule } from './prisma/prisma.module';
 
 @Module({
-  imports: [AuthModule, UsersModule, EventsModule],
+  imports: [PrismaModule, AuthModule, UsersModule, EventsModule],
   controllers: [ApiController],
   providers: [
     {
