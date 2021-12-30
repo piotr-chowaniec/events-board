@@ -13,8 +13,8 @@ services:
       - /app/server/node_modules
     ports:
       - 3000:3000
-    environment:
-      - DATABASE_URL
+    env_file:
+      - .env
     depends_on:
       - events-db
 
@@ -26,10 +26,8 @@ services:
       - postgres:/var/lib/postgresql/data
     ports:
       - 5432:5432
-    environment:
-      - POSTGRES_USER
-      - POSTGRES_PASSWORD
-      - POSTGRES_DB
+    env_file:
+      - .env
 
 volumes:
   postgres:

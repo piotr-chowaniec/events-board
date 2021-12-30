@@ -6,7 +6,7 @@ import {
   RegisterUserDto,
 } from '@common-packages/validators';
 
-import { PrismaService } from '../prisma/prisma.service';
+import { PrismaService } from '../common/prisma/prisma.service';
 import { UsersService } from '../users/users.service';
 
 @Injectable()

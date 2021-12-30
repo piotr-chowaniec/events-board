@@ -7,7 +7,7 @@ import {
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
-import config from '../../../config';
+import { config, ConfigKeys } from '../config/config.service';
 
 @Injectable()
 export class AuthInterceptor implements NestInterceptor {
@@ -18,11 +18,11 @@ export class AuthInterceptor implements NestInterceptor {
         const { user } = res.req;
 
         const accessToken =
-          user?.[config.authentication.refreshTokenKey] ||
-          user?.[config.authentication.accessTokenKey];
+          user?.[config[ConfigKeys.REFRESH_TOKEN_KEY]] ||
+          user?.[config[ConfigKeys.ACCESS_TOKEN_KEY]];
 
         if (accessToken) {
-          res.header(config.authentication.accessTokenKey, accessToken);
+          res.header(config[ConfigKeys.ACCESS_TOKEN_KEY], accessToken);
         }
 
         return data;

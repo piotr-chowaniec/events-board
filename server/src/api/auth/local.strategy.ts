@@ -3,7 +3,7 @@ import { PassportStrategy } from '@nestjs/passport';
 import { Injectable, UnauthorizedException } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 
-import config from '../../config';
+import { ConfigService, ConfigKeys } from '../common/config/config.service';
 
 import { AuthService } from './auth.service';
 
@@ -12,6 +12,7 @@ export class LocalStrategy extends PassportStrategy(Strategy) {
   constructor(
     private authService: AuthService,
     private jwtService: JwtService,
+    private readonly configService: ConfigService,
   ) {
     super({ usernameField: 'email' });
   }
@@ -23,12 +24,14 @@ export class LocalStrategy extends PassportStrategy(Strategy) {
       throw new UnauthorizedException();
     }
 
+    const accessTokenKey = this.configService.get(ConfigKeys.ACCESS_TOKEN_KEY);
+
     const jwtPayload = { email: user.email, userId: user.userId };
     const accessToken = this.jwtService.sign(jwtPayload);
 
     return {
       ...user,
-      [config.authentication.accessTokenKey]: accessToken,
+      [accessTokenKey]: accessToken,
     };
   }
 }

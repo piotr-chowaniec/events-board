@@ -1,11 +1,9 @@
 import * as Yup from 'yup';
 
-const loginUserSchema = Yup.object()
-  .shape({
-    email: Yup.string().email().required().label('Email'),
-    password: Yup.string().required().label('Password'),
-  })
-  .required();
+const loginUserSchema = Yup.object().shape({
+  email: Yup.string().email().required().label('Email'),
+  password: Yup.string().required().label('Password'),
+});
 
 const updateProfileSchema = Yup.object().shape({
   firstName: Yup.string()

@@ -3,11 +3,14 @@ import { Reflector } from '@nestjs/core';
 import { AuthGuard } from '@nestjs/passport';
 import { Observable } from 'rxjs';
 
-import config from '../../config';
+import { ConfigService, ConfigKeys } from '../common/config/config.service';
 
 @Injectable()
 export class JwtAuthGuard extends AuthGuard('jwt') {
-  constructor(private reflector: Reflector) {
+  constructor(
+    private reflector: Reflector,
+    private readonly configService: ConfigService,
+  ) {
     super();
   }
 
@@ -15,7 +18,7 @@ export class JwtAuthGuard extends AuthGuard('jwt') {
     context: ExecutionContext,
   ): boolean | Promise<boolean> | Observable<boolean> {
     const isPublic = this.reflector.getAllAndOverride<boolean>(
-      config.authentication.isPublicKey,
+      this.configService.get(ConfigKeys.PUBLIC_KEY),
       [context.getHandler(), context.getClass()],
     );
 
