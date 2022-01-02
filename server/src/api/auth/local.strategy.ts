@@ -26,7 +26,7 @@ export class LocalStrategy extends PassportStrategy(Strategy) {
 
     const accessTokenKey = this.configService.get(ConfigKeys.ACCESS_TOKEN_KEY);
 
-    const jwtPayload = { email: user.email, userId: user.userId };
+    const jwtPayload = { email: user.email, userId: user.id };
     const accessToken = this.jwtService.sign(jwtPayload);
 
     return {
