@@ -1,6 +1,10 @@
 import { useMutation } from 'react-query';
 
 import { BodyType, RequestParamsType } from '../../services/fetchService';
+import {
+  addSuccessNotification,
+  addErrorNotification,
+} from '../../shared/notifications';
 
 type ApiActionType = (
   requestParams: RequestParamsType,
@@ -14,7 +18,7 @@ type ApiActionFactoryParams = {
 const ApiActionFactory = ({
   apiAction,
   errorMessage,
-  // successMessage,
+  successMessage,
   parseResponseErrorMessage,
 }: ApiActionFactoryParams) => {
   const requestMethod = async (body: BodyType) =>
@@ -23,17 +27,21 @@ const ApiActionFactory = ({
       parseResponseErrorMessage,
     })(body);
 
-  // const options = {
-  //   onSuccess: () => successMessage && dispatch(addSuccessNotification(successMessage)),
-  //   onError: error => dispatch(addErrorNotification(
-  //     parseResponseErrorMessage ? error?.message : errorMessage,
-  //   )),
-  // };
+  const options = {
+    onSuccess: () => {
+      successMessage && addSuccessNotification(successMessage);
+    },
+    onError: (error: Error) => {
+      addErrorNotification(
+        parseResponseErrorMessage ? error?.message : errorMessage,
+      );
+    },
+  };
 
-  const { mutate: call, data, isLoading } = useMutation(requestMethod);
+  const { mutateAsync, data, isLoading } = useMutation(requestMethod, options);
 
   return {
-    call,
+    call: mutateAsync,
     isLoading,
     data,
   };

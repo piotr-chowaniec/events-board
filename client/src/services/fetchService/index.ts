@@ -30,10 +30,11 @@ const httpFetch =
       ...(body ? { data: body } : {}),
     })
       .then(handleErrors({ errorMessage, parseResponseErrorMessage }))
-      .then(storeToken());
+      .then(storeToken())
+      .then(({ data } = {}) => data);
   };
 
 export const httpGet = httpFetch('GET');
 export const httpPost = httpFetch('POST');
-export const httpPut = httpFetch('PUT');
+export const httpPatch = httpFetch('PATCH');
 export const httpDelete = httpFetch('DELETE');

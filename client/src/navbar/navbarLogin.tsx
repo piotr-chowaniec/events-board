@@ -4,9 +4,10 @@ import { Formik } from 'formik';
 import { NavDropdown } from 'react-bootstrap';
 import { userSchemas } from '@common-packages/validators';
 
+import Loading from '../displayComponents/loading/loading';
 import routes from '../routes';
 
-import NavbarLoginForm from './navbarLoginForm.component';
+import NavbarLoginForm from './navbarLoginForm';
 import { LoginFormValues } from './types';
 
 const login = {
@@ -16,11 +17,16 @@ const login = {
 
 type NavbarLoginParams = {
   handleUserLogin: (values: LoginFormValues) => void;
+  isLoading: boolean;
 };
 
-const NavbarLogin = ({ handleUserLogin }: NavbarLoginParams): JSX.Element => (
+const NavbarLogin = ({
+  handleUserLogin,
+  isLoading,
+}: NavbarLoginParams): JSX.Element => (
   <NavDropdown id="navbarLogin" title="Login/Register" align="end">
     <div className="px-4 py-3">
+      <Loading isLoading={isLoading} loadingMessage="Logging..." />
       <Formik
         initialValues={login}
         validationSchema={userSchemas.loginUserSchema}

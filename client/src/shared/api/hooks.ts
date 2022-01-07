@@ -1,16 +1,42 @@
 import apiActionFactory from './apiActionFactory';
-import { loginUser, fetchUser } from './api';
+import {
+  loginUser,
+  fetchProfileData,
+  updateUser,
+  updatePassword,
+  deleteUser,
+} from './api';
 
 export const useLogin = () =>
   apiActionFactory({
     apiAction: loginUser,
-    // successMessage: 'Successfully logged in',
     parseResponseErrorMessage: true,
   });
 
-export const useFetchUser = () =>
+export const useFetchProfileData = () =>
   apiActionFactory({
-    apiAction: fetchUser,
-    // successMessage: 'Successfully registered',
+    apiAction: fetchProfileData,
+  });
+
+export const useUpdateUser = () =>
+  apiActionFactory({
+    apiAction: updateUser,
+    successMessage: 'User updated',
+    errorMessage: 'Updating user data failed',
+    parseResponseErrorMessage: true,
+  });
+
+export const useUpdatePassword = () =>
+  apiActionFactory({
+    apiAction: updatePassword,
+    successMessage: 'Password updated',
+    errorMessage: 'Updating password failed',
+  });
+
+export const useDeleteUser = () =>
+  apiActionFactory({
+    apiAction: deleteUser,
+    successMessage: 'User removed',
+    errorMessage: 'Removing user failed',
     parseResponseErrorMessage: true,
   });

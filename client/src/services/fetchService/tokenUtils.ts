@@ -1,10 +1,7 @@
 import { AuthHeaders, HeadersType, ResponseType } from './types';
 
 type ExtractTokenType = (options?: {
-  headers?: HeadersType & {
-    has: (key: string) => boolean;
-    get: (key: string) => string;
-  };
+  headers?: HeadersType;
   key?: AuthHeaders;
   storage?: Storage;
 }) => string | null | undefined;
@@ -24,8 +21,8 @@ const extractToken: ExtractTokenType = ({
   key = AuthHeaders.ACCESS_TOKEN,
   storage = window.localStorage,
 } = {}) => {
-  if (headers?.has && headers.has(key)) {
-    return headers.get(key);
+  if (headers?.[key]) {
+    return headers[key];
   }
 
   if (key in storage) {

@@ -10,6 +10,15 @@ const authRoutes = {
   },
 };
 
+const userRoutes = {
+  PROFILE: {
+    PATH: '/user',
+  },
+  PASSWORD: {
+    PATH: '/user/password',
+  },
+};
+
 const routes = {
   MAIN: {
     PATH: '/',
@@ -18,6 +27,7 @@ const routes = {
 
 const appRoutes = {
   ...authRoutes,
+  ...userRoutes,
   ...routes,
 };
 

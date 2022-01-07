@@ -2,8 +2,7 @@
 $WHITE: #fff;
 $color-main-background: #fff;
 $color-shadow-dark: rgba(0, 0, 0, 0.2);
-// $color-shadow-light: #f8f8f8;
-// $color-background-opacity: rgba(255, 255, 255, 0.95);
+$color-background-opacity: rgba(255, 255, 255, 0.95);
 $navbar-shadow: 0 4px 4px rgba(0,0,0,.1),0 4px 12px rgba(0,0,0,.1);
 
 // FONT
@@ -17,7 +16,6 @@ $top-menu-width: 50px;
 $largest-icon-size: 100;
 
 // Z-INDEX
-// $alert-z-index: 1050;
-// $loading-z-index: 1000;
+$loading-z-index: 1000;
 
 $background-photo-url: "../displayComponents/images/welcomePage.jpg";

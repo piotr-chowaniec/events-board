@@ -2,7 +2,7 @@ import React from 'react';
 import { FieldProps } from 'formik';
 import { InputGroup, FormControl } from 'react-bootstrap';
 
-import FaIcon, { FaIconPropsType } from '../faIcon/faIcon.component';
+import FaIcon, { FaIconPropsType } from '../faIcon/faIcon';
 
 type InputParamsType = {
   label?: string;

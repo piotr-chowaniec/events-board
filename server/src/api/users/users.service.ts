@@ -1,5 +1,7 @@
+import type { Asserts } from 'yup';
 import { Injectable } from '@nestjs/common';
-import { User } from '@common-packages/data-access-layer';
+import { validate, userSchemas } from '@common-packages/validators';
+import { Prisma, User } from '@common-packages/data-access-layer';
 
 import { PrismaService } from '../common/prisma/prisma.service';
 
@@ -22,5 +24,54 @@ export class UsersService {
     });
 
     return mapUserToResponse(user);
+  }
+
+  async findOneWithPassword(email): Promise<User> {
+    return this.prismaService.user.findUnique({
+      where: {
+        email,
+      },
+    });
+  }
+
+  async update(userId: string, user: Prisma.UserUpdateInput) {
+    await validate<Asserts<typeof userSchemas.registerUserSchema>>(
+      userSchemas.updateProfileSchema,
+      user,
+    );
+
+    return this.prismaService.user.update({
+      where: {
+        id: userId,
+      },
+      data: user,
+    });
+  }
+
+  async updatePassword(
+    userId: string,
+    newPassword: { password: string; confirmPassword: string },
+  ) {
+    await validate<Asserts<typeof userSchemas.registerUserSchema>>(
+      userSchemas.updatePasswordSchema,
+      newPassword,
+    );
+
+    return this.prismaService.user.update({
+      where: {
+        id: userId,
+      },
+      data: {
+        password: newPassword.password,
+      },
+    });
+  }
+
+  async remove(userId: string) {
+    return this.prismaService.user.delete({
+      where: {
+        id: userId,
+      },
+    });
   }
 }

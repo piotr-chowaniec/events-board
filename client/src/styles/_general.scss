@@ -13,12 +13,6 @@ h3 {
   font-weight: 200;
 }
 
-hr {
-  // width: 400px;
-  // border-top: 1px solid $color-shadow-light;
-  // border-bottom: 1px solid $color-shadow-dark;
-}
-
 .full-heigh {
   height: calc(100vh - $top-menu-width);
 }
@@ -41,6 +35,10 @@ hr {
 .dropdown-menu,
 .form-control {
   font-size: $mainFontSize;
+}
+
+.toast-top-right {
+  top: 4.5rem;
 }
 
 // icon sizes

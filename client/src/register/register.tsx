@@ -3,11 +3,11 @@ import { useNavigate } from 'react-router-dom';
 import { Formik } from 'formik';
 import { userSchemas } from '@common-packages/validators';
 
-import FaIcon from '../displayComponents/faIcon/faIcon.component';
-import { useLogin } from '../shared/api/hooks';
+import FaIcon from '../displayComponents/faIcon/faIcon';
+import Loading from '../displayComponents/loading/loading';
 import routes from '../routes';
 
-import RegisterForm from './registerForm.component';
+import RegisterForm from './registerForm';
 import { useRegister } from './api/hooks';
 import { RegisterFormValues } from './types';
 
@@ -21,8 +21,7 @@ const newAccount = {
 
 const Register = (): JSX.Element => {
   const navigate = useNavigate();
-  const { call: registerUser, isLoading: isRegistering } = useRegister();
-  const { call: loginUser, isLoading: isLogging } = useLogin();
+  const { call: registerUser, isLoading } = useRegister();
 
   const submitRegisterForm = useCallback(
     async (values: RegisterFormValues) => {
@@ -30,10 +29,9 @@ const Register = (): JSX.Element => {
       const { confirmPassword, ...user } = values;
 
       await registerUser(user);
-      await loginUser(user);
-      navigate(routes.MAIN.PATH);
+      navigate(routes.PROFILE.PATH);
     },
-    [registerUser, loginUser, navigate],
+    [registerUser, navigate],
   );
 
   return (
@@ -44,7 +42,7 @@ const Register = (): JSX.Element => {
           <div className="col-md-8 col-lg-6 col-xl-5">
             <div className="card text-center">
               <div className="card-body">
-                {/* <Loading isLoading={isLoading} /> */}
+                <Loading isLoading={isLoading} />
                 <FaIcon icon="user" size={100} />
                 <h2 className="card-title my-3">Register</h2>
                 <Formik

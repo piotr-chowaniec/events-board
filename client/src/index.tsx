@@ -1,5 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import { Provider } from 'react-redux';
 import { BrowserRouter } from 'react-router-dom';
 import { QueryClient, QueryClientProvider } from 'react-query';
 import { ReactQueryDevtools } from 'react-query/devtools';
@@ -11,6 +12,7 @@ import {
   faSignOutAlt,
 } from '@fortawesome/free-solid-svg-icons';
 
+import { store } from './store';
 import App from './App';
 import config from './config';
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -22,12 +24,14 @@ const queryClient = new QueryClient(config.QUERY_CONFIG);
 
 ReactDOM.render(
   <React.StrictMode>
-    <BrowserRouter>
-      <QueryClientProvider client={queryClient}>
-        <App />
-        <ReactQueryDevtools initialIsOpen />
-      </QueryClientProvider>
-    </BrowserRouter>
+    <Provider store={store}>
+      <BrowserRouter>
+        <QueryClientProvider client={queryClient}>
+          <App />
+          <ReactQueryDevtools initialIsOpen />
+        </QueryClientProvider>
+      </BrowserRouter>
+    </Provider>
   </React.StrictMode>,
   document.getElementById('root'),
 );

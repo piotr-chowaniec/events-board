@@ -10,6 +10,7 @@ export type HeadersType = {
 
 export type RequestParamsType = {
   errorMessage?: string;
+  successMessage?: string;
   parseResponseErrorMessage?: boolean;
 };
 

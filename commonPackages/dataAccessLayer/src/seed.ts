@@ -11,7 +11,6 @@ async function main() {
       firstName: 'Admin',
       lastName: 'Admin',
       password: 'password',
-      nickName: 'Adm',
       events: {
         create: {
           title: 'First Event',
@@ -31,7 +30,6 @@ async function main() {
       firstName: 'Piotr',
       lastName: 'Chowaniec',
       password: '123',
-      nickName: 'PiotrCh',
     },
   });
 }

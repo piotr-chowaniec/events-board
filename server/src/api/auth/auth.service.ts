@@ -14,7 +14,7 @@ export class AuthService {
   ) {}
 
   async validateUser(email: string, pass: string): Promise<any> {
-    const user = await this.usersService.findOne(email);
+    const user = await this.usersService.findOneWithPassword(email);
 
     if (user && user.password === pass) {
       delete user.password;
@@ -34,7 +34,7 @@ export class AuthService {
       newUser,
     );
 
-    const createdUser = await this.prismaService.user.create({
+    return this.prismaService.user.create({
       data: {
         email: newUser.email,
         password: newUser.password,
@@ -42,9 +42,5 @@ export class AuthService {
         lastName: newUser.lastName,
       },
     });
-
-    return {
-      message: `${createdUser.firstName} ${createdUser.lastName} successfully registered`,
-    };
   }
 }
