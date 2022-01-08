@@ -3,6 +3,8 @@ import { PrismaClient } from '@common-packages/data-access-layer';
 
 import { ConfigService, ConfigKeys } from '../config/config.service';
 
+import { encryptPassword } from './prisma.middleware';
+
 @Injectable()
 export class PrismaService extends PrismaClient implements OnModuleInit {
   constructor(private readonly configService: ConfigService) {
@@ -17,6 +19,7 @@ export class PrismaService extends PrismaClient implements OnModuleInit {
 
   async onModuleInit() {
     await this.$connect();
+    this.$use(encryptPassword);
   }
 
   async enableShuttownHooks(app: INestApplication) {

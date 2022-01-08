@@ -29,9 +29,9 @@ const httpFetch =
       },
       ...(body ? { data: body } : {}),
     })
-      .then(handleErrors({ errorMessage, parseResponseErrorMessage }))
       .then(storeToken())
-      .then(({ data } = {}) => data);
+      .then(({ data } = {}) => data)
+      .catch(handleErrors({ errorMessage, parseResponseErrorMessage }));
   };
 
 export const httpGet = httpFetch('GET');

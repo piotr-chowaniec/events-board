@@ -1,9 +1,10 @@
 import type { Asserts } from 'yup';
-import { Injectable } from '@nestjs/common';
+import { Injectable, BadRequestException } from '@nestjs/common';
 import { validate, userSchemas } from '@common-packages/validators';
 import { Prisma } from '@common-packages/data-access-layer';
 
 import { PrismaService } from '../common/prisma/prisma.service';
+import { comparePassword } from '../common/passwordHashing';
 import { UsersService } from '../users/users.service';
 
 @Injectable()
@@ -13,15 +14,20 @@ export class AuthService {
     private usersService: UsersService,
   ) {}
 
-  async validateUser(email: string, pass: string): Promise<any> {
+  async validateUser(email: string, password: string): Promise<any> {
     const user = await this.usersService.findOneWithPassword(email);
 
-    if (user && user.password === pass) {
-      delete user.password;
-      return user;
+    if (!user) {
+      throw new BadRequestException('Provided account does not exists');
     }
 
-    return null;
+    const isPasswordMatching = await comparePassword(password, user.password);
+    if (!isPasswordMatching) {
+      throw new BadRequestException('Invalid password or email');
+    }
+
+    delete user.password;
+    return user;
   }
 
   async login() {
