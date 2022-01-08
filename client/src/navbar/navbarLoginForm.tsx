@@ -8,20 +8,8 @@ import { LoginFormValues } from './types';
 
 const NavbarLoginForm = ({ dirty }: FormikProps<LoginFormValues>) => (
   <Form>
-    <Field
-      label="Email"
-      name="email"
-      type="email"
-      placeholder="Email"
-      component={Input}
-    />
-    <Field
-      label="Password"
-      name="password"
-      type="password"
-      placeholder="Password"
-      component={Input}
-    />
+    <Field label="Email" name="email" type="email" component={Input} />
+    <Field label="Password" name="password" type="password" component={Input} />
     <div className="d-grid">
       <Button type="submit" variant="primary" disabled={!dirty}>
         Login

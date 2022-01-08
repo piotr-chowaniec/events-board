@@ -23,7 +23,7 @@ const ProfileForm = ({ dirty }: FormikProps<ProfileFormValues>) => (
     <Field label="Email" name="email" placeholder="Email" component={Input} />
     <div className="d-grid">
       <Button type="submit" variant="outline-success" disabled={!dirty}>
-        Submit
+        Save Changes
       </Button>
     </div>
   </Form>

@@ -42,7 +42,9 @@ const MenuNavbar = (): JSX.Element => {
   const handleUserLogout = useCallback(() => {
     resetToken();
     dispatch(setUserData(initialState));
-    addSuccessNotification('Successfully logged out');
+    addSuccessNotification('Successfully logged out', {
+      autoClose: 2000,
+    });
     navigate(routes.MAIN.PATH);
   }, [dispatch, navigate]);
 

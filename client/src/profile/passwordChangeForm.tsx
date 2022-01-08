@@ -2,7 +2,7 @@ import React from 'react';
 import { Form, Field, FormikProps } from 'formik';
 import { Button } from 'react-bootstrap';
 
-import InputGroup from '../displayComponents/forms/inputGroupFormik';
+import Input from '../displayComponents/forms/inputFormik';
 
 import { PasswordChangeFormValues } from './types';
 
@@ -10,19 +10,12 @@ const PasswordChangeForm = ({
   dirty,
 }: FormikProps<PasswordChangeFormValues>) => (
   <Form>
+    <Field label="Password" name="password" type="password" component={Input} />
     <Field
-      name="password"
-      type="password"
-      placeholder="Password"
-      icon={{ icon: 'lock' }}
-      component={InputGroup}
-    />
-    <Field
+      label="Confirm Password"
       name="confirmPassword"
       type="password"
-      placeholder="Confirm Password"
-      icon={{ icon: 'lock' }}
-      component={InputGroup}
+      component={Input}
     />
     <div className="d-grid">
       <Button type="submit" variant="outline-success" disabled={!dirty}>

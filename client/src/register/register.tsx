@@ -45,12 +45,14 @@ const Register = (): JSX.Element => {
                 <Loading isLoading={isLoading} />
                 <FaIcon icon="user" size={100} />
                 <h2 className="card-title my-3">Register</h2>
-                <Formik
-                  initialValues={newAccount}
-                  validationSchema={userSchemas.registerUserFormSchema}
-                  component={RegisterForm}
-                  onSubmit={submitRegisterForm}
-                />
+                <div className="text-start">
+                  <Formik
+                    initialValues={newAccount}
+                    validationSchema={userSchemas.registerUserFormSchema}
+                    component={RegisterForm}
+                    onSubmit={submitRegisterForm}
+                  />
+                </div>
               </div>
             </div>
           </div>

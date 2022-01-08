@@ -2,43 +2,21 @@ import React from 'react';
 import { Form, Field, FormikProps } from 'formik';
 import { Button } from 'react-bootstrap';
 
-import InputGroup from '../displayComponents/forms/inputGroupFormik';
+import Input from '../displayComponents/forms/inputFormik';
 
 import { RegisterFormValues } from './types';
 
 const RegisterForm = ({ dirty }: FormikProps<RegisterFormValues>) => (
   <Form>
+    <Field label="First Name" name="firstName" component={Input} />
+    <Field label="Last Name" name="lastName" component={Input} />
+    <Field label="Email" name="email" component={Input} />
+    <Field label="Password" name="password" type="password" component={Input} />
     <Field
-      name="firstName"
-      placeholder="First Name"
-      icon={{ icon: 'user' }}
-      component={InputGroup}
-    />
-    <Field
-      name="lastName"
-      placeholder="Last Name"
-      icon={{ icon: 'user' }}
-      component={InputGroup}
-    />
-    <Field
-      name="email"
-      placeholder="Email"
-      icon={{ icon: 'envelope' }}
-      component={InputGroup}
-    />
-    <Field
-      name="password"
-      type="password"
-      placeholder="Password"
-      icon={{ icon: 'lock' }}
-      component={InputGroup}
-    />
-    <Field
+      label="Confirm Password"
       name="confirmPassword"
       type="password"
-      placeholder="Confirm Password"
-      icon={{ icon: 'lock' }}
-      component={InputGroup}
+      component={Input}
     />
     <div className="d-grid">
       <Button type="submit" variant="outline-success" disabled={!dirty}>
