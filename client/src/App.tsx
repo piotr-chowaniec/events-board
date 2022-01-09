@@ -3,7 +3,7 @@ import Modal from 'react-modal';
 import { Routes, Route } from 'react-router-dom';
 
 import fetchUserData from './shared/hooks/fetchUserData.hook';
-import Authenticated from './shared/authentication/authenticated';
+import Authenticated from './authentication/authenticated';
 import MainPage from './mainPage/mainPage';
 import Login from './login/login';
 import Register from './register/register';

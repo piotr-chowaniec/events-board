@@ -1,12 +1,12 @@
 import React from 'react';
 import { Outlet, Navigate, useLocation } from 'react-router-dom';
 
-import { useAppSelector } from '../../store/hooks';
+import { useAppSelector } from '../store/hooks';
 import {
   isAuthenticatedSelector,
   isAdminSelector,
-} from '../../store/user/selectors';
-import routes from '../../routes';
+} from '../store/user/selectors';
+import routes from '../routes';
 
 type AuthenticatedParams = {
   isAdminRoute?: boolean;
