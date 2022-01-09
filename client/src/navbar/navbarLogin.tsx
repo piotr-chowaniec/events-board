@@ -5,10 +5,10 @@ import { NavDropdown } from 'react-bootstrap';
 import { userSchemas } from '@common-packages/validators';
 
 import Loading from '../displayComponents/loading/loading';
+import { LoginFormValues } from '../shared/types';
 import routes from '../routes';
 
 import NavbarLoginForm from './navbarLoginForm';
-import { LoginFormValues } from './types';
 
 const login = {
   email: '',

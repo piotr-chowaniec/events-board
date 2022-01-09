@@ -5,7 +5,7 @@ import { Button } from 'react-bootstrap';
 import Input from '../displayComponents/forms/inputFormik';
 import { LoginFormValues } from '../shared/types';
 
-const NavbarLoginForm = ({ dirty }: FormikProps<LoginFormValues>) => (
+const LoginForm = ({ dirty }: FormikProps<LoginFormValues>) => (
   <Form>
     <Field label="Email" name="email" type="email" component={Input} />
     <Field label="Password" name="password" type="password" component={Input} />
@@ -17,4 +17,4 @@ const NavbarLoginForm = ({ dirty }: FormikProps<LoginFormValues>) => (
   </Form>
 );
 
-export default NavbarLoginForm;
+export default LoginForm;

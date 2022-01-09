@@ -12,11 +12,11 @@ import { setUserData, initialState } from '../store/user/userSlice';
 import { useFetchProfileData, useLogin } from '../shared/api/hooks';
 import { addSuccessNotification } from '../shared/notifications';
 import { resetToken } from '../services/fetchService/tokenUtils';
+import { LoginFormValues } from '../shared/types';
 import routes from '../routes';
 
 import NavbarLogin from './navbarLogin';
 import NavbarAuthenticated from './navbarAuthenticated';
-import { LoginFormValues } from './types';
 
 const MenuNavbar = (): JSX.Element => {
   const dispatch = useAppDispatch();
