@@ -2,15 +2,21 @@
 $WHITE: #fff;
 $color-main-background: #fff;
 $color-shadow-dark: rgba(0, 0, 0, 0.2);
+$color-muted-footer: rgba(108, 117, 125);
 $color-background-opacity: rgba(255, 255, 255, 0.95);
-$navbar-shadow: 0 4px 4px rgba(0,0,0,.1),0 4px 12px rgba(0,0,0,.1);
+$navbar-shadow: 0 4px 4px rgba(0,0,0,0.1),0 4px 12px rgba(0,0,0,0.1);
+$event-card-shadow: 0 4px 10px rgba(0,0,0,0.1),0 0px 10px rgba(0,0,0,0.1);
+$event-card-image-shadow: 0 2px 2px rgba(0,0,0,0.05),0 2px 10px rgba(0,0,0,0.05);
+$event-card-image-border: 1px solid rgba(0,0,0, 0.125);
 
 // FONT
 $mainFont: Raleway, sans-serif;
 $mainFontSize: 14px;
 
-// WIDTHS
-$top-menu-width: 50px;
+// SIZES
+$top-menu-height: 50px;
+$footer-height: 40px;
+$full-height: calc(100vh - $top-menu-height - $footer-height);
 
 // ICON SIZES
 $largest-icon-size: 100;
@@ -18,4 +24,5 @@ $largest-icon-size: 100;
 // Z-INDEX
 $loading-z-index: 1000;
 
+// IMAGES
 $background-photo-url: "../displayComponents/images/welcomePage.jpg";

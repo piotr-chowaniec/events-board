@@ -1,12 +1,21 @@
 @import '../styles/helpers/helpers';
 
-.showcase {
-  height: rem(400px);
+.main-page {
+  display: flex;
+  flex-direction: column;
 
-  .header {
-    text-align: center;
-    padding: 2rem;
-    background: $color-main-background;
-    border-radius: 1rem;
+  .showcase {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: rem(400px);
+
+    .header {
+      text-align: center;
+      padding: 2rem;
+      background: $color-main-background;
+      border-radius: 1rem;
+    }
   }
 }
+

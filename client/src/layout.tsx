@@ -4,14 +4,20 @@ import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 import Navbar from './navbar/navbar';
+import Footer from './footer/footer';
 
 const Layout = () => {
   return (
-    <div id="events-board">
+    <>
       <Navbar />
       <ToastContainer className="toast-top-right" />
-      <Outlet />
-    </div>
+      <section id="events-board">
+        <div className="content">
+          <Outlet />
+        </div>
+        <Footer />
+      </section>
+    </>
   );
 };
 

@@ -4,7 +4,7 @@ import { Formik } from 'formik';
 import { userSchemas } from '@common-packages/validators';
 
 import FaIcon from '../displayComponents/faIcon/faIcon';
-import Loading from '../displayComponents/loading/loading';
+import FullPageCard from '../displayComponents/fullPageCard/fullPageCard';
 import routes from '../routes';
 
 import RegisterForm from './registerForm';
@@ -35,30 +35,18 @@ const Register = (): JSX.Element => {
   );
 
   return (
-    <div className="full-heigh default-background d-flex align-items-center">
-      <div className="overlay" />
-      <div className="container">
-        <div className="row justify-content-center">
-          <div className="col-md-8 col-lg-6 col-xl-5">
-            <div className="card text-center">
-              <div className="card-body">
-                <Loading isLoading={isLoading} />
-                <FaIcon icon="user" size={100} />
-                <h2 className="card-title my-3">Register</h2>
-                <div className="text-start">
-                  <Formik
-                    initialValues={newAccount}
-                    validationSchema={userSchemas.registerUserFormSchema}
-                    component={RegisterForm}
-                    onSubmit={submitRegisterForm}
-                  />
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
+    <FullPageCard isLoading={isLoading}>
+      <FaIcon icon="user" size={100} />
+      <h2 className="card-title my-3">Register</h2>
+      <div className="text-start">
+        <Formik
+          initialValues={newAccount}
+          validationSchema={userSchemas.registerUserFormSchema}
+          component={RegisterForm}
+          onSubmit={submitRegisterForm}
+        />
       </div>
-    </div>
+    </FullPageCard>
   );
 };
 

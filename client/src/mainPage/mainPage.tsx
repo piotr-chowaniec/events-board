@@ -1,24 +1,16 @@
 import React from 'react';
 
+import EventsList from '../events/eventsList';
+
+import MainPageHeader from './mainPageHeader';
+
 import './mainPage.scss';
 
-const MainPage = () => {
-  return (
-    <div className="container">
-      <section className="default-background mx-1">
-        <div className="showcase d-flex justify-content-center align-items-center">
-          <div className="header">
-            <h3>EVENTS BOARD</h3>
-            <h2>YOUR EVENTS IN ONE PLACE</h2>
-            <hr />
-            <span className="lead text-muted">
-              <em>Create, participate, share. All you ever needed.</em>
-            </span>
-          </div>
-        </div>
-      </section>
-    </div>
-  );
-};
+const MainPage = () => (
+  <div className="container full-height main-page">
+    <MainPageHeader />
+    <EventsList />
+  </div>
+);
 
 export default MainPage;

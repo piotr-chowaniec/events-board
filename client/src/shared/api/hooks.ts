@@ -5,6 +5,7 @@ import {
   updateUser,
   updatePassword,
   deleteUser,
+  fetchEvents,
 } from './api';
 
 export const useLogin = () =>
@@ -39,4 +40,9 @@ export const useDeleteUser = () =>
     successMessage: 'User removed',
     errorMessage: 'Removing user failed',
     parseResponseErrorMessage: true,
+  });
+
+export const useFetchEvents = () =>
+  apiActionFactory({
+    apiAction: fetchEvents,
   });

@@ -46,3 +46,9 @@ export const deleteUser =
       ...requestParams,
       route: `/users/${userId}`,
     });
+
+export const fetchEvents = (requestParams: RequestParamsType) => () =>
+  httpGet({
+    ...requestParams,
+    route: '/events',
+  });

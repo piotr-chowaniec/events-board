@@ -14,8 +14,8 @@ import {
   useDeleteUser,
 } from '../shared/api/hooks';
 import useModal from '../shared/hooks/useModal.hook';
+import FullPageCard from '../displayComponents/fullPageCard/fullPageCard';
 import routes from '../routes';
-import Loading from '../displayComponents/loading/loading';
 
 import ProfileForm from './profileForm';
 import { ProfileFormValues } from './types';
@@ -88,57 +88,44 @@ const Profile = (): JSX.Element => {
   }, [isFetchProfileLoading, isUpdateProfileLoading, isDeleteProfileLoading]);
 
   return (
-    <div className="full-heigh default-background d-flex align-items-center">
-      <div className="overlay" />
-      <div className="container">
-        <div className="row justify-content-center">
-          <div className="col-md-8 col-lg-6 col-xl-5">
-            <div className="card text-center">
-              <div className="card-body">
-                <Loading
-                  isLoading={isLoading}
-                  loadingMessage={loadingMessage}
-                />
-                <h2 className="card-title my-3">{`${firstName} ${lastName}`}</h2>
-                <p>
-                  <code className="text-muted">Change your profile data</code>
-                </p>
-                <div className="text-start">
-                  <Formik
-                    initialValues={user.email ? user : initialState}
-                    validationSchema={userSchemas.updateProfileSchema}
-                    component={ProfileForm}
-                    onSubmit={onProfileUpdate}
-                    enableReinitialize
-                  />
-                  <Link
-                    to={routes.PASSWORD.PATH}
-                    className="btn d-grid btn-outline-warning my-3"
-                  >
-                    Change Password
-                  </Link>
-                  <div className="d-grid">
-                    <Button
-                      variant="outline-danger"
-                      onClick={showModal}
-                      disabled={isLoading}
-                    >
-                      Remove Your Profile
-                    </Button>
-                  </div>
-                </div>
-              </div>
-            </div>
+    <>
+      <FullPageCard isLoading={isLoading} loadingMessage={loadingMessage}>
+        <h2 className="card-title my-3">{`${firstName} ${lastName}`}</h2>
+        <p>
+          <code className="text-muted">Change your profile data</code>
+        </p>
+        <div className="text-start">
+          <Formik
+            initialValues={user.email ? user : initialState}
+            validationSchema={userSchemas.updateProfileSchema}
+            component={ProfileForm}
+            onSubmit={onProfileUpdate}
+            enableReinitialize
+          />
+          <Link
+            to={routes.PASSWORD.PATH}
+            className="btn d-grid btn-outline-warning my-3"
+          >
+            Change Password
+          </Link>
+          <div className="d-grid">
+            <Button
+              variant="outline-danger"
+              onClick={showModal}
+              disabled={isLoading}
+            >
+              Remove Your Profile
+            </Button>
           </div>
         </div>
-      </div>
+      </FullPageCard>
       <Modal
         title="Remove Profile"
         body={ModalBody}
         confirmButtonDescription="Remove Profile permanently"
         onConfirm={onProfileRemove}
       />
-    </div>
+    </>
   );
 };
 

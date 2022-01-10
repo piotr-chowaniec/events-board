@@ -1,5 +1,5 @@
 body {
-  margin-top: $top-menu-width;
+  margin-top: $top-menu-height;
   background: $color-main-background;
   font-family: $mainFont;
   font-size: $mainFontSize;
@@ -13,23 +13,37 @@ h3 {
   font-weight: 200;
 }
 
-.full-heigh {
-  height: calc(100vh - $top-menu-width);
+#events-board {
+  display: flex;
+  flex-direction: column;
+  min-height: calc(100vh - $top-menu-height);
 }
 
-.default-background {
-  background: url($background-photo-url) bottom center/cover no-repeat;
-}
-
-.overlay {
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  background: $color-shadow-dark;
+.full-height {
+  min-height: $full-height;
 }
 
 .navbar {
   box-shadow: $navbar-shadow;
+}
+
+.content {
+  flex: 1 0 auto;
+}
+
+.footer {
+  height: $footer-height;
+  color: $color-muted-footer;
+  flex-shrink: 0;
+
+  a {
+    color: $color-muted-footer;
+    margin-left: rem(10px);
+  }
+}
+
+.default-background {
+  background: url($background-photo-url) bottom center/cover no-repeat;
 }
 
 .dropdown-menu,

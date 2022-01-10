@@ -1,0 +1,8 @@
+@import '../../styles/helpers/helpers';
+
+.overlay {
+  position: absolute;
+  width: 100%;
+  height: $full-height;
+  background: $color-shadow-dark;
+}

@@ -4,7 +4,7 @@ import { Formik } from 'formik';
 import { userSchemas } from '@common-packages/validators';
 
 import FaIcon from '../displayComponents/faIcon/faIcon';
-import Loading from '../displayComponents/loading/loading';
+import FullPageCard from '../displayComponents/fullPageCard/fullPageCard';
 import { useAppDispatch } from '../store/hooks';
 import { setUserData } from '../store/user/userSlice';
 import { useFetchProfileData, useLogin } from '../shared/api/hooks';
@@ -42,30 +42,18 @@ const Login = (): JSX.Element => {
   const isLoading = isLogging || isFetchProfileLoading;
 
   return (
-    <div className="full-heigh default-background d-flex align-items-center">
-      <div className="overlay" />
-      <div className="container">
-        <div className="row justify-content-center">
-          <div className="col-md-8 col-lg-6 col-xl-5">
-            <div className="card text-center">
-              <div className="card-body">
-                <Loading isLoading={isLoading} />
-                <FaIcon icon="user" size={100} />
-                <h2 className="card-title my-3">Login</h2>
-                <div className="text-start">
-                  <Formik
-                    initialValues={login}
-                    validationSchema={userSchemas.loginUserSchema}
-                    component={LoginForm}
-                    onSubmit={handleUserLogin}
-                  />
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
+    <FullPageCard isLoading={isLoading}>
+      <FaIcon icon="user" size={100} />
+      <h2 className="card-title my-3">Login</h2>
+      <div className="text-start">
+        <Formik
+          initialValues={login}
+          validationSchema={userSchemas.loginUserSchema}
+          component={LoginForm}
+          onSubmit={handleUserLogin}
+        />
       </div>
-    </div>
+    </FullPageCard>
   );
 };
 

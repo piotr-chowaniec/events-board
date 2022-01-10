@@ -11,6 +11,7 @@ import {
   faLock,
   faSignOutAlt,
 } from '@fortawesome/free-solid-svg-icons';
+import { faGithub, faLinkedin } from '@fortawesome/free-brands-svg-icons';
 
 import { store } from './store';
 import App from './App';
@@ -18,7 +19,7 @@ import config from './config';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './styles/styles.scss';
 
-library.add(faUser, faEnvelope, faLock, faSignOutAlt);
+library.add(faUser, faEnvelope, faLock, faSignOutAlt, faGithub, faLinkedin);
 
 const queryClient = new QueryClient(config.QUERY_CONFIG);
 
