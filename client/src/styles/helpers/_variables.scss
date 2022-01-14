@@ -1,8 +1,11 @@
 // COLOR VARIABLES
 $WHITE: #fff;
-$color-main-background: #fff;
+$BLACK: #000;
+$color-main-background: $WHITE;
 $color-shadow-dark: rgba(0, 0, 0, 0.2);
-$color-muted-footer: rgba(108, 117, 125);
+$color-text-muted: rgb(108, 117, 125);
+$color-link: $BLACK;
+$color-link-hover: rgb(255, 193, 7);
 $color-background-opacity: rgba(255, 255, 255, 0.95);
 $navbar-shadow: 0 4px 4px rgba(0,0,0,0.1),0 4px 12px rgba(0,0,0,0.1);
 $event-card-shadow: 0 4px 10px rgba(0,0,0,0.1),0 0px 10px rgba(0,0,0,0.1);

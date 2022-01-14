@@ -32,3 +32,65 @@
   box-shadow: $event-card-shadow;
   transition: box-shadow linear 100ms
 }
+
+.event {
+  .event-header {
+    display: flex;
+    align-items: center;
+    height: 450px;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+
+    .event-details {
+      flex-shrink: 0;
+      margin-left: rem(40px);
+      padding: 2rem;
+      min-width: 40%;
+      background: $color-main-background;
+      border-radius: 2rem;
+      box-shadow: $event-card-shadow;
+
+      .event-title {
+        font-weight: 500;;
+      }
+
+      .last-updated{
+        font-size: 0.8rem;
+        color: $color-text-muted;
+      }
+
+      p {
+        font-size: 1.25rem;
+        font-weight: 300;
+        margin-bottom: rem(20px);
+      }
+
+      span {
+        display: block;
+
+        a {
+          margin-left: 0;
+        }
+      }
+    }
+
+    .event-edit-buttons {
+      flex: 1 0 auto;
+      display: flex;;
+      align-self: flex-end;
+      justify-content: flex-end;
+      margin: rem(20px);
+
+      button {
+        margin-left: rem(10px)
+      }
+    }
+  }
+
+  .event-description {
+    margin: rem(20px) 0;
+  }
+}
+
+

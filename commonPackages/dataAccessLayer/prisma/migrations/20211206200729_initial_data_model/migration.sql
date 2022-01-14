@@ -22,7 +22,8 @@ CREATE TABLE "events" (
     "user_id" TEXT NOT NULL,
     "title" TEXT,
     "description" TEXT,
-    "event_at" TIMESTAMP(3) NOT NULL,
+    "short_description" TEXT,
+    "event_date" TIMESTAMP(3) NOT NULL,
     "created_at" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updated_at" TIMESTAMP(3) NOT NULL,
 

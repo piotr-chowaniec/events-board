@@ -8,11 +8,11 @@ import EventCard from './eventCard';
 import './event.scss';
 
 const EventsList = (): JSX.Element => {
-  const [events, setEvents] = useState<Event[]>([]);
+  const [events, setEvents] = useState<Event[]>();
   const { call: fetchEvents, isLoading } = useFetchEvents();
 
   const fetchEventsData = useCallback(async () => {
-    const events = (await fetchEvents({})) as Event[];
+    const events = await fetchEvents({});
     setEvents(events);
   }, [fetchEvents]);
 
@@ -24,7 +24,7 @@ const EventsList = (): JSX.Element => {
     <div className="event-list">
       <Loading isLoading={isLoading} />
       <div className="row row-cols-md-2 row-cols-lg-4">
-        {events.map((event) => (
+        {events?.map((event) => (
           <EventCard key={event.id} event={event} />
         ))}
       </div>

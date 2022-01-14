@@ -35,7 +35,7 @@ export class UsersService {
   }
 
   async update(userId: string, user: Prisma.UserUpdateInput) {
-    await validate<Asserts<typeof userSchemas.registerUserSchema>>(
+    await validate<Asserts<typeof userSchemas.updateProfileSchema>>(
       userSchemas.updateProfileSchema,
       user,
     );
@@ -44,7 +44,11 @@ export class UsersService {
       where: {
         id: userId,
       },
-      data: user,
+      data: {
+        email: user.email,
+        firstName: user.firstName,
+        lastName: user.lastName,
+      },
     });
   }
 
@@ -52,7 +56,7 @@ export class UsersService {
     userId: string,
     newPassword: { password: string; confirmPassword: string },
   ) {
-    await validate<Asserts<typeof userSchemas.registerUserSchema>>(
+    await validate<Asserts<typeof userSchemas.updatePasswordSchema>>(
       userSchemas.updatePasswordSchema,
       newPassword,
     );
