@@ -3,7 +3,19 @@
 .event-list {
   position: relative;
   flex: 1 0 auto;
-  margin: rem(20px) 0;
+  margin-top: rem(10px);
+}
+
+.event-list-title {
+  display: flex;
+  justify-content: space-between;
+  border-bottom: 1px solid $color-border-muted;
+  margin-top: rem(20px) ;
+  padding-bottom: rem(10px);
+
+  h3 {
+    margin: 0;
+  }
 }
 
 .event-card.card {
@@ -18,14 +30,38 @@
   }
 }
 
+.event-card-image-wrapper {
+  position: relative;
+
+  .card-img-overlay{
+    padding: 0
+  }
+}
+
 .event-card-image.card-img {
   border: $event-card-image-border;
   box-shadow: $event-card-image-shadow;
   border-radius: 0;
 }
 
+.event-card-image-overlay {
+  display: flex;
+  justify-content: flex-end;
+  align-items: flex-end;
+  width: 100%;
+  height: 100%;
+  padding: 1rem;
+  background: $color-card-image-opacity;
+}
+
 .event-card-body.card-body {
   padding: 1rem 0;
+
+  .event-card-date {
+    font-size: 0.8rem;
+    color: $color-text-muted;
+    text-align: right;
+  }
 }
 
 .event-card:hover .event-card-wrapper{
@@ -36,6 +72,7 @@
 .event {
   .event-header {
     display: flex;
+    flex-direction: column;
     align-items: center;
     height: 450px;
     background-size: cover;
@@ -43,44 +80,49 @@
     background-position: center;
 
     .event-details {
-      flex-shrink: 0;
-      margin-left: rem(40px);
-      padding: 2rem;
-      min-width: 40%;
-      background: $color-main-background;
-      border-radius: 2rem;
-      box-shadow: $event-card-shadow;
+      flex: 1 0 auto;
+      min-width: 50%;
+      align-self: flex-start;
 
-      .event-title {
-        font-weight: 500;;
-      }
+      .event-wrapper {
 
-      .last-updated{
-        font-size: 0.8rem;
-        color: $color-text-muted;
-      }
+        margin: rem(100px) 0 0 rem(40px);
+        padding: 2rem;
+        background: $color-main-background;
+        border-radius: 2rem;
+        box-shadow: $event-card-shadow;
 
-      p {
-        font-size: 1.25rem;
-        font-weight: 300;
-        margin-bottom: rem(20px);
-      }
+        .event-title {
+          font-weight: 500;;
+        }
 
-      span {
-        display: block;
+        .last-updated{
+          font-size: 0.8rem;
+          color: $color-text-muted;
+        }
 
-        a {
-          margin-left: 0;
+        p {
+          font-size: 1.25rem;
+          font-weight: 300;
+          margin-bottom: rem(20px);
+        }
+
+        span {
+          display: block;
+
+          a {
+            margin-left: 0;
+          }
         }
       }
     }
 
     .event-edit-buttons {
-      flex: 1 0 auto;
+      flex-shrink: 0;
       display: flex;;
       align-self: flex-end;
       justify-content: flex-end;
-      margin: rem(20px);
+      margin: 0 rem(20px) rem(20px) 0;
 
       button {
         margin-left: rem(10px)

@@ -2,10 +2,10 @@ import apiActionFactory from './apiActionFactory';
 import {
   loginUser,
   fetchProfileData,
+  fetchUserName,
   updateUser,
   updatePassword,
   deleteUser,
-  fetchEvents,
 } from './api';
 
 export const useLogin = () =>
@@ -17,6 +17,11 @@ export const useLogin = () =>
 export const useFetchProfileData = () =>
   apiActionFactory({
     apiAction: fetchProfileData,
+  });
+
+export const useFetchUserName = () =>
+  apiActionFactory({
+    apiAction: fetchUserName,
   });
 
 export const useUpdateUser = () =>
@@ -40,9 +45,4 @@ export const useDeleteUser = () =>
     successMessage: 'User removed',
     errorMessage: 'Removing user failed',
     parseResponseErrorMessage: true,
-  });
-
-export const useFetchEvents = () =>
-  apiActionFactory({
-    apiAction: fetchEvents,
   });

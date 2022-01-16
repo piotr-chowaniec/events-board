@@ -10,6 +10,7 @@ import Register from './register/register';
 import Profile from './profile/profile';
 import PasswordChange from './profile/passwordChange';
 import Event from './events/event';
+import UserEvents from './events/userEvents';
 import Layout from './layout';
 import routes from './routes';
 
@@ -28,6 +29,7 @@ const App = () => {
           <Route path={routes.LOGIN.PATH} element={<Login />} />
           <Route path={routes.REGISTER.PATH} element={<Register />} />
           <Route path={routes.EVENT.PATH} element={<Event />} />
+          <Route path={routes.USER_EVENTS.PATH} element={<UserEvents />} />
           <Route element={<Authenticated />}>
             <Route path={routes.PROFILE.PATH} element={<Profile />} />
             <Route path={routes.PASSWORD.PATH} element={<PasswordChange />} />

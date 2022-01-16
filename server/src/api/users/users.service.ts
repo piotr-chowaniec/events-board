@@ -26,10 +26,24 @@ export class UsersService {
     return mapUserToResponse(user);
   }
 
-  async findOneWithPassword(email): Promise<User> {
+  async findOneWithPassword(email): Promise<User | undefined> {
     return this.prismaService.user.findUnique({
       where: {
         email,
+      },
+    });
+  }
+
+  async findUserName(
+    userId,
+  ): Promise<{ firstName: string; lastName: string } | undefined> {
+    return this.prismaService.user.findUnique({
+      where: {
+        id: userId,
+      },
+      select: {
+        firstName: true,
+        lastName: true,
       },
     });
   }

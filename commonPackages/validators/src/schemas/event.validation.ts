@@ -21,6 +21,14 @@ const event = Yup.object().shape({
     ),
 });
 
+const eventStatus = Yup.object().shape({
+  status: Yup.string()
+    .label('Status')
+    .required()
+    .oneOf(['DRAFT', 'PUBLISHED', 'CANCELED']),
+});
+
 export default {
   event,
+  eventStatus,
 };

@@ -6,6 +6,7 @@ import { storeToken, extractToken } from './tokenUtils';
 import { AuthHeaders, BodyType, RequestParamsType } from './types';
 
 export * from './types';
+export * from './requestHelpers';
 
 type HttpFetchParams = {
   route: string;

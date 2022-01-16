@@ -9,8 +9,19 @@ import { PrismaService } from '../common/prisma/prisma.service';
 export class EventsService {
   constructor(private prismaService: PrismaService) {}
 
-  findAll(): Promise<Event[]> {
-    return this.prismaService.event.findMany();
+  findMany(filters): Promise<Event[]> {
+    return this.prismaService.event.findMany({
+      where: filters,
+      orderBy: {
+        createdAt: 'asc',
+      },
+    });
+  }
+
+  create(event: Prisma.EventCreateInput): Promise<Event> {
+    return this.prismaService.event.create({
+      data: event,
+    });
   }
 
   find(eventId: string): Promise<
@@ -48,6 +59,30 @@ export class EventsService {
         description: event.description,
         shortDescription: event.shortDescription,
         eventDate: event.eventDate,
+      },
+    });
+  }
+
+  async updateStatus(eventId: string, event: Prisma.EventUpdateInput) {
+    await validate<Asserts<typeof eventSchemas.eventStatus>>(
+      eventSchemas.eventStatus,
+      event,
+    );
+
+    return this.prismaService.event.update({
+      where: {
+        id: eventId,
+      },
+      data: {
+        status: event.status,
+      },
+    });
+  }
+
+  async delete(eventId: string) {
+    return this.prismaService.event.delete({
+      where: {
+        id: eventId,
       },
     });
   }

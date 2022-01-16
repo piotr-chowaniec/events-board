@@ -10,6 +10,7 @@ import {
 import { Prisma } from '@common-packages/data-access-layer';
 
 import { ConfigService, ConfigKeys } from '../common/config/config.service';
+import { Public } from '../common/decorators/public.decorator';
 
 import { UsersService } from './users.service';
 
@@ -23,6 +24,12 @@ export class UsersController {
   @Get()
   findAll() {
     return this.usersService.findAll();
+  }
+
+  @Public()
+  @Get(':userId/name')
+  findUserName(@Param('userId') userId: string) {
+    return this.usersService.findUserName(userId);
   }
 
   @Patch(':userId')

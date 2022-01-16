@@ -1,5 +1,5 @@
 import React, { useState, useCallback, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import { Formik } from 'formik';
 import { Event, User } from '@common-packages/data-access-layer';
 import { eventSchemas } from '@common-packages/validators';
@@ -9,12 +9,20 @@ import { useAppSelector } from '../store/hooks';
 import { userDataSelector, isAdminSelector } from '../store/user/selectors';
 import Loading from '../displayComponents/loading/loading';
 import { transformToDateTimeLocal } from '../displayComponents/formatters/date';
+import { EVENT_STATUS } from '../shared/types';
+import routes from '../routes';
 
-import { useFetchEvent, useUpdateEvent } from './api/hooks';
+import {
+  useFetchEvent,
+  useUpdateEvent,
+  useUpdateEventStatus,
+  useDeleteEvent,
+} from './api/hooks';
 import EventDetails from './eventDetails';
 import EventEditForm from './eventEditForm';
 
 const EventComponent = () => {
+  const navigate = useNavigate();
   const [isEditMode, setIsEditMode] = useState(false);
   const [event, setEvent] = useState<Event & { user: User }>();
 
@@ -27,6 +35,10 @@ const EventComponent = () => {
   const { call: fetchEvent, isLoading: isFetchEventLoading } = useFetchEvent();
   const { call: updateEvent, isLoading: isUpdateEventLoading } =
     useUpdateEvent();
+  const { call: updateEventStatus, isLoading: isUpdateEventStatusLoading } =
+    useUpdateEventStatus();
+  const { call: deleteEvent, isLoading: isDeleteEventLoading } =
+    useDeleteEvent();
 
   const fetchEventData = useCallback(async () => {
     const eventData = await fetchEvent({ eventId });
@@ -65,11 +77,39 @@ const EventComponent = () => {
     [updateEvent, fetchEventData, disableEditMode, isAllowedToEdit],
   );
 
+  const onEventStatusUpdate = useCallback(
+    async (newStatus: EVENT_STATUS) => {
+      if (!isAllowedToEdit || !event) {
+        return;
+      }
+
+      await updateEventStatus({
+        eventId: event.id,
+        status: newStatus,
+      });
+      fetchEventData();
+    },
+    [updateEventStatus, fetchEventData, event, isAllowedToEdit],
+  );
+
+  const onEventDelete = useCallback(async () => {
+    if (!isAllowedToEdit || !event) {
+      return;
+    }
+
+    await deleteEvent({ eventId: event.id });
+    navigate(routes.MAIN.PATH);
+  }, [deleteEvent, navigate, event, isAllowedToEdit]);
+
   useEffect(() => {
     fetchEventData();
   }, [fetchEventData]);
 
-  const isLoading = isFetchEventLoading || isUpdateEventLoading;
+  const isLoading =
+    isFetchEventLoading ||
+    isUpdateEventLoading ||
+    isUpdateEventStatusLoading ||
+    isDeleteEventLoading;
 
   return (
     <div className="container">
@@ -91,6 +131,8 @@ const EventComponent = () => {
               event={event}
               enableEditMode={enableEditMode}
               isAllowedToEdit={isAllowedToEdit}
+              onEventStatusUpdate={onEventStatusUpdate}
+              onEventDelete={onEventDelete}
             />
           ))}
       </div>

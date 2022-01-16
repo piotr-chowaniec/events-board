@@ -19,24 +19,26 @@ const EventEdit = ({ dirty, disableEditMode }: EventEditProps): JSX.Element => (
       style={{ backgroundImage: `url(${eventDefaultImage}` }}
     >
       <div className="event-details">
-        <Field
-          label="Title"
-          name="title"
-          placeholder="Title"
-          component={Input}
-        />
-        <Field
-          label="Short description"
-          name="shortDescription"
-          placeholder="Short Description"
-          component={Input}
-        />
-        <Field
-          label="Date"
-          name="eventDate"
-          type="datetime-local"
-          component={Input}
-        />
+        <div className="event-wrapper">
+          <Field
+            label="Title"
+            name="title"
+            placeholder="Title"
+            component={Input}
+          />
+          <Field
+            label="Short description"
+            name="shortDescription"
+            placeholder="Short Description"
+            component={Input}
+          />
+          <Field
+            label="Date"
+            name="eventDate"
+            type="datetime-local"
+            component={Input}
+          />
+        </div>
       </div>
 
       <div className="event-edit-buttons">

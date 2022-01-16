@@ -1,0 +1,3 @@
+-- AlterTable
+ALTER TABLE "events" ALTER COLUMN "event_date" DROP NOT NULL,
+ALTER COLUMN "event_date" SET DEFAULT CURRENT_TIMESTAMP;

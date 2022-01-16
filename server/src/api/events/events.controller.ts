@@ -1,4 +1,13 @@
-import { Controller, Get, Patch, Param, Body } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Post,
+  Patch,
+  Delete,
+  Param,
+  Body,
+  Query,
+} from '@nestjs/common';
 import { Prisma } from '@common-packages/data-access-layer';
 
 import { Public } from '../common/decorators/public.decorator';
@@ -11,8 +20,18 @@ export class EventsController {
 
   @Public()
   @Get()
-  findAll() {
-    return this.eventsService.findAll();
+  findMany(@Query('userId') userId: string, @Query('status') status: string) {
+    const filters = {
+      ...(userId ? { userId } : {}),
+      ...(status ? { status: status.toUpperCase() } : {}),
+    };
+
+    return this.eventsService.findMany(filters);
+  }
+
+  @Post()
+  create(@Body() event: Prisma.EventCreateInput) {
+    return this.eventsService.create(event);
   }
 
   @Public()
@@ -27,5 +46,18 @@ export class EventsController {
     @Body() event: Prisma.EventUpdateInput,
   ) {
     return this.eventsService.update(eventId, event);
+  }
+
+  @Patch(':eventId/status')
+  updateStatus(
+    @Param('eventId') eventId: string,
+    @Body() event: Prisma.EventUpdateInput,
+  ) {
+    return this.eventsService.updateStatus(eventId, event);
+  }
+
+  @Delete(':eventId')
+  delete(@Param('eventId') eventId: string) {
+    return this.eventsService.delete(eventId);
   }
 }

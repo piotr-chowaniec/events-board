@@ -1,9 +1,14 @@
 import React, { useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Card } from 'react-bootstrap';
+import { Card, Badge } from 'react-bootstrap';
 import { Event } from '@common-packages/data-access-layer';
 
+import {
+  transformToDate,
+  SHORT_DATE_TIME_FORMAT,
+} from '../displayComponents/formatters/date';
 import eventDefaultImage from '../displayComponents/images/event.jpeg';
+import { getIsPublished } from '../shared/helpers';
 import routes from '../routes';
 
 type EventCardParams = {
@@ -20,10 +25,24 @@ const EventCard = ({ event }: EventCardParams): JSX.Element => {
   return (
     <Card className="event-card" onClick={onEventCardClick}>
       <div className="event-card-wrapper">
-        <Card.Img src={eventDefaultImage} className="event-card-image" />
+        <div className="event-card-image-wrapper">
+          <Card.Img src={eventDefaultImage} className="event-card-image" />
+          {!getIsPublished(event) && (
+            <Card.ImgOverlay>
+              <div className="event-card-image-overlay">
+                <Badge pill bg="warning" text="dark">
+                  {event.status}
+                </Badge>
+              </div>
+            </Card.ImgOverlay>
+          )}
+        </div>
         <Card.Body className="event-card-body">
+          <div className="event-card-date">
+            {transformToDate(String(event.eventDate), SHORT_DATE_TIME_FORMAT)}
+          </div>
           <Card.Title>{event.title}</Card.Title>
-          <Card.Text>{event.description}</Card.Text>
+          <Card.Text>{event.shortDescription}</Card.Text>
         </Card.Body>
       </div>
     </Card>

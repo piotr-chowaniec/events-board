@@ -21,6 +21,14 @@ export const fetchProfileData = (requestParams: RequestParamsType) => () =>
     route: '/profile',
   });
 
+export const fetchUserName =
+  (requestParams: RequestParamsType) =>
+  ({ userId }: BodyType) =>
+    httpGet({
+      ...requestParams,
+      route: `/users/${userId}/name`,
+    });
+
 export const updateUser =
   (requestParams: RequestParamsType) =>
   ({ userId, ...body }: BodyType) =>
@@ -46,9 +54,3 @@ export const deleteUser =
       ...requestParams,
       route: `/users/${userId}`,
     });
-
-export const fetchEvents = (requestParams: RequestParamsType) => () =>
-  httpGet({
-    ...requestParams,
-    route: '/events',
-  });

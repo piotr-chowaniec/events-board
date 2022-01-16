@@ -4,6 +4,7 @@ import { Navbar, Nav, Container } from 'react-bootstrap';
 
 import { useAppSelector, useAppDispatch } from '../store/hooks';
 import {
+  userDataSelector,
   isAuthenticatedSelector,
   isAdminSelector,
   userDisplayNameSelector,
@@ -22,6 +23,7 @@ const MenuNavbar = (): JSX.Element => {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
 
+  const { id: userId } = useAppSelector(userDataSelector);
   const isAuthenticated = useAppSelector(isAuthenticatedSelector);
   const isAdmin = useAppSelector(isAdminSelector);
   const userDisplayName = useAppSelector(userDisplayNameSelector);
@@ -59,7 +61,12 @@ const MenuNavbar = (): JSX.Element => {
       return (
         <>
           <Nav.Item>
-            <Link to={routes.MAIN.PATH} className="nav-link">
+            <Link
+              to={routes.USER_EVENTS.compileRoute({
+                userId,
+              })}
+              className="nav-link"
+            >
               Your Events
             </Link>
           </Nav.Item>
@@ -79,12 +86,19 @@ const MenuNavbar = (): JSX.Element => {
 
     return (
       <Nav.Item>
-        <Link to={routes.MAIN.PATH} className="nav-link">
-          Your Events
-        </Link>
+        <Nav.Item>
+          <Link
+            to={routes.USER_EVENTS.compileRoute({
+              userId,
+            })}
+            className="nav-link"
+          >
+            Your Events
+          </Link>
+        </Nav.Item>
       </Nav.Item>
     );
-  }, [isAdmin, isAuthenticated]);
+  }, [isAdmin, isAuthenticated, userId]);
 
   const renderUserDropdown = useCallback(
     () =>
