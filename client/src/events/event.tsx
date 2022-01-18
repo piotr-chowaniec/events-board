@@ -8,6 +8,7 @@ import { parseISO } from 'date-fns';
 import { useAppSelector } from '../store/hooks';
 import { userDataSelector, isAdminSelector } from '../store/user/selectors';
 import Loading from '../displayComponents/loading/loading';
+import Warning from '../displayComponents/warning/warning';
 import { transformToDateTimeLocal } from '../displayComponents/formatters/date';
 import { EVENT_STATUS } from '../shared/types';
 import routes from '../routes';
@@ -114,7 +115,6 @@ const EventComponent = () => {
   return (
     <div className="container">
       <div className="event mx-1">
-        <Loading isLoading={isLoading} />
         {event &&
           (isEditMode ? (
             <Formik
@@ -135,6 +135,11 @@ const EventComponent = () => {
               onEventDelete={onEventDelete}
             />
           ))}
+        <Loading isLoading={isLoading} />
+        <Warning
+          isWarning={!event}
+          warningMessage={`Sorry. Event with ID: ${eventId} does not exist`}
+        />
       </div>
     </div>
   );

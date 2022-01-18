@@ -1,6 +1,7 @@
 import React, { useEffect, useCallback, useState } from 'react';
 import { useParams } from 'react-router-dom';
 
+import Warning from '../displayComponents/warning/warning';
 import EventsList from '../events/eventsList';
 import { useFetchUserName } from '../shared/api/hooks';
 import { useAppSelector } from '../store/hooks';
@@ -26,7 +27,8 @@ const UserEvents = () => {
       setDescription('');
     } else {
       const { firstName, lastName } = await fetchUserName({ userId });
-      setDescription(`${firstName} ${lastName} Events`);
+      const description = firstName ? `${firstName} ${lastName} Events` : '';
+      setDescription(description);
     }
     setInitialized(true);
   }, [fetchUserName, isCurrentUser, userId]);
@@ -38,11 +40,17 @@ const UserEvents = () => {
   return (
     <div className="container full-height">
       {initialized && (
-        <EventsList
-          isCurrentUser={isCurrentUser}
-          eventsLisDescription={eventsListDescription}
-          filters={getFilters({ isAdmin, isCurrentUser, userId })}
-        />
+        <>
+          <EventsList
+            isCurrentUser={isCurrentUser}
+            eventsLisDescription={eventsListDescription}
+            filters={getFilters({ isAdmin, isCurrentUser, userId })}
+          />
+          <Warning
+            isWarning={!eventsListDescription}
+            warningMessage={`Sorry. User with ID: ${userId} does not exist`}
+          />
+        </>
       )}
     </div>
   );
