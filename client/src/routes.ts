@@ -1,4 +1,4 @@
-import { compile } from 'path-to-regexp';
+import { generatePath } from 'react-router-dom';
 
 const authRoutes = {
   LOGIN: {
@@ -27,11 +27,13 @@ const routes = {
   },
   EVENT: {
     PATH: '/events/:eventId',
-    compileRoute: compile('/events/:eventId'),
+    compileRoute: (params: { eventId: string }) =>
+      generatePath('/events/:eventId', params),
   },
   USER_EVENTS: {
     PATH: '/events/user/:userId',
-    compileRoute: compile('/events/user/:userId'),
+    compileRoute: (params: { userId: string }) =>
+      generatePath('/events/user/:userId', params),
   },
 };
 
