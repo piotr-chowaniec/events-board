@@ -34,6 +34,12 @@ export class AuthService {
     return user;
   }
 
+  async getUserRole(email: string): Promise<string | undefined> {
+    const user = await this.usersService.findOne(email);
+
+    return user?.role;
+  }
+
   async login() {
     return { message: 'Successfully logged in' };
   }

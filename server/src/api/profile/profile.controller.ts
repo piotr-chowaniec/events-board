@@ -7,7 +7,7 @@ export class ProfileController {
   constructor(private userService: UsersService) {}
 
   @Get()
-  async find(@Request() req) {
+  find(@Request() req) {
     const email = req?.user?.email;
 
     return this.userService.findOne(email);

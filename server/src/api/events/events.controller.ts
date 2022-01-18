@@ -1,5 +1,6 @@
 import {
   Controller,
+  UseGuards,
   Get,
   Post,
   Patch,
@@ -13,6 +14,7 @@ import { Prisma } from '@common-packages/data-access-layer';
 import { Public } from '../common/decorators/public.decorator';
 
 import { EventsService } from './events.service';
+import { EventsGuard } from './events.guard';
 
 @Controller('api/events')
 export class EventsController {
@@ -41,6 +43,7 @@ export class EventsController {
   }
 
   @Patch(':eventId')
+  @UseGuards(EventsGuard)
   update(
     @Param('eventId') eventId: string,
     @Body() event: Prisma.EventUpdateInput,
@@ -49,6 +52,7 @@ export class EventsController {
   }
 
   @Patch(':eventId/status')
+  @UseGuards(EventsGuard)
   updateStatus(
     @Param('eventId') eventId: string,
     @Body() event: Prisma.EventUpdateInput,
@@ -57,6 +61,7 @@ export class EventsController {
   }
 
   @Delete(':eventId')
+  @UseGuards(EventsGuard)
   delete(@Param('eventId') eventId: string) {
     return this.eventsService.delete(eventId);
   }

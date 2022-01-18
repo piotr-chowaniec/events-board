@@ -1,5 +1,6 @@
 import {
   Controller,
+  UseGuards,
   Get,
   Patch,
   Delete,
@@ -13,6 +14,7 @@ import { ConfigService, ConfigKeys } from '../common/config/config.service';
 import { Public } from '../common/decorators/public.decorator';
 
 import { UsersService } from './users.service';
+import { UsersGuard } from './users.guard';
 
 @Controller('api/users')
 export class UsersController {
@@ -33,6 +35,7 @@ export class UsersController {
   }
 
   @Patch(':userId')
+  @UseGuards(UsersGuard)
   update(
     @Param('userId') userId: string,
     @Body() user: Prisma.UserUpdateInput,
@@ -41,6 +44,7 @@ export class UsersController {
   }
 
   @Patch(':userId/password')
+  @UseGuards(UsersGuard)
   updatePassword(
     @Param('userId') userId: string,
     @Body() newPassword: { password: string; confirmPassword: string },
@@ -49,6 +53,7 @@ export class UsersController {
   }
 
   @Delete(':userId')
+  @UseGuards(UsersGuard)
   async remove(@Request() req, @Param('userId') userId: string) {
     const currentUser = req.user;
     const refreshTokenKey = this.configService.get(
