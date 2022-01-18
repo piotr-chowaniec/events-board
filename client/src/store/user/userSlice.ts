@@ -1,7 +1,7 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { User } from '@common-packages/data-access-layer';
 
-export interface UserState {
+export interface SetUserDataPayload {
   id: User['id'];
   role: string;
   email: User['email'];
@@ -12,27 +12,31 @@ export interface UserState {
 }
 
 export const initialState = {
-  id: '',
-  role: '',
-  email: '',
-  firstName: '',
-  lastName: '',
-  createdAt: '',
-  updatedAt: '',
+  initialized: false,
+  user: {
+    id: '',
+    role: '',
+    email: '',
+    firstName: '',
+    lastName: '',
+    createdAt: '',
+    updatedAt: '',
+  },
 };
 
 const userSlice = createSlice({
   name: 'user',
   initialState,
   reducers: {
-    setUserData: (state, action: PayloadAction<UserState>) => {
-      state.id = action.payload?.id;
-      state.role = action.payload?.role;
-      state.email = action.payload?.email;
-      state.firstName = action.payload?.firstName;
-      state.lastName = action.payload?.lastName;
-      state.createdAt = action.payload?.createdAt;
-      state.updatedAt = action.payload?.updatedAt;
+    setUserData: (state, action: PayloadAction<SetUserDataPayload>) => {
+      state.initialized = true;
+      state.user.id = action.payload?.id;
+      state.user.role = action.payload?.role;
+      state.user.email = action.payload?.email;
+      state.user.firstName = action.payload?.firstName;
+      state.user.lastName = action.payload?.lastName;
+      state.user.createdAt = action.payload?.createdAt;
+      state.user.updatedAt = action.payload?.updatedAt;
     },
   },
 });

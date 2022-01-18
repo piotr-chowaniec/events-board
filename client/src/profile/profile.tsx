@@ -69,7 +69,7 @@ const Profile = (): JSX.Element => {
 
   const onProfileRemove = useCallback(async () => {
     await deleteUser({ userId });
-    dispatch(setUserData(initialState));
+    dispatch(setUserData(initialState.user));
     resetToken();
     navigate(routes.MAIN.PATH);
   }, [deleteUser, dispatch, navigate, userId]);
@@ -96,7 +96,7 @@ const Profile = (): JSX.Element => {
         </p>
         <div className="text-start">
           <Formik
-            initialValues={user.email ? user : initialState}
+            initialValues={user.email ? user : initialState.user}
             validationSchema={userSchemas.updateProfileSchema}
             component={ProfileForm}
             onSubmit={onProfileUpdate}

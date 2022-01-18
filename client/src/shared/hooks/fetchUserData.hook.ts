@@ -5,7 +5,7 @@ import {
   extractToken,
   resetToken,
 } from '../../services/fetchService/tokenUtils';
-import { setUserData } from '../../store/user/userSlice';
+import { initialState, setUserData } from '../../store/user/userSlice';
 import { useAppDispatch } from '../../store/hooks';
 
 const FetchUserData = async () => {
@@ -14,16 +14,18 @@ const FetchUserData = async () => {
   const { call: fetchProfileData } = useFetchProfileData();
 
   const fetchUserData = useCallback(async () => {
+    let userData = { ...initialState.user };
     try {
       const token = extractToken();
       if (token) {
-        const userData = await fetchProfileData({});
-        dispatch(setUserData(userData));
+        userData = await fetchProfileData({});
       }
     } catch (error) {
       resetToken();
       // eslint-disable-next-line no-console
       console.warn('Failed to login or expired token');
+    } finally {
+      dispatch(setUserData(userData));
     }
   }, [dispatch, fetchProfileData]);
 
