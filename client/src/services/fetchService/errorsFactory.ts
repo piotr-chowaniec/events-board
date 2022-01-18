@@ -7,11 +7,6 @@ class FetchingError extends Error {
   constructor(message: string, status: StatusCodes) {
     super(message);
 
-    // Maintains proper stack trace for where our error was thrown
-    if (Error.captureStackTrace) {
-      Error.captureStackTrace(this, FetchingError);
-    }
-
     this.isFetchingError = true;
     this.status = status;
   }
@@ -22,11 +17,6 @@ class UnauthorizedError extends Error {
 
   constructor(message: string) {
     super(message);
-
-    // Maintains proper stack trace for where our error was thrown
-    if (Error.captureStackTrace) {
-      Error.captureStackTrace(this, UnauthorizedError);
-    }
 
     this.isAuthorizationError = true;
   }

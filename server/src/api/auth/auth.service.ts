@@ -1,5 +1,9 @@
 import type { Asserts } from 'yup';
-import { Injectable, BadRequestException } from '@nestjs/common';
+import {
+  Injectable,
+  BadRequestException,
+  UnauthorizedException,
+} from '@nestjs/common';
 import { validate, userSchemas } from '@common-packages/validators';
 import { Prisma } from '@common-packages/data-access-layer';
 
@@ -23,7 +27,7 @@ export class AuthService {
 
     const isPasswordMatching = await comparePassword(password, user.password);
     if (!isPasswordMatching) {
-      throw new BadRequestException('Invalid password or email');
+      throw new UnauthorizedException('Invalid password or email');
     }
 
     delete user.password;

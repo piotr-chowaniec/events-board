@@ -16,18 +16,15 @@ export const handleErrors: HandleErrors =
   (error) => {
     const { message, statusCode } = error.response.data;
 
+    const messageToPassThrough = parseResponseErrorMessage
+      ? message || errorMessage
+      : errorMessage || GENERAL_ERROR;
+
     if (statusCode === UNAUTHORIZED) {
-      throw ErrorsFactory.UnauthorizedError(errorMessage || GENERAL_ERROR);
+      throw ErrorsFactory.UnauthorizedError(messageToPassThrough);
     }
 
-    if (parseResponseErrorMessage) {
-      throw ErrorsFactory.FetchingError(message || errorMessage, statusCode);
-    }
-
-    throw ErrorsFactory.FetchingError(
-      errorMessage || GENERAL_ERROR,
-      statusCode,
-    );
+    throw ErrorsFactory.FetchingError(messageToPassThrough, statusCode);
   };
 
 type ApplyQueryStringParams = {
