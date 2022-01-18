@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import Modal from 'react-modal';
-import { Routes, Route } from 'react-router-dom';
+import { Routes, Route, Navigate } from 'react-router-dom';
 
 import fetchUserData from './shared/hooks/fetchUserData.hook';
 import Authenticated from './authentication/authenticated';
@@ -35,6 +35,7 @@ const App = () => {
             <Route path={routes.PASSWORD.PATH} element={<PasswordChange />} />
           </Route>
         </Route>
+        <Route path="*" element={<Navigate to={routes.MAIN.PATH} />} />
       </Routes>
     </>
   );
