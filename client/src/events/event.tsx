@@ -11,7 +11,6 @@ import Loading from '../displayComponents/loading/loading';
 import Warning from '../displayComponents/warning/warning';
 import { transformToDateTimeLocal } from '../displayComponents/formatters/date';
 import { EVENT_STATUS } from '../shared/types';
-import routes from '../routes';
 
 import {
   useFetchEvent,
@@ -99,7 +98,7 @@ const EventComponent = () => {
     }
 
     await deleteEvent({ eventId: event.id });
-    navigate(routes.MAIN.PATH);
+    navigate(-1);
   }, [deleteEvent, navigate, event, isAllowedToEdit]);
 
   useEffect(() => {
