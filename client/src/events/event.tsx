@@ -32,7 +32,9 @@ const EventComponent = () => {
   const { id: userId } = useAppSelector(userDataSelector);
   const isOwner = userId === event?.userId;
   const isAllowedToEdit = isAdmin || isOwner;
-  const isGoing = Boolean(event?.participants.some((p) => p.userId === userId));
+  const isGoing = Boolean(
+    event?.participants?.some((p) => p.userId === userId),
+  );
 
   const { call: fetchEvent, isLoading: isFetchEventLoading } = useFetchEvent();
   const { call: updateEvent, isLoading: isUpdateEventLoading } =
@@ -141,7 +143,7 @@ const EventComponent = () => {
           ))}
         <Loading isLoading={isLoading} />
         <Warning
-          isWarning={!event}
+          isWarning={!event && !isLoading}
           warningMessage={`Sorry. Event with ID: ${eventId} does not exist`}
         />
       </div>

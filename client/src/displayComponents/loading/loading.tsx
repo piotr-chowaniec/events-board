@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { PulseLoader } from 'react-spinners';
 
 import './loading.scss';
@@ -6,13 +6,31 @@ import './loading.scss';
 interface LoadingParams {
   isLoading: boolean;
   loadingMessage?: string;
+  delay?: number;
 }
 
 const Loading = ({
   isLoading = false,
   loadingMessage = 'Loading...',
+  delay = 50,
 }: LoadingParams): JSX.Element | null => {
-  if (!isLoading) {
+  const [show, setShow] = useState(false);
+
+  useEffect(() => {
+    if (isLoading) {
+      const timeout = setTimeout(() => {
+        setShow(true);
+      }, delay);
+
+      return () => {
+        clearTimeout(timeout);
+      };
+    }
+
+    setShow(false);
+  }, [isLoading, delay]);
+
+  if (!show) {
     return null;
   }
 
