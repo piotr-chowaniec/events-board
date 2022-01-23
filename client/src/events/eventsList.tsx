@@ -1,7 +1,6 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Button } from 'react-bootstrap';
-import { Event } from '@common-packages/data-access-layer';
 
 import { useAppSelector } from '../store/hooks';
 import { userDataSelector } from '../store/user/selectors';
@@ -11,6 +10,7 @@ import routes from '../routes';
 
 import { useFetchEvents, useCreateEvent } from './api/hooks';
 import EventCard from './eventCard';
+import { EventType } from './types';
 import './event.scss';
 
 type EventListParams = {
@@ -25,7 +25,7 @@ const EventsList = ({
   filters,
 }: EventListParams): JSX.Element => {
   const navigate = useNavigate();
-  const [events, setEvents] = useState<Event[]>();
+  const [events, setEvents] = useState<EventType[]>();
 
   const { id: userId } = useAppSelector(userDataSelector);
 

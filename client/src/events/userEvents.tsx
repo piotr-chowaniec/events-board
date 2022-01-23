@@ -38,7 +38,7 @@ const UserEvents = () => {
   }, [getDescription]);
 
   return (
-    <div className="container full-height">
+    <div className="container">
       {initialized && (
         <>
           <EventsList

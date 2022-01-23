@@ -1,7 +1,6 @@
 import React, { useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Card, Badge } from 'react-bootstrap';
-import { Event } from '@common-packages/data-access-layer';
 
 import {
   transformToDate,
@@ -11,8 +10,10 @@ import eventDefaultImage from '../displayComponents/images/event.jpeg';
 import { getIsPublished } from '../shared/helpers';
 import routes from '../routes';
 
+import { EventType } from './types';
+
 type EventCardParams = {
-  event: Event;
+  event: EventType;
 };
 
 const EventCard = ({ event }: EventCardParams): JSX.Element => {
@@ -43,6 +44,8 @@ const EventCard = ({ event }: EventCardParams): JSX.Element => {
           </div>
           <Card.Title>{event.title}</Card.Title>
           <Card.Text>{event.shortDescription}</Card.Text>
+          {`Participants: `}
+          {event._count.participants}
         </Card.Body>
       </div>
     </Card>

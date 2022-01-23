@@ -1,7 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import Parser from 'html-react-parser';
-import { Event, User } from '@common-packages/data-access-layer';
 import { Button } from 'react-bootstrap';
 
 import {
@@ -9,10 +8,14 @@ import {
   SHORT_DATE_TIME_FORMAT,
 } from '../displayComponents/formatters/date';
 import eventDefaultImage from '../displayComponents/images/event.jpeg';
+import ParticipationButton from '../displayComponents/participationButton/participationButton';
+import FaIcon from '../displayComponents/faIcon/faIcon';
 import useModal from '../shared/hooks/useModal.hook';
 import { getIsDraft } from '../shared/helpers';
 import { EVENT_STATUS } from '../shared/types';
 import routes from '../routes';
+
+import { EventType } from './types';
 
 const ModalBody = (
   <>
@@ -25,17 +28,23 @@ const ModalBody = (
 );
 
 type EventDetailsProps = {
-  event: Event & { user: User };
-  enableEditMode: () => void;
+  event: EventType;
+  isOwner: boolean;
+  isGoing: boolean;
   isAllowedToEdit: boolean;
+  enableEditMode: () => void;
+  fetchEventData: () => void;
   onEventStatusUpdate: (newStatus: EVENT_STATUS) => Promise<void>;
   onEventDelete: () => Promise<void>;
 };
 
 const EventDetails = ({
   event,
-  enableEditMode,
+  isOwner,
+  isGoing,
   isAllowedToEdit,
+  enableEditMode,
+  fetchEventData,
   onEventStatusUpdate,
   onEventDelete,
 }: EventDetailsProps): JSX.Element => {
@@ -63,29 +72,45 @@ const EventDetails = ({
                 {event.user.firstName} {event.user.lastName}
               </Link>
             </span>
+            <span>
+              {`Participants: `}
+              {event._count.participants}
+            </span>
             <span className="last-updated">
               {`Last updated: `}
               {transformToDate(String(event.updatedAt), SHORT_DATE_TIME_FORMAT)}
             </span>
           </div>
         </div>
-        {isAllowedToEdit && (
-          <div className="event-edit-buttons">
-            {getIsDraft(event) && (
-              <Button
-                // eslint-disable-next-line react/jsx-no-bind
-                onClick={() => onEventStatusUpdate(EVENT_STATUS.PUBLISHED)}
-                variant="success"
-              >
-                Publish
+        <div className="event-edit-buttons">
+          <ParticipationButton
+            isGoing={isGoing}
+            isOwner={isOwner}
+            fetchEventData={fetchEventData}
+          />
+          {isAllowedToEdit && (
+            <>
+              {getIsDraft(event) && (
+                <Button
+                  // eslint-disable-next-line react/jsx-no-bind
+                  onClick={() => onEventStatusUpdate(EVENT_STATUS.PUBLISHED)}
+                  variant="success"
+                >
+                  Publish
+                </Button>
+              )}
+              )
+              <Button onClick={enableEditMode}>
+                <FaIcon icon="edit" size={16} />
+                Edit
               </Button>
-            )}
-            <Button onClick={enableEditMode}>Edit</Button>
-            <Button onClick={showModal} variant="danger">
-              Delete
-            </Button>
-          </div>
-        )}
+              <Button onClick={showModal} variant="danger">
+                <FaIcon icon="trash" size={16} />
+                Delete
+              </Button>
+            </>
+          )}
+        </div>
       </div>
       <div className="event-description">
         {event.description && Parser(event.description)}

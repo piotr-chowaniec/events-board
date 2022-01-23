@@ -17,7 +17,7 @@ const FaIcon = ({
   ...rest
 }: FaIconPropsType): JSX.Element => (
   <FontAwesomeIcon
-    className={`${className} icon-size-${size}`}
+    className={`${className} icon-size-${size} me-2`}
     icon={[prefix, icon]}
     {...rest}
   />

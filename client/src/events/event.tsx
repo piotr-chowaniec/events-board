@@ -1,7 +1,6 @@
 import React, { useState, useCallback, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { Formik } from 'formik';
-import { Event, User } from '@common-packages/data-access-layer';
 import { eventSchemas } from '@common-packages/validators';
 import { parseISO } from 'date-fns';
 
@@ -20,17 +19,20 @@ import {
 } from './api/hooks';
 import EventDetails from './eventDetails';
 import EventEditForm from './eventEditForm';
+import { EventType } from './types';
 
 const EventComponent = () => {
   const navigate = useNavigate();
-  const [isEditMode, setIsEditMode] = useState(false);
-  const [event, setEvent] = useState<Event & { user: User }>();
-
   const { eventId } = useParams();
+
+  const [isEditMode, setIsEditMode] = useState(false);
+  const [event, setEvent] = useState<EventType>();
 
   const isAdmin = useAppSelector(isAdminSelector);
   const { id: userId } = useAppSelector(userDataSelector);
-  const isAllowedToEdit = isAdmin || userId === event?.userId;
+  const isOwner = userId === event?.userId;
+  const isAllowedToEdit = isAdmin || isOwner;
+  const isGoing = Boolean(event?.participants.some((p) => p.userId === userId));
 
   const { call: fetchEvent, isLoading: isFetchEventLoading } = useFetchEvent();
   const { call: updateEvent, isLoading: isUpdateEventLoading } =
@@ -128,8 +130,11 @@ const EventComponent = () => {
           ) : (
             <EventDetails
               event={event}
-              enableEditMode={enableEditMode}
+              isOwner={isOwner}
+              isGoing={isGoing}
               isAllowedToEdit={isAllowedToEdit}
+              enableEditMode={enableEditMode}
+              fetchEventData={fetchEventData}
               onEventStatusUpdate={onEventStatusUpdate}
               onEventDelete={onEventDelete}
             />

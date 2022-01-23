@@ -6,6 +6,8 @@ import {
   updateUser,
   updatePassword,
   deleteUser,
+  createParticipant,
+  deleteParticipant,
 } from './api';
 
 export const useLogin = () =>
@@ -45,4 +47,14 @@ export const useDeleteUser = () =>
     successMessage: 'User removed',
     errorMessage: 'Removing user failed',
     parseResponseErrorMessage: true,
+  });
+
+export const useCreateParticipant = () =>
+  apiActionFactory({
+    apiAction: createParticipant,
+  });
+
+export const useDeleteParticipant = () =>
+  apiActionFactory({
+    apiAction: deleteParticipant,
   });

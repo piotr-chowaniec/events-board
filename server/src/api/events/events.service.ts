@@ -12,6 +12,13 @@ export class EventsService {
   findMany(filters): Promise<Event[]> {
     return this.prismaService.event.findMany({
       where: filters,
+      include: {
+        _count: {
+          select: {
+            participants: true,
+          },
+        },
+      },
       orderBy: {
         createdAt: 'asc',
       },
@@ -38,6 +45,16 @@ export class EventsService {
           select: {
             firstName: true,
             lastName: true,
+          },
+        },
+        participants: {
+          select: {
+            userId: true,
+          },
+        },
+        _count: {
+          select: {
+            participants: true,
           },
         },
       },

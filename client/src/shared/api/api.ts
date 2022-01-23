@@ -54,3 +54,19 @@ export const deleteUser =
       ...requestParams,
       route: `/users/${userId}`,
     });
+
+export const createParticipant =
+  (requestParams: RequestParamsType) => (body: BodyType) =>
+    httpPost({
+      ...requestParams,
+      route: '/participants',
+      body,
+    });
+
+export const deleteParticipant =
+  (requestParams: RequestParamsType) =>
+  ({ userId, eventId }: BodyType) =>
+    httpDelete({
+      ...requestParams,
+      route: `/participants/${userId}/${eventId}`,
+    });
