@@ -5,6 +5,9 @@ import { userSchemas } from '@common-packages/validators';
 
 import FaIcon from '../displayComponents/faIcon/faIcon';
 import FullPageCard from '../displayComponents/fullPageCard/fullPageCard';
+import { useAppDispatch } from '../store/hooks';
+import { setUserData } from '../store/user/userSlice';
+import { useFetchProfileData } from '../shared/api/hooks';
 import routes from '../routes';
 
 import RegisterForm from './registerForm';
@@ -20,8 +23,11 @@ const newAccount = {
 };
 
 const Register = (): JSX.Element => {
+  const dispatch = useAppDispatch();
   const navigate = useNavigate();
-  const { call: registerUser, isLoading } = useRegister();
+  const { call: registerUser, isLoading: isRegisterLoading } = useRegister();
+  const { call: fetchProfileData, isLoading: isFetchProfileLoading } =
+    useFetchProfileData();
 
   const submitRegisterForm = useCallback(
     async (values: RegisterFormValues) => {
@@ -29,10 +35,14 @@ const Register = (): JSX.Element => {
       const { confirmPassword, ...user } = values;
 
       await registerUser(user);
+      const userData = await fetchProfileData({});
+      dispatch(setUserData(userData));
       navigate(routes.PROFILE.PATH);
     },
-    [registerUser, navigate],
+    [registerUser, fetchProfileData, dispatch, navigate],
   );
+
+  const isLoading = isRegisterLoading || isFetchProfileLoading;
 
   return (
     <FullPageCard isLoading={isLoading}>
