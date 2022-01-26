@@ -40,6 +40,9 @@
 }
 
 .event-card-image.card-img {
+  height: rem(200px);
+  object-fit: cover;
+  object-position: center;
   border: $event-card-image-border;
   box-shadow: $event-card-image-shadow;
   border-radius: 0;
