@@ -36,6 +36,12 @@ h3, h4 {
   flex-shrink: 0;
 }
 
+.user-image{
+  width: rem(200px);
+  height: rem(200px);
+  object-fit: cover;
+}
+
 .custom-link {
   color: $color-link;
   margin-left: rem(10px);

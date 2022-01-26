@@ -3,10 +3,15 @@ import { Form, Field, FormikProps } from 'formik';
 import { Button } from 'react-bootstrap';
 
 import Input from '../displayComponents/forms/inputFormik';
+import DropzoneFormik from '../displayComponents/forms/dropzoneFormik';
 
 import { ProfileFormValues } from './types';
 
-const ProfileForm = ({ dirty }: FormikProps<ProfileFormValues>) => (
+type ProfileEditProps = {
+  setImagePreview: (previewImage: string) => void;
+} & FormikProps<ProfileFormValues>;
+
+const ProfileForm = ({ dirty, setImagePreview }: ProfileEditProps) => (
   <Form>
     <Field
       label="First Name"
@@ -21,6 +26,12 @@ const ProfileForm = ({ dirty }: FormikProps<ProfileFormValues>) => (
       component={Input}
     />
     <Field label="Email" name="email" placeholder="Email" component={Input} />
+    <Field
+      label="User Image"
+      name="file"
+      component={DropzoneFormik}
+      setImagePreview={setImagePreview}
+    />
     <div className="d-grid">
       <Button type="submit" variant="outline-success" disabled={!dirty}>
         Save Changes

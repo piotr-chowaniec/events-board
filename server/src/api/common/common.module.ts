@@ -6,9 +6,10 @@ import { JwtAuthGuard } from '../auth/jwt-auth.guard';
 import { AuthInterceptor } from './interceptors/auth.interceptor';
 import { ConfigModule } from './config/config.module';
 import { PrismaModule } from './prisma/prisma.module';
+import { CloudinaryModule } from './cloudinary/cloudinary.module';
 
 @Module({
-  imports: [ConfigModule, PrismaModule],
+  imports: [ConfigModule, PrismaModule, CloudinaryModule],
   providers: [
     {
       provide: APP_GUARD,

@@ -12,13 +12,17 @@ import {
 import { Prisma } from '@common-packages/data-access-layer';
 
 import { Public } from '../common/decorators/public.decorator';
+import { ImagesService } from '../images/images.service';
 
 import { EventsService } from './events.service';
 import { EventsGuard } from './events.guard';
 
 @Controller('api/events')
 export class EventsController {
-  constructor(private readonly eventsService: EventsService) {}
+  constructor(
+    private readonly eventsService: EventsService,
+    private readonly imagesService: ImagesService,
+  ) {}
 
   @Public()
   @Get()
@@ -62,7 +66,8 @@ export class EventsController {
 
   @Delete(':eventId')
   @UseGuards(EventsGuard)
-  delete(@Param('eventId') eventId: string) {
+  async delete(@Param('eventId') eventId: string) {
+    await this.imagesService.remove({ eventId });
     return this.eventsService.delete(eventId);
   }
 }

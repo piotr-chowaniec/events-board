@@ -7,11 +7,16 @@ import {
   Param,
   Body,
   Request,
+  UseInterceptors,
+  UploadedFile,
 } from '@nestjs/common';
+import { FileInterceptor } from '@nestjs/platform-express';
 import { Prisma } from '@common-packages/data-access-layer';
 
 import { ConfigService, ConfigKeys } from '../common/config/config.service';
 import { Public } from '../common/decorators/public.decorator';
+import { multerOptions } from '../common/multer/multerOptions.config';
+import { ImagesService } from '../images/images.service';
 
 import { UsersService } from './users.service';
 import { UsersGuard } from './users.guard';
@@ -19,7 +24,8 @@ import { UsersGuard } from './users.guard';
 @Controller('api/users')
 export class UsersController {
   constructor(
-    private usersService: UsersService,
+    private readonly usersService: UsersService,
+    private readonly imagesService: ImagesService,
     private readonly configService: ConfigService,
   ) {}
 
@@ -36,10 +42,16 @@ export class UsersController {
 
   @Patch(':userId')
   @UseGuards(UsersGuard)
-  update(
+  @UseInterceptors(FileInterceptor('file', multerOptions))
+  async update(
     @Param('userId') userId: string,
     @Body() user: Prisma.UserUpdateInput,
+    @UploadedFile() file: Express.Multer.File,
   ) {
+    if (file) {
+      await this.imagesService.remove({ userId });
+      await this.imagesService.create(file, { userId });
+    }
     this.usersService.update(userId, user);
   }
 
@@ -59,6 +71,8 @@ export class UsersController {
     const refreshTokenKey = this.configService.get(
       ConfigKeys.REFRESH_TOKEN_KEY,
     );
+
+    await this.imagesService.remove({ userId });
     await this.usersService.remove(userId);
 
     if (currentUser.userId === userId) {

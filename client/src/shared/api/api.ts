@@ -31,12 +31,19 @@ export const fetchUserName =
 
 export const updateUser =
   (requestParams: RequestParamsType) =>
-  ({ userId, ...body }: BodyType) =>
-    httpPatch({
+  ({ userId, firstName, lastName, email, file }: BodyType) => {
+    const body = new FormData();
+    body.append('firstName', firstName);
+    body.append('lastName', lastName);
+    body.append('email', email);
+    body.append('file', file);
+
+    return httpPatch({
       ...requestParams,
       route: `/users/${userId}`,
       body,
     });
+  };
 
 export const updatePassword =
   (requestParams: RequestParamsType) =>

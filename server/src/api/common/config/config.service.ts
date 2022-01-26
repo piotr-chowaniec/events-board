@@ -11,6 +11,10 @@ export enum ConfigKeys {
   REFRESH_TOKEN_KEY = 'REFRESH_TOKEN_KEY',
   JWT_SECRET_KEY = 'JWT_SECRET_KEY',
   JWT_EXPIRE_IN = 'JWT_EXPIRE_IN',
+  CLOUDINARY_CLOUD_NAME = 'CLOUDINARY_CLOUD_NAME',
+  CLOUDINARY_CLOUD_FOLDER = 'CLOUDINARY_CLOUD_FOLDER',
+  CLOUDINARY_API_KEY = 'CLOUDINARY_API_KEY',
+  CLOUDINARY_API_SECRET = 'CLOUDINARY_API_SECRET',
 }
 
 type Config = {
@@ -31,6 +35,10 @@ export const config = {
     process.env.REFRESH_TOKEN_KEY || 'refresh_token',
   [ConfigKeys.JWT_SECRET_KEY]: process.env.JWT_SECRET_KEY || 'NotSoSecretKey',
   [ConfigKeys.JWT_EXPIRE_IN]: process.env.JWT_EXPIRE_IN || '2h',
+  [ConfigKeys.CLOUDINARY_CLOUD_NAME]: process.env.CLOUDINARY_CLOUD_NAME,
+  [ConfigKeys.CLOUDINARY_CLOUD_FOLDER]: process.env.CLOUDINARY_CLOUD_FOLDER,
+  [ConfigKeys.CLOUDINARY_API_KEY]: process.env.CLOUDINARY_API_KEY,
+  [ConfigKeys.CLOUDINARY_API_SECRET]: process.env.CLOUDINARY_API_SECRET,
 };
 
 @Injectable()

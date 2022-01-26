@@ -4,7 +4,7 @@ import { UsersService } from '../users/users.service';
 
 @Controller('api/profile')
 export class ProfileController {
-  constructor(private userService: UsersService) {}
+  constructor(private readonly userService: UsersService) {}
 
   @Get()
   find(@Request() req) {

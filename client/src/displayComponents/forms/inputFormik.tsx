@@ -21,7 +21,7 @@ const InputFormik = ({
   const isInvalid = Boolean(touched[field.name] && errors[field.name]);
 
   return (
-    <Form.Group className="pb-3">
+    <Form.Group className="mb-3">
       <Form.Label className="bg-white small text-muted ms-2 px-2">
         {label}
       </Form.Label>

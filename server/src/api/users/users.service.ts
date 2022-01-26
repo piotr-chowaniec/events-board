@@ -21,6 +21,16 @@ export class UsersService {
       where: {
         email,
       },
+      include: {
+        image: {
+          select: {
+            cloudName: true,
+            publicId: true,
+            version: true,
+            format: true,
+          },
+        },
+      },
     });
 
     return mapUserToResponse(user);

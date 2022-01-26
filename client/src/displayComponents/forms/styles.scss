@@ -1,0 +1,31 @@
+@import '../../styles/helpers/helpers';
+
+.dropzone {
+  height: rem(80px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 1px solid $color-input-border;
+  border-radius: 4px;
+  box-shadow: 0 0 0 rgba($BLACK, 0.01), 0 1px 0 rgba($WHITE, 0.05);
+  background-color: $WHITE;
+  box-sizing: border-box;
+}
+
+.dropzone-border-overlay {
+  margin-top: -1.2rem;
+}
+
+.dropzone:hover,
+.dropzone__hover {
+  border-style: dashed;
+}
+
+.dropzone__valid{
+  border-color: $color-input-border-valid;
+}
+
+.dropzone__invalid{
+  border-color: $color-input-border-invalid;
+}
+

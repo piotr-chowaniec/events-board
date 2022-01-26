@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useMemo } from 'react';
+import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { Button } from 'react-bootstrap';
 import { Formik } from 'formik';
@@ -15,6 +15,7 @@ import {
 } from '../shared/api/hooks';
 import useModal from '../shared/hooks/useModal.hook';
 import FullPageCard from '../displayComponents/fullPageCard/fullPageCard';
+import UserImage from '../displayComponents/imageComponent/userImage';
 import routes from '../routes';
 
 import ProfileForm from './profileForm';
@@ -34,6 +35,7 @@ const Profile = (): JSX.Element => {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const { Modal, showModal } = useModal();
+  const [imagePreview, setImagePreview] = useState();
 
   const { call: fetchProfileData, isLoading: isFetchProfileLoading } =
     useFetchProfileData();
@@ -47,6 +49,7 @@ const Profile = (): JSX.Element => {
     email,
     firstName,
     lastName,
+    image,
   } = useAppSelector(userDataSelector);
   const user = { email, firstName, lastName };
 
@@ -74,6 +77,13 @@ const Profile = (): JSX.Element => {
     navigate(routes.MAIN.PATH);
   }, [deleteUser, dispatch, navigate, userId]);
 
+  const renderProfileForm = useCallback(
+    (formikProps) => (
+      <ProfileForm {...formikProps} setImagePreview={setImagePreview} />
+    ),
+    [setImagePreview],
+  );
+
   const isLoading = isFetchProfileLoading || isUpdateProfileLoading;
   const loadingMessage = useMemo(() => {
     if (isFetchProfileLoading) {
@@ -90,6 +100,11 @@ const Profile = (): JSX.Element => {
   return (
     <>
       <FullPageCard isLoading={isLoading} loadingMessage={loadingMessage}>
+        <UserImage
+          image={imagePreview || image}
+          width={500}
+          className="user-image rounded-circle"
+        />
         <h2 className="card-title my-3">{`${firstName} ${lastName}`}</h2>
         <p>
           <code className="text-muted">Change your profile data</code>
@@ -98,7 +113,7 @@ const Profile = (): JSX.Element => {
           <Formik
             initialValues={user.email ? user : initialState.user}
             validationSchema={userSchemas.updateProfileSchema}
-            component={ProfileForm}
+            component={renderProfileForm}
             onSubmit={onProfileUpdate}
             enableReinitialize
           />

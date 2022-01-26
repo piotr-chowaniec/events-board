@@ -1,26 +1,16 @@
-import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { User } from '@common-packages/data-access-layer';
-
-export interface SetUserDataPayload {
-  id: User['id'];
-  role: string;
-  email: User['email'];
-  firstName: User['firstName'];
-  lastName: User['lastName'];
-  createdAt: string;
-  updatedAt: string;
-}
+import { createSlice } from '@reduxjs/toolkit';
 
 export const initialState = {
   initialized: false,
   user: {
     id: '',
-    role: '',
+    role: null,
     email: '',
     firstName: '',
     lastName: '',
-    createdAt: '',
-    updatedAt: '',
+    image: null,
+    createdAt: null,
+    updatedAt: null,
   },
 };
 
@@ -28,15 +18,12 @@ const userSlice = createSlice({
   name: 'user',
   initialState,
   reducers: {
-    setUserData: (state, action: PayloadAction<SetUserDataPayload>) => {
+    setUserData: (state, action) => {
       state.initialized = true;
-      state.user.id = action.payload?.id;
-      state.user.role = action.payload?.role;
-      state.user.email = action.payload?.email;
-      state.user.firstName = action.payload?.firstName;
-      state.user.lastName = action.payload?.lastName;
-      state.user.createdAt = action.payload?.createdAt;
-      state.user.updatedAt = action.payload?.updatedAt;
+      state.user = {
+        ...state.user,
+        ...action.payload,
+      };
     },
   },
 });

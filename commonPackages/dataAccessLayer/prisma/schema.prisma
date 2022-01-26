@@ -29,6 +29,7 @@ model User {
   updatedAt    DateTime      @updatedAt @map("updated_at")
   events       Event[]
   participants Participant[]
+  image        Image?
 
   @@map("users")
 }
@@ -40,10 +41,11 @@ model Event {
   description  String?
   shortDescription  String?  @map("short_description")
   status       EventStatus   @default(DRAFT)
-  eventDate    DateTime?      @default(now()) @map("event_date")
+  eventDate    DateTime?     @default(now()) @map("event_date")
   createdAt    DateTime      @default(now()) @map("created_at")
   updatedAt    DateTime      @updatedAt @map("updated_at")
   participants Participant[]
+  image        Image?
 
   user User @relation(fields: [userId], references: [id], onDelete: Cascade)
 
@@ -62,4 +64,21 @@ model Participant {
 
   @@unique([userId, eventId])
   @@map("participants")
+}
+
+model Image {
+  id        String   @id @default(uuid())
+  userId    String?  @unique @map("user_id")
+  eventId   String?  @unique @map("event_id")
+  cloudName String   @map("cloud_name")
+  publicId  String   @unique @map("public_id")
+  version   Int
+  format    String
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  user  User?  @relation(fields: [userId], references: [id], onDelete: Cascade)
+  event Event? @relation(fields: [eventId], references: [id], onDelete: Cascade)
+
+  @@map("images")
 }
