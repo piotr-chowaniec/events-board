@@ -35,12 +35,27 @@ export const createEvent =
 
 export const updateEvent =
   (requestParams: RequestParamsType) =>
-  ({ eventId, ...body }: BodyType) =>
-    httpPatch({
+  ({
+    eventId,
+    title,
+    shortDescription,
+    description,
+    eventDate,
+    file,
+  }: BodyType) => {
+    const body = new FormData();
+    body.append('title', title);
+    body.append('shortDescription', shortDescription);
+    body.append('description', description);
+    body.append('eventDate', new Date(eventDate).toUTCString());
+    body.append('file', file);
+
+    return httpPatch({
       ...requestParams,
       route: `/events/${eventId}`,
       body,
     });
+  };
 
 export const updateEventStatus =
   (requestParams: RequestParamsType) =>

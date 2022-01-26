@@ -7,8 +7,6 @@ import { ReactQueryDevtools } from 'react-query/devtools';
 import { library } from '@fortawesome/fontawesome-svg-core';
 import {
   faUser,
-  faEnvelope,
-  faLock,
   faSignOutAlt,
   faCheckCircle,
   faMinusCircle,
@@ -25,8 +23,6 @@ import './styles/styles.scss';
 
 library.add(
   faUser,
-  faEnvelope,
-  faLock,
   faSignOutAlt,
   faGithub,
   faLinkedin,

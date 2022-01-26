@@ -8,10 +8,14 @@ import {
   Param,
   Body,
   Query,
+  UseInterceptors,
+  UploadedFile,
 } from '@nestjs/common';
+import { FileInterceptor } from '@nestjs/platform-express';
 import { Prisma } from '@common-packages/data-access-layer';
 
 import { Public } from '../common/decorators/public.decorator';
+import { multerOptions } from '../common/multer/multerOptions.config';
 import { ImagesService } from '../images/images.service';
 
 import { EventsService } from './events.service';
@@ -48,10 +52,17 @@ export class EventsController {
 
   @Patch(':eventId')
   @UseGuards(EventsGuard)
-  update(
+  @UseInterceptors(FileInterceptor('file', multerOptions))
+  async update(
     @Param('eventId') eventId: string,
     @Body() event: Prisma.EventUpdateInput,
+    @UploadedFile() file: Express.Multer.File,
   ) {
+    event.eventDate = new Date(String(event.eventDate));
+    if (file) {
+      await this.imagesService.remove({ eventId });
+      await this.imagesService.create(file, { eventId });
+    }
     return this.eventsService.update(eventId, event);
   }
 

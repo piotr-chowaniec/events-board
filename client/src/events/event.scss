@@ -10,7 +10,8 @@
   display: flex;
   justify-content: space-between;
   border-bottom: 1px solid $color-border-muted;
-  margin-top: rem(20px) ;
+  margin-top: rem(20px);
+  margin-bottom: rem(10px);
   padding-bottom: rem(10px);
 
   h3 {
@@ -70,23 +71,26 @@
 }
 
 .event {
+  .event-image {
+    min-height: 500px;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+  }
+
   .event-header {
     display: flex;
     flex-direction: column;
     align-items: center;
-    height: 450px;
-    background-size: cover;
-    background-repeat: no-repeat;
-    background-position: center;
 
     .event-details {
       flex: 1 0 auto;
-      min-width: 50%;
-      align-self: flex-start;
+      width: 100%;
+      justify-content: start;
+      align-items: center;
 
       .event-wrapper {
-
-        margin: rem(100px) 0 0 rem(40px);
+        margin: rem(40px) rem(20px) 0 rem(20px);
         padding: 2rem;
         background: $color-main-background;
         border-radius: 2rem;
@@ -122,7 +126,7 @@
       display: flex;;
       align-self: flex-end;
       justify-content: flex-end;
-      margin: 0 rem(20px) rem(20px) 0;
+      margin: rem(15px);
 
       button {
         margin-left: rem(10px)

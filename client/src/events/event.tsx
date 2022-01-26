@@ -46,7 +46,13 @@ const EventComponent = () => {
 
   const fetchEventData = useCallback(async () => {
     const eventData = await fetchEvent({ eventId });
-    setEvent(eventData);
+    const event = {
+      ...eventData,
+      title: eventData.title || '',
+      shortDescription: eventData.shortDescription || '',
+      description: eventData.description || '',
+    };
+    setEvent(event);
   }, [eventId, fetchEvent]);
 
   const enableEditMode = useCallback(() => {

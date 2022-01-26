@@ -27,7 +27,7 @@ const ProfileForm = ({ dirty, setImagePreview }: ProfileEditProps) => (
     />
     <Field label="Email" name="email" placeholder="Email" component={Input} />
     <Field
-      label="User Image"
+      label="User image"
       name="file"
       component={DropzoneFormik}
       setImagePreview={setImagePreview}

@@ -13,6 +13,14 @@ export class EventsService {
     return this.prismaService.event.findMany({
       where: filters,
       include: {
+        image: {
+          select: {
+            cloudName: true,
+            publicId: true,
+            version: true,
+            format: true,
+          },
+        },
         _count: {
           select: {
             participants: true,
@@ -50,6 +58,14 @@ export class EventsService {
         participants: {
           select: {
             userId: true,
+          },
+        },
+        image: {
+          select: {
+            cloudName: true,
+            publicId: true,
+            version: true,
+            format: true,
           },
         },
         _count: {

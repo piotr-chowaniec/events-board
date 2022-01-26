@@ -6,7 +6,7 @@ import {
   transformToDate,
   SHORT_DATE_TIME_FORMAT,
 } from '../displayComponents/formatters/date';
-import eventDefaultImage from '../displayComponents/images/event.jpeg';
+import { getEventImageSrc } from '../displayComponents/imageComponent/getImageSrc';
 import { getIsPublished } from '../shared/helpers';
 import routes from '../routes';
 
@@ -23,11 +23,15 @@ const EventCard = ({ event }: EventCardParams): JSX.Element => {
     navigate(routes.EVENT.compileRoute({ eventId: event.id }));
   }, [navigate, event.id]);
 
+  const imageSrc = getEventImageSrc({
+    image: event.image,
+  });
+
   return (
     <Card className="event-card" onClick={onEventCardClick}>
       <div className="event-card-wrapper">
         <div className="event-card-image-wrapper">
-          <Card.Img src={eventDefaultImage} className="event-card-image" />
+          <Card.Img src={imageSrc} className="event-card-image" />
           {!getIsPublished(event) && (
             <Card.ImgOverlay>
               <div className="event-card-image-overlay">

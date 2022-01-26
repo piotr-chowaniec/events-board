@@ -7,8 +7,8 @@ import {
   transformToDate,
   SHORT_DATE_TIME_FORMAT,
 } from '../displayComponents/formatters/date';
-import eventDefaultImage from '../displayComponents/images/event.jpeg';
 import ParticipationButton from '../displayComponents/participationButton/participationButton';
+import { getEventImageSrc } from '../displayComponents/imageComponent/getImageSrc';
 import FaIcon from '../displayComponents/faIcon/faIcon';
 import useModal from '../shared/hooks/useModal.hook';
 import { getIsDraft } from '../shared/helpers';
@@ -50,36 +50,45 @@ const EventDetails = ({
 }: EventDetailsProps): JSX.Element => {
   const { Modal, showModal } = useModal();
 
+  const imageSrc = getEventImageSrc({
+    image: event?.image,
+  });
+
   return (
     <>
       <div
-        className="event-header"
-        style={{ backgroundImage: `url(${eventDefaultImage}` }}
+        className="event-header event-image"
+        style={{ backgroundImage: `url(${imageSrc}` }}
       >
-        <div className="event-details">
-          <div className="event-wrapper">
-            <h2 className="event-title">{event.title}</h2>
-            <h4>{event.shortDescription}</h4>
-            <p>{transformToDate(String(event.eventDate))}</p>
-            <span>
-              {`Created by: `}
-              <Link
-                to={routes.USER_EVENTS.compileRoute({
-                  userId: event.userId,
-                })}
-                className="custom-link"
-              >
-                {event.user.firstName} {event.user.lastName}
-              </Link>
-            </span>
-            <span>
-              {`Participants: `}
-              {event._count.participants}
-            </span>
-            <span className="last-updated">
-              {`Last updated: `}
-              {transformToDate(String(event.updatedAt), SHORT_DATE_TIME_FORMAT)}
-            </span>
+        <div className="row event-details">
+          <div className="col-md-9 col-lg-7 col-xl-7">
+            <div className="event-wrapper">
+              <h2 className="event-title">{event.title}</h2>
+              <h4>{event.shortDescription}</h4>
+              <p>{transformToDate(String(event.eventDate))}</p>
+              <span>
+                {`Created by: `}
+                <Link
+                  to={routes.USER_EVENTS.compileRoute({
+                    userId: event.userId,
+                  })}
+                  className="custom-link"
+                >
+                  {event.user.firstName} {event.user.lastName}
+                </Link>
+              </span>
+              <span>
+                {`Participants: `}
+                {event._count.participants}
+              </span>
+              <span className="last-updated">
+                {`Last updated: `}
+                {transformToDate(
+                  String(event.updatedAt),
+                  SHORT_DATE_TIME_FORMAT,
+                )}
+              </span>
+            </div>
           </div>
         </div>
         <div className="event-edit-buttons">
@@ -99,7 +108,6 @@ const EventDetails = ({
                   Publish
                 </Button>
               )}
-              )
               <Button onClick={enableEditMode}>
                 <FaIcon icon="edit" size={16} />
                 Edit

@@ -3,18 +3,18 @@ import React from 'react';
 import { ImageType } from '../../shared/types';
 
 import ImageComponent from './imageComponent';
-import { getUserImageSrc } from './getImageSrc';
+import { getEventImageSrc } from './getImageSrc';
 
-type UserImageType = {
+type EventImageType = {
   image?: ImageType | null;
   width?: number;
   className?: string;
 };
 
-const UserImage = ({ image, width = 500, className }: UserImageType) => {
-  const imgSrc = getUserImageSrc({ image, width });
+const EventImage = ({ image, width = 500, className }: EventImageType) => {
+  const imgSrc = getEventImageSrc({ image, width });
 
   return <ImageComponent imgSrc={imgSrc} className={className} />;
 };
 
-export default UserImage;
+export default EventImage;

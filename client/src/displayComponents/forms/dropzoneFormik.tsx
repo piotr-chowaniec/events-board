@@ -55,7 +55,7 @@ const DropzoneFormik = ({
       multiple: false,
     });
 
-  const className: any = useMemo(
+  const className: string = useMemo(
     () =>
       classnames('dropzone dropzone-border-overlay', {
         ['dropzone__hover']: dragHover,

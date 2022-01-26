@@ -102,7 +102,6 @@ const Profile = (): JSX.Element => {
       <FullPageCard isLoading={isLoading} loadingMessage={loadingMessage}>
         <UserImage
           image={imagePreview || image}
-          width={500}
           className="user-image rounded-circle"
         />
         <h2 className="card-title my-3">{`${firstName} ${lastName}`}</h2>
