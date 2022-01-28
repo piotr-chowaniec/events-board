@@ -11,6 +11,7 @@ import Profile from './profile/profile';
 import PasswordChange from './profile/passwordChange';
 import Event from './events/event';
 import UserEvents from './events/userEvents';
+import ParticipantEvents from './events/participantEvents';
 import Layout from './layout';
 import routes from './routes';
 
@@ -33,6 +34,10 @@ const App = () => {
           <Route element={<Authenticated />}>
             <Route path={routes.PROFILE.PATH} element={<Profile />} />
             <Route path={routes.PASSWORD.PATH} element={<PasswordChange />} />
+            <Route
+              path={routes.PARTICIPANT_EVENTS.PATH}
+              element={<ParticipantEvents />}
+            />
           </Route>
         </Route>
         <Route path="*" element={<Navigate to={routes.MAIN.PATH} />} />

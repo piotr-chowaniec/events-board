@@ -35,6 +35,11 @@ const routes = {
     compileRoute: (params: { userId: string }) =>
       generatePath('/events/user/:userId', params),
   },
+  PARTICIPANT_EVENTS: {
+    PATH: '/events/participant/:userId',
+    compileRoute: (params: { userId: string }) =>
+      generatePath('/events/participant/:userId', params),
+  },
 };
 
 const appRoutes = {

@@ -30,10 +30,23 @@ export class EventsController {
 
   @Public()
   @Get()
-  findMany(@Query('userId') userId: string, @Query('status') status: string) {
+  findMany(
+    @Query('userId') userId: string,
+    @Query('status') status: string,
+    @Query('participant') participant: string,
+  ) {
     const filters = {
       ...(userId ? { userId } : {}),
       ...(status ? { status: status.toUpperCase() } : {}),
+      ...(participant
+        ? {
+            participants: {
+              some: {
+                userId: participant,
+              },
+            },
+          }
+        : {}),
     };
 
     return this.eventsService.findMany(filters);

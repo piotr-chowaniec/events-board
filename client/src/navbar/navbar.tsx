@@ -57,35 +57,8 @@ const MenuNavbar = (): JSX.Element => {
       return null;
     }
 
-    if (isAdmin) {
-      return (
-        <>
-          <Nav.Item>
-            <Link
-              to={routes.USER_EVENTS.compileRoute({
-                userId,
-              })}
-              className="nav-link"
-            >
-              Your Events
-            </Link>
-          </Nav.Item>
-          <Nav.Item>
-            <Link to={routes.MAIN.PATH} className="nav-link">
-              Events List
-            </Link>
-          </Nav.Item>
-          <Nav.Item>
-            <Link to={routes.MAIN.PATH} className="nav-link">
-              Users List
-            </Link>
-          </Nav.Item>
-        </>
-      );
-    }
-
-    return (
-      <Nav.Item>
+    const renderDefaultButtons = () => (
+      <>
         <Nav.Item>
           <Link
             to={routes.USER_EVENTS.compileRoute({
@@ -96,8 +69,26 @@ const MenuNavbar = (): JSX.Element => {
             Your Events
           </Link>
         </Nav.Item>
-      </Nav.Item>
+        <Nav.Item>
+          <Nav.Item>
+            <Link
+              to={routes.PARTICIPANT_EVENTS.compileRoute({
+                userId,
+              })}
+              className="nav-link"
+            >
+              You Participate
+            </Link>
+          </Nav.Item>
+        </Nav.Item>
+      </>
     );
+
+    if (isAdmin) {
+      return <>{renderDefaultButtons()}</>;
+    }
+
+    return renderDefaultButtons();
   }, [isAdmin, isAuthenticated, userId]);
 
   const renderUserDropdown = useCallback(
