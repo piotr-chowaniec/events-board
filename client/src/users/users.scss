@@ -1,0 +1,29 @@
+@import '../styles/helpers/helpers';
+
+.users-list {
+  position: relative;
+  flex: 1 0 auto;
+  margin-top: rem(10px);
+
+  .user-list-title {
+    height: rem(42px);
+    border-bottom: 1px solid $color-border-muted;
+    margin-top: rem(20px);
+    margin-bottom: rem(10px);
+    padding-bottom: rem(10px);
+
+    h3 {
+      margin: 0;
+    }
+  }
+
+  .user-list-image {
+    width: rem(40px);
+    height: rem(40px);
+    object-fit: cover;
+  }
+
+  td {
+    vertical-align: middle;
+  }
+}

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 import { Link } from 'react-router-dom';
 import Parser from 'html-react-parser';
 import { Button } from 'react-bootstrap';
@@ -53,6 +53,10 @@ const EventDetails = ({
   const imageSrc = getEventImageSrc({
     image: event?.image,
   });
+
+  const onDeleteClick = useCallback(() => {
+    showModal();
+  }, [showModal]);
 
   return (
     <>
@@ -112,7 +116,7 @@ const EventDetails = ({
                 <FaIcon icon="edit" size={16} />
                 Edit
               </Button>
-              <Button onClick={showModal} variant="danger">
+              <Button onClick={onDeleteClick} variant="danger">
                 <FaIcon icon="trash" size={16} />
                 Delete
               </Button>

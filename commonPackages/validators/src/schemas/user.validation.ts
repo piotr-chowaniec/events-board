@@ -27,7 +27,7 @@ const Name = Yup.object().shape({
 });
 
 const Role = Yup.object().shape({
-  role: Yup.string().label('Role').required().oneOf(['admin', 'participant']),
+  role: Yup.string().label('Role').required().oneOf(['USER', 'ADMIN']),
 });
 
 const loginUserSchema = Email.concat(Password);

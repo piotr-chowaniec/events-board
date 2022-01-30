@@ -2,22 +2,46 @@ import React, { useState, useCallback, useMemo } from 'react';
 
 import ConfirmModal, {
   ConfirmModalParams,
-} from '../../displayComponents/confirmModal';
+} from '../../displayComponents/modals/confirmModal';
+import { FormModalParams } from '../../displayComponents/modals/formModal';
+import { ModalDataType } from '../types';
 
-const useModal = ({ ModalComponent = ConfirmModal } = {}) => {
+interface ModalComponentInterface {
+  (props: ConfirmModalParams | FormModalParams): JSX.Element;
+}
+interface UseModalInterface {
+  (props?: { ModalComponent?: ModalComponentInterface }): {
+    Modal: ModalComponentInterface;
+    showModal: (newState?: ModalDataType) => void;
+  };
+}
+
+const useModal: UseModalInterface = ({
+  ModalComponent = ConfirmModal,
+} = {}) => {
   const [isModalVisible, setModalVisible] = useState(false);
+  const [modalData, setModalData] = useState<ModalDataType>();
 
-  const hideModal = useCallback(() => setModalVisible(false), []);
-  const showModal = useCallback(() => {
+  const hideModal = useCallback(() => {
+    setModalData(null);
+    setModalVisible(false);
+  }, []);
+  const showModal = useCallback((modalData?: ModalDataType) => {
+    setModalData(modalData);
     setModalVisible(true);
   }, []);
 
   const Modal = useMemo(() => {
-    const Modal = (props: ConfirmModalParams) => (
-      <ModalComponent show={isModalVisible} onHide={hideModal} {...props} />
+    const Modal = (props: ConfirmModalParams | FormModalParams) => (
+      <ModalComponent
+        show={isModalVisible}
+        modalData={modalData}
+        onHide={hideModal}
+        {...props}
+      />
     );
     return Modal;
-  }, [ModalComponent, hideModal, isModalVisible]);
+  }, [ModalComponent, hideModal, isModalVisible, modalData]);
 
   return {
     Modal,

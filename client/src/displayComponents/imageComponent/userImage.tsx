@@ -11,7 +11,7 @@ type UserImageType = {
   className?: string;
 };
 
-const UserImage = ({ image, width = 500, className }: UserImageType) => {
+const UserImage = ({ image, width = 250, className }: UserImageType) => {
   const imgSrc = getUserImageSrc({ image, width });
 
   return <ImageComponent imgSrc={imgSrc} className={className} />;

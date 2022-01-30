@@ -42,10 +42,20 @@ const routes = {
   },
 };
 
+const adminRoutes = {
+  ALL_EVENTS: {
+    PATH: '/events',
+  },
+  ALL_USERS: {
+    PATH: '/users',
+  },
+};
+
 const appRoutes = {
   ...authRoutes,
   ...userRoutes,
   ...routes,
+  ...adminRoutes,
 };
 
 export default appRoutes;

@@ -12,7 +12,27 @@ export class UsersService {
   constructor(private prismaService: PrismaService) {}
 
   async findAll(): Promise<User[]> {
-    const users = await this.prismaService.user.findMany();
+    const users = await this.prismaService.user.findMany({
+      include: {
+        image: {
+          select: {
+            cloudName: true,
+            publicId: true,
+            version: true,
+            format: true,
+          },
+        },
+        _count: {
+          select: {
+            participants: true,
+            events: true,
+          },
+        },
+      },
+      orderBy: {
+        createdAt: 'asc',
+      },
+    });
     return users.map(mapUserToResponse);
   }
 
@@ -59,10 +79,17 @@ export class UsersService {
   }
 
   async update(userId: string, user: Prisma.UserUpdateInput) {
-    await validate<Asserts<typeof userSchemas.updateProfileSchema>>(
-      userSchemas.updateProfileSchema,
-      user,
-    );
+    if (user?.role) {
+      await validate<Asserts<typeof userSchemas.updateProfileSchema>>(
+        userSchemas.updateUserSchema,
+        user,
+      );
+    } else {
+      await validate<Asserts<typeof userSchemas.updateProfileSchema>>(
+        userSchemas.updateProfileSchema,
+        user,
+      );
+    }
 
     return this.prismaService.user.update({
       where: {
@@ -72,6 +99,7 @@ export class UsersService {
         email: user.email,
         firstName: user.firstName,
         lastName: user.lastName,
+        ...(user.role ? { role: user.role } : {}),
       },
     });
   }

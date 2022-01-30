@@ -4,7 +4,6 @@ import { Navbar, Nav, Container } from 'react-bootstrap';
 
 import { useAppSelector, useAppDispatch } from '../store/hooks';
 import {
-  userDataSelector,
   isAuthenticatedSelector,
   isAdminSelector,
   userDisplayNameSelector,
@@ -18,12 +17,13 @@ import routes from '../routes';
 
 import NavbarLogin from './navbarLogin';
 import NavbarAuthenticated from './navbarAuthenticated';
+import NavbarDefaultButtons from './navbarDefaultButtons';
+import NavbarAdminButtons from './navbarAdminButtons';
 
 const MenuNavbar = (): JSX.Element => {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
 
-  const { id: userId } = useAppSelector(userDataSelector);
   const isAuthenticated = useAppSelector(isAuthenticatedSelector);
   const isAdmin = useAppSelector(isAdminSelector);
   const userDisplayName = useAppSelector(userDisplayNameSelector);
@@ -57,39 +57,17 @@ const MenuNavbar = (): JSX.Element => {
       return null;
     }
 
-    const renderDefaultButtons = () => (
-      <>
-        <Nav.Item>
-          <Link
-            to={routes.USER_EVENTS.compileRoute({
-              userId,
-            })}
-            className="nav-link"
-          >
-            Your Events
-          </Link>
-        </Nav.Item>
-        <Nav.Item>
-          <Nav.Item>
-            <Link
-              to={routes.PARTICIPANT_EVENTS.compileRoute({
-                userId,
-              })}
-              className="nav-link"
-            >
-              You Participate
-            </Link>
-          </Nav.Item>
-        </Nav.Item>
-      </>
-    );
-
     if (isAdmin) {
-      return <>{renderDefaultButtons()}</>;
+      return (
+        <>
+          <NavbarDefaultButtons />
+          <NavbarAdminButtons />
+        </>
+      );
     }
 
-    return renderDefaultButtons();
-  }, [isAdmin, isAuthenticated, userId]);
+    return <NavbarDefaultButtons />;
+  }, [isAdmin, isAuthenticated]);
 
   const renderUserDropdown = useCallback(
     () =>

@@ -62,6 +62,10 @@ const Profile = (): JSX.Element => {
     fetchUserData();
   }, [fetchUserData]);
 
+  const onDeleteClick = useCallback(() => {
+    showModal();
+  }, [showModal]);
+
   const onProfileUpdate = useCallback(
     async (values: ProfileFormValues) => {
       await updateUser({ ...values, userId });
@@ -125,7 +129,7 @@ const Profile = (): JSX.Element => {
           <div className="d-grid">
             <Button
               variant="outline-danger"
-              onClick={showModal}
+              onClick={onDeleteClick}
               disabled={isLoading}
             >
               Remove Your Profile

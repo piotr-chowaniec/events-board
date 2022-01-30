@@ -20,3 +20,17 @@ export type ImageType = {
   version: number;
   format: string;
 };
+
+export type ModalDataType =
+  | {
+      [key: string]:
+        | boolean
+        | string
+        | number
+        | Date
+        | {
+            [key: string]: boolean | string | number | Date;
+          };
+    }
+  | null
+  | undefined;
