@@ -14,6 +14,7 @@ import UserEvents from './events/userEvents';
 import ParticipantEvents from './events/participantEvents';
 import AllEvents from './events/allEvents';
 import AllUsers from './users/allUsers';
+import AllParticipants from './participants/allParticipants';
 import Layout from './layout';
 import routes from './routes';
 
@@ -44,6 +45,10 @@ const App = () => {
           <Route element={<Authenticated isAdminRoute />}>
             <Route path={routes.ALL_EVENTS.PATH} element={<AllEvents />} />
             <Route path={routes.ALL_USERS.PATH} element={<AllUsers />} />
+            <Route
+              path={routes.ALL_PARTICIPANTS.PATH}
+              element={<AllParticipants />}
+            />
           </Route>
         </Route>
         <Route path="*" element={<Navigate to={routes.MAIN.PATH} />} />

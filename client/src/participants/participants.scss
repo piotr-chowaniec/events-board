@@ -1,0 +1,30 @@
+@import '../styles/helpers/helpers';
+
+.participants-list {
+  position: relative;
+  flex: 1 0 auto;
+  margin-top: rem(10px);
+
+  .participants-list-title {
+    height: rem(42px);
+    border-bottom: 1px solid $color-border-muted;
+    margin-top: rem(20px);
+    margin-bottom: rem(10px);
+    padding-bottom: rem(10px);
+
+    h3 {
+      margin: 0;
+    }
+  }
+
+  .participant-list-image {
+    width: rem(40px);
+    height: rem(40px);
+    object-fit: cover;
+    border-radius: 4px;
+  }
+
+  td {
+    vertical-align: middle;
+  }
+}

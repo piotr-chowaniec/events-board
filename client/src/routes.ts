@@ -49,6 +49,9 @@ const adminRoutes = {
   ALL_USERS: {
     PATH: '/users',
   },
+  ALL_PARTICIPANTS: {
+    PATH: '/participants',
+  },
 };
 
 const appRoutes = {

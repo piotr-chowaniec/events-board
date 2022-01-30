@@ -21,15 +21,18 @@ export type ImageType = {
   format: string;
 };
 
+type ModalDataItem = boolean | string | number | Date;
+
 export type ModalDataType =
   | {
       [key: string]:
-        | boolean
-        | string
-        | number
-        | Date
+        | ModalDataItem
         | {
-            [key: string]: boolean | string | number | Date;
+            [key: string]:
+              | ModalDataItem
+              | {
+                  [key: string]: ModalDataItem;
+                };
           };
     }
   | null

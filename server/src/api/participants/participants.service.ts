@@ -21,6 +21,37 @@ export class ParticipantsService {
   findMany(filters?): Promise<Participant[] | undefined> {
     return this.prismaService.participant.findMany({
       ...(filters ? { where: filters } : {}),
+      include: {
+        user: {
+          select: {
+            email: true,
+            firstName: true,
+            lastName: true,
+            image: {
+              select: {
+                cloudName: true,
+                publicId: true,
+                version: true,
+                format: true,
+              },
+            },
+          },
+        },
+        event: {
+          select: {
+            title: true,
+            eventDate: true,
+            image: {
+              select: {
+                cloudName: true,
+                publicId: true,
+                version: true,
+                format: true,
+              },
+            },
+          },
+        },
+      },
       orderBy: {
         createdAt: 'asc',
       },

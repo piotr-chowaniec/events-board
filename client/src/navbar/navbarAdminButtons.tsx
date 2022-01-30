@@ -17,7 +17,7 @@ const NavbarAdminButtons = (): JSX.Element => (
       </Link>
     </NavDropdown.Item>
     <NavDropdown.Item>
-      <Link to={routes.MAIN.PATH} className="nav-link">
+      <Link to={routes.ALL_PARTICIPANTS.PATH} className="nav-link">
         Participants
       </Link>
     </NavDropdown.Item>
