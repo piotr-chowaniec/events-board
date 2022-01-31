@@ -7,7 +7,6 @@ import {
   Param,
   Get,
 } from '@nestjs/common';
-import { Prisma } from '@common-packages/data-access-layer';
 
 import { ParticipantsService } from './participants.service';
 import { ParticipantsGuard } from './participants.guard';
@@ -22,7 +21,7 @@ export class ParticipantsController {
   }
 
   @Post()
-  create(@Body() participant: Prisma.ParticipantCreateInput) {
+  create(@Body() participant: { userId: string; eventId: string }) {
     return this.participantService.create(participant);
   }
 

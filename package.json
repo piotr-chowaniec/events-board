@@ -16,8 +16,9 @@
     "format": "prettier --write \"./**/*.{ts,tsx,json,scss,md}\"",
     "lint": "npm run lint --prefix server && npm run lint --prefix client",
     "lint:fix": "npm run lint:fix --prefix server && npm run lint:fix --prefix client",
+    "test": "npm run test --prefix server",
     "pre-commit": "npm run pre-commit --prefix server && npm run pre-commit --prefix client",
-    "pre-push": "npm run lint",
+    "pre-push": "npm run lint && npm run test",
     "prepare": "husky install"
   },
   "devDependencies": {
