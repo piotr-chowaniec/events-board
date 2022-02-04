@@ -8,28 +8,12 @@ import { CloudinaryService } from '../common/cloudinary/cloudinary.service';
 import { cloudinaryServiceMock } from '../common/cloudinary/__mocks__/cloudinary.service.mock';
 
 import { ImagesService } from './images.service';
-
-const userImage = {
-  id: '1',
-  userId: 'user-1',
-  eventId: null,
-  cloudNam: 'cloud',
-  publicId: 'publicId-1',
-  version: 'version-1',
-  format: '.jpg',
-};
-
-const eventImage = {
-  id: '2',
-  userId: null,
-  eventId: 'event-1',
-  cloudNam: 'cloud',
-  publicId: 'publicId-2',
-  version: 'version-2',
-  format: '.jpg',
-};
-
-const images = [userImage, eventImage];
+import {
+  userImage,
+  eventImage,
+  mockFindUnique,
+  mockCreate,
+} from './__mocks__/images.service.mock';
 
 describe('ImageService', () => {
   let service: ImagesService;
@@ -52,17 +36,8 @@ describe('ImageService', () => {
 
     jest.clearAllMocks();
 
-    prisma.image.findUnique = jest
-      .fn()
-      .mockImplementation(({ where: { userId, eventId } }) =>
-        images.find(
-          (image) => image.userId === userId || image.eventId === eventId,
-        ),
-      );
-    prisma.image.create = jest.fn().mockImplementation(({ data }) => ({
-      id: 'new-image-id',
-      ...data,
-    }));
+    prisma.image.findUnique = jest.fn().mockImplementation(mockFindUnique);
+    prisma.image.create = jest.fn().mockImplementation(mockCreate);
   });
 
   it('service should be defined', () => {

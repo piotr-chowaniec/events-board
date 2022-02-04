@@ -20,6 +20,7 @@ import { ImagesService } from '../images/images.service';
 
 import { EventsService } from './events.service';
 import { EventsGuard } from './events.guard';
+import { getFilters } from './helpers';
 
 @Controller('api/events')
 export class EventsController {
@@ -35,25 +36,13 @@ export class EventsController {
     @Query('status') status: string,
     @Query('participant') participant: string,
   ) {
-    const filters = {
-      ...(userId ? { userId } : {}),
-      ...(status ? { status: status.toUpperCase() } : {}),
-      ...(participant
-        ? {
-            participants: {
-              some: {
-                userId: participant,
-              },
-            },
-          }
-        : {}),
-    };
-
-    return this.eventsService.findMany(filters);
+    return this.eventsService.findMany(
+      getFilters({ userId, status, participant }),
+    );
   }
 
   @Post()
-  create(@Body() event: Prisma.EventCreateInput) {
+  create(@Body() event: Prisma.EventCreateInput | { userId: string }) {
     return this.eventsService.create(event);
   }
 
@@ -68,7 +57,14 @@ export class EventsController {
   @UseInterceptors(FileInterceptor('file', multerOptions))
   async update(
     @Param('eventId') eventId: string,
-    @Body() event: Prisma.EventUpdateInput,
+    @Body()
+    event: {
+      title?: string;
+      description?: string;
+      shortDescription?: string;
+      status?: string;
+      eventDate?: string | Date;
+    },
     @UploadedFile() file: Express.Multer.File,
   ) {
     event.eventDate = new Date(String(event.eventDate));
@@ -83,7 +79,7 @@ export class EventsController {
   @UseGuards(EventsGuard)
   updateStatus(
     @Param('eventId') eventId: string,
-    @Body() event: Prisma.EventUpdateInput,
+    @Body() event: { status: string },
   ) {
     return this.eventsService.updateStatus(eventId, event);
   }

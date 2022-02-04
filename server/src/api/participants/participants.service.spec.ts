@@ -39,7 +39,7 @@ describe('ParticipantsService', () => {
     prisma.participant.create = jest.fn().mockImplementation(mockCreate);
   });
 
-  it('service should be defined', () => {
+  it('should be defined', () => {
     expect(service).toBeDefined();
   });
 
@@ -71,10 +71,10 @@ describe('ParticipantsService', () => {
       const userId = 'user-1';
 
       // when
-      const participant = await service.findMany({ userId });
+      const participants = await service.findMany({ userId });
 
       // then
-      expect(participant).toEqual([participantNo1, participantNo2]);
+      expect(participants).toEqual([participantNo1, participantNo2]);
     });
 
     it('should return all matching entries for given eventId', async () => {
@@ -82,10 +82,10 @@ describe('ParticipantsService', () => {
       const eventId = 'event-2';
 
       // when
-      const participant = await service.findMany({ eventId });
+      const participants = await service.findMany({ eventId });
 
       // then
-      expect(participant).toEqual([participantNo2, participantNo4]);
+      expect(participants).toEqual([participantNo2, participantNo4]);
     });
 
     it('should return all matching entries for given userId and eventId', async () => {
@@ -94,10 +94,10 @@ describe('ParticipantsService', () => {
       const eventId = 'event-2';
 
       // when
-      const participant = await service.findMany({ userId, eventId });
+      const participants = await service.findMany({ userId, eventId });
 
       // then
-      expect(participant).toEqual([participantNo2]);
+      expect(participants).toEqual([participantNo2]);
     });
 
     it('should not throw when there is no matching entry', async () => {

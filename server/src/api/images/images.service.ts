@@ -4,12 +4,7 @@ import { Image } from '@common-packages/data-access-layer';
 import { PrismaService } from '../common/prisma/prisma.service';
 import { CloudinaryService } from '../common/cloudinary/cloudinary.service';
 
-type ImageFilterParams = { userId?: string; eventId?: string };
-
-const getFilter = ({ userId, eventId }: ImageFilterParams) => ({
-  ...(userId ? { userId } : {}),
-  ...(eventId ? { eventId } : {}),
-});
+import { getFilters, ImageFiltersParams } from './helpers';
 
 @Injectable()
 export class ImagesService {
@@ -18,29 +13,29 @@ export class ImagesService {
     private readonly cloudinaryService: CloudinaryService,
   ) {}
 
-  findOne(params: ImageFilterParams): Promise<Image | undefined> {
+  findOne(params: ImageFiltersParams): Promise<Image | undefined> {
     return this.prismaService.image.findUnique({
-      where: getFilter(params),
+      where: getFilters(params),
     });
   }
 
   async create(
     file: Express.Multer.File,
-    params: ImageFilterParams,
+    params: ImageFiltersParams,
   ): Promise<Image> {
     const image = await this.cloudinaryService.upload(file);
 
     return this.prismaService.image.create({
       data: {
         ...image,
-        ...getFilter(params),
+        ...getFilters(params),
       },
     });
   }
 
-  async remove(params: ImageFilterParams): Promise<void> {
+  async remove(params: ImageFiltersParams): Promise<void> {
     const imageToRemove = await this.prismaService.image.findUnique({
-      where: getFilter(params),
+      where: getFilters(params),
     });
 
     if (imageToRemove) {

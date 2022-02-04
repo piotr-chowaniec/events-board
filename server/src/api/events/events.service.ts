@@ -1,6 +1,6 @@
 import type { Asserts } from 'yup';
 import { Injectable } from '@nestjs/common';
-import { Prisma, Event, User } from '@common-packages/data-access-layer';
+import { Event, User } from '@common-packages/data-access-layer';
 import { validate, eventSchemas } from '@common-packages/validators';
 
 import { PrismaService } from '../common/prisma/prisma.service';
@@ -30,12 +30,6 @@ export class EventsService {
       orderBy: {
         createdAt: 'asc',
       },
-    });
-  }
-
-  create(event: Prisma.EventCreateInput): Promise<Event> {
-    return this.prismaService.event.create({
-      data: event,
     });
   }
 
@@ -77,7 +71,13 @@ export class EventsService {
     });
   }
 
-  async update(eventId: string, event: Prisma.EventUpdateInput) {
+  create(event): Promise<Event> {
+    return this.prismaService.event.create({
+      data: event,
+    });
+  }
+
+  async update(eventId: string, event) {
     await validate<Asserts<typeof eventSchemas.event>>(
       eventSchemas.event,
       event,
@@ -96,7 +96,7 @@ export class EventsService {
     });
   }
 
-  async updateStatus(eventId: string, event: Prisma.EventUpdateInput) {
+  async updateStatus(eventId: string, event) {
     await validate<Asserts<typeof eventSchemas.eventStatus>>(
       eventSchemas.eventStatus,
       event,

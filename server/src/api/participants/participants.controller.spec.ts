@@ -49,10 +49,10 @@ describe('ParticipantsController', () => {
       };
 
       // when
-      const participants = await controller.create(newParticipant);
+      const participant = await controller.create(newParticipant);
 
       // then
-      expect(participants).toEqual({
+      expect(participant).toEqual({
         id: 'new-participant-id',
         ...newParticipant,
       });
