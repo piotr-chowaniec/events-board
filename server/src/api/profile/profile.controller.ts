@@ -10,6 +10,6 @@ export class ProfileController {
   find(@Request() req) {
     const email = req?.user?.email;
 
-    return this.userService.findOne(email);
+    return this.userService.findOne({ email });
   }
 }

@@ -46,10 +46,10 @@ describe('UsersController', () => {
   describe('findAll()', () => {
     it('should return all users', async () => {
       // when
-      const events = await controller.findAll();
+      const users = await controller.findAll();
 
       // then
-      expect(events).toEqual(usersMock.map(mapUserToResponse));
+      expect(users).toEqual(usersMock.map(mapUserToResponse));
       expect(service.findAll).toHaveBeenCalledTimes(1);
     });
   });
