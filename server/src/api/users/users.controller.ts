@@ -11,7 +11,7 @@ import {
   UploadedFile,
 } from '@nestjs/common';
 import { FileInterceptor } from '@nestjs/platform-express';
-import { Prisma } from '@common-packages/data-access-layer';
+import { Role } from '@common-packages/data-access-layer';
 
 import { ConfigService, ConfigKeys } from '../common/config/config.service';
 import { Public } from '../common/decorators/public.decorator';
@@ -37,7 +37,7 @@ export class UsersController {
   @Public()
   @Get(':userId/name')
   findUserName(@Param('userId') userId: string) {
-    return this.usersService.findUserName(userId);
+    return this.usersService.findUserName({ userId });
   }
 
   @Patch(':userId')
@@ -45,14 +45,20 @@ export class UsersController {
   @UseInterceptors(FileInterceptor('file', multerOptions))
   async update(
     @Param('userId') userId: string,
-    @Body() user: Prisma.UserUpdateInput,
+    @Body()
+    user: {
+      firstName: string;
+      lastName: string;
+      email: string;
+      role?: Role;
+    },
     @UploadedFile() file: Express.Multer.File,
   ) {
     if (file) {
       await this.imagesService.remove({ userId });
       await this.imagesService.create(file, { userId });
     }
-    this.usersService.update(userId, user);
+    return this.usersService.update({ userId }, user);
   }
 
   @Patch(':userId/password')
@@ -61,7 +67,7 @@ export class UsersController {
     @Param('userId') userId: string,
     @Body() newPassword: { password: string; confirmPassword: string },
   ) {
-    this.usersService.updatePassword(userId, newPassword);
+    this.usersService.updatePassword({ userId }, newPassword);
   }
 
   @Delete(':userId')
@@ -73,9 +79,9 @@ export class UsersController {
     );
 
     await this.imagesService.remove({ userId });
-    await this.usersService.remove(userId);
+    await this.usersService.remove({ userId });
 
-    if (currentUser.userId === userId) {
+    if (currentUser?.userId === userId) {
       delete req.user[refreshTokenKey];
     }
   }

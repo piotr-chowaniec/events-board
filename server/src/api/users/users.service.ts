@@ -1,7 +1,7 @@
 import type { Asserts } from 'yup';
 import { Injectable } from '@nestjs/common';
 import { validate, userSchemas } from '@common-packages/validators';
-import { Prisma, User } from '@common-packages/data-access-layer';
+import { Role, User } from '@common-packages/data-access-layer';
 
 import { PrismaService } from '../common/prisma/prisma.service';
 
@@ -36,7 +36,7 @@ export class UsersService {
     return users.map(mapUserToResponse);
   }
 
-  async findOne(email): Promise<User | undefined> {
+  async findOne({ email }: { email: string }): Promise<User | undefined> {
     const user = await this.prismaService.user.findUnique({
       where: {
         email,
@@ -56,7 +56,11 @@ export class UsersService {
     return mapUserToResponse(user);
   }
 
-  async findOneWithPassword(email): Promise<User | undefined> {
+  async findOneWithPassword({
+    email,
+  }: {
+    email: string;
+  }): Promise<User | undefined> {
     return this.prismaService.user.findUnique({
       where: {
         email,
@@ -64,9 +68,11 @@ export class UsersService {
     });
   }
 
-  async findUserName(
+  async findUserName({
     userId,
-  ): Promise<{ firstName: string; lastName: string } | undefined> {
+  }: {
+    userId: string;
+  }): Promise<{ firstName: string; lastName: string } | undefined> {
     return this.prismaService.user.findUnique({
       where: {
         id: userId,
@@ -78,7 +84,31 @@ export class UsersService {
     });
   }
 
-  async update(userId: string, user: Prisma.UserUpdateInput) {
+  async create(newUser: {
+    email: string;
+    password: string;
+    firstName: string;
+    lastName: string;
+  }): Promise<User> {
+    return this.prismaService.user.create({
+      data: {
+        email: newUser.email,
+        password: newUser.password,
+        firstName: newUser.firstName,
+        lastName: newUser.lastName,
+      },
+    });
+  }
+
+  async update(
+    { userId }: { userId: string },
+    user: {
+      firstName: string;
+      lastName: string;
+      email: string;
+      role?: Role;
+    },
+  ) {
     if (user?.role) {
       await validate<Asserts<typeof userSchemas.updateProfileSchema>>(
         userSchemas.updateUserSchema,
@@ -105,7 +135,7 @@ export class UsersService {
   }
 
   async updatePassword(
-    userId: string,
+    { userId }: { userId: string },
     newPassword: { password: string; confirmPassword: string },
   ) {
     await validate<Asserts<typeof userSchemas.updatePasswordSchema>>(
@@ -123,7 +153,7 @@ export class UsersService {
     });
   }
 
-  async remove(userId: string) {
+  async remove({ userId }: { userId: string }) {
     return this.prismaService.user.delete({
       where: {
         id: userId,

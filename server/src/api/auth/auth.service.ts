@@ -7,19 +7,15 @@ import {
 import { validate, userSchemas } from '@common-packages/validators';
 import { Prisma } from '@common-packages/data-access-layer';
 
-import { PrismaService } from '../common/prisma/prisma.service';
 import { comparePassword } from '../common/passwordHashing';
 import { UsersService } from '../users/users.service';
 
 @Injectable()
 export class AuthService {
-  constructor(
-    private prismaService: PrismaService,
-    private usersService: UsersService,
-  ) {}
+  constructor(private usersService: UsersService) {}
 
   async validateUser(email: string, password: string): Promise<any> {
-    const user = await this.usersService.findOneWithPassword(email);
+    const user = await this.usersService.findOneWithPassword({ email });
 
     if (!user) {
       throw new BadRequestException('Provided account does not exists');
@@ -35,7 +31,7 @@ export class AuthService {
   }
 
   async getUserRole(email: string): Promise<string | undefined> {
-    const user = await this.usersService.findOne(email);
+    const user = await this.usersService.findOne({ email });
 
     return user?.role;
   }
@@ -50,13 +46,11 @@ export class AuthService {
       newUser,
     );
 
-    return this.prismaService.user.create({
-      data: {
-        email: newUser.email,
-        password: newUser.password,
-        firstName: newUser.firstName,
-        lastName: newUser.lastName,
-      },
+    return this.usersService.create({
+      email: newUser.email,
+      password: newUser.password,
+      firstName: newUser.firstName,
+      lastName: newUser.lastName,
     });
   }
 }

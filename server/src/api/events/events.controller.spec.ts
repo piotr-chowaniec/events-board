@@ -200,7 +200,7 @@ describe('EventsController', () => {
   });
 
   describe('delete()', () => {
-    it('should delete participant', async () => {
+    it('should delete event', async () => {
       // given
       const eventId = 'event-2';
 
