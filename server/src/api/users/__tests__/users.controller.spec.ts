@@ -1,18 +1,17 @@
 import { Test, TestingModule } from '@nestjs/testing';
 
-import { ImagesService } from '../images/images.service';
-import { imagesServiceMock } from '../images/__mocks__/images.service.mock';
-import { ConfigService } from '../common/config/config.service';
-import { configServiceMock } from '../common/config/__mocks__/config.service.mock';
-
-import { UsersController } from './users.controller';
-import { UsersService } from './users.service';
-import { mapUserToResponse } from './helpers';
+import { ImagesService } from '../../images/images.service';
+import { imagesServiceMock } from '../../images/__mocks__/images.service.mock';
+import { ConfigService } from '../../common/config/config.service';
+import { configServiceMock } from '../../common/config/__mocks__/config.service.mock';
+import { UsersController } from '../users.controller';
+import { UsersService } from '../users.service';
+import { mapUserToResponse } from '../helpers';
 import {
   usersServiceMock,
   users as usersMock,
   getUser,
-} from './__mocks__/users.service.mock';
+} from '../__mocks__/users.service.mock';
 
 const userNo1 = getUser(1);
 const userNo2 = getUser(2);

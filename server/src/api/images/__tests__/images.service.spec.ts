@@ -1,19 +1,18 @@
 import { Test, TestingModule } from '@nestjs/testing';
 
-import { ConfigService } from '../common/config/config.service';
-import { configServiceMock } from '../common/config/__mocks__/config.service.mock';
-import { PrismaService } from '../common/prisma/prisma.service';
-import { prismaServiceMock } from '../common/prisma/__mocks__/prisma.service.mock';
-import { CloudinaryService } from '../common/cloudinary/cloudinary.service';
-import { cloudinaryServiceMock } from '../common/cloudinary/__mocks__/cloudinary.service.mock';
-
-import { ImagesService } from './images.service';
+import { ConfigService } from '../../common/config/config.service';
+import { configServiceMock } from '../../common/config/__mocks__/config.service.mock';
+import { PrismaService } from '../../common/prisma/prisma.service';
+import { prismaServiceMock } from '../../common/prisma/__mocks__/prisma.service.mock';
+import { CloudinaryService } from '../../common/cloudinary/cloudinary.service';
+import { cloudinaryServiceMock } from '../../common/cloudinary/__mocks__/cloudinary.service.mock';
+import { ImagesService } from '../images.service';
 import {
   userImage,
   eventImage,
   mockFindUnique,
   mockCreate,
-} from './__mocks__/images.service.mock';
+} from '../__mocks__/images.service.mock';
 
 describe('ImageService', () => {
   let service: ImagesService;

@@ -1,4 +1,4 @@
-import { getFilters } from './helpers';
+import { getFilters } from '../helpers';
 
 const userId = 'user-1';
 const status = 'STATUS-1';

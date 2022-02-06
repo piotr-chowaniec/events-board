@@ -1,10 +1,9 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { v4 as uuid } from 'uuid';
 
-import { ConfigService } from '../config/config.service';
-import { configServiceMock } from '../config/__mocks__/config.service.mock';
-
-import { CloudinaryService } from './cloudinary.service';
+import { ConfigService } from '../../config/config.service';
+import { configServiceMock } from '../../config/__mocks__/config.service.mock';
+import { CloudinaryService } from '../cloudinary.service';
 
 jest.mock('cloudinary', () => ({
   v2: {

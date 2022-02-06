@@ -1,15 +1,14 @@
 import { Test, TestingModule } from '@nestjs/testing';
 
-import { ImagesService } from '../images/images.service';
-import { imagesServiceMock } from '../images/__mocks__/images.service.mock';
-
-import { EventsController } from './events.controller';
-import { EventsService } from './events.service';
+import { ImagesService } from '../../images/images.service';
+import { imagesServiceMock } from '../../images/__mocks__/images.service.mock';
+import { EventsController } from '../events.controller';
+import { EventsService } from '../events.service';
 import {
   eventsServiceMock,
   events as eventsMock,
   getEvent,
-} from './__mocks__/events.service.mock';
+} from '../__mocks__/events.service.mock';
 
 const eventNo1 = getEvent(1, 1);
 const eventNo2 = getEvent(2, 1);

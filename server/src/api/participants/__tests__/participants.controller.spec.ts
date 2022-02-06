@@ -1,11 +1,11 @@
 import { Test, TestingModule } from '@nestjs/testing';
 
-import { ParticipantsController } from './participants.controller';
-import { ParticipantsService } from './participants.service';
+import { ParticipantsController } from '../participants.controller';
+import { ParticipantsService } from '../participants.service';
 import {
   participantsServiceMock,
   participants as participantsMock,
-} from './__mocks__/participants.service.mock';
+} from '../__mocks__/participants.service.mock';
 
 describe('ParticipantsController', () => {
   let controller: ParticipantsController;

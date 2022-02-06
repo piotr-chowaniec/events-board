@@ -1,12 +1,11 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { JwtService } from '@nestjs/jwt';
 
-import { ConfigService, ConfigKeys } from '../common/config/config.service';
-import { configServiceMock } from '../common/config/__mocks__/config.service.mock';
-
-import { AuthController } from './auth.controller';
-import { AuthService } from './auth.service';
-import { authServiceMock } from './__mocks__/auth.service.mock';
+import { ConfigService, ConfigKeys } from '../../common/config/config.service';
+import { configServiceMock } from '../../common/config/__mocks__/config.service.mock';
+import { AuthController } from '../auth.controller';
+import { AuthService } from '../auth.service';
+import { authServiceMock } from '../__mocks__/auth.service.mock';
 
 describe('AuthController', () => {
   let controller: AuthController;

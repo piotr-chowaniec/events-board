@@ -1,16 +1,15 @@
 import { Test, TestingModule } from '@nestjs/testing';
 
-import { PrismaService } from '../common/prisma/prisma.service';
-import { prismaServiceMock } from '../common/prisma/__mocks__/prisma.service.mock';
-
-import { EventsService } from './events.service';
+import { PrismaService } from '../../common/prisma/prisma.service';
+import { prismaServiceMock } from '../../common/prisma/__mocks__/prisma.service.mock';
+import { EventsService } from '../events.service';
 import {
   getEvent,
   mockFindUnique,
   mockFindMany,
   mockCreate,
   mockUpdate,
-} from './__mocks__/events.service.mock';
+} from '../__mocks__/events.service.mock';
 
 const eventNo1 = getEvent(1, 1);
 const eventNo2 = getEvent(2, 1);

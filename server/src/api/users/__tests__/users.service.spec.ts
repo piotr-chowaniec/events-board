@@ -1,11 +1,10 @@
 import { Test, TestingModule } from '@nestjs/testing';
 
-import { PrismaService } from '../common/prisma/prisma.service';
-import { prismaServiceMock } from '../common/prisma/__mocks__/prisma.service.mock';
-import { Role } from '../common/types';
-
-import { UsersService } from './users.service';
-import { mapUserToResponse } from './helpers';
+import { PrismaService } from '../../common/prisma/prisma.service';
+import { prismaServiceMock } from '../../common/prisma/__mocks__/prisma.service.mock';
+import { Role } from '../../common/types';
+import { UsersService } from '../users.service';
+import { mapUserToResponse } from '../helpers';
 import {
   getUser,
   users as usersMock,
@@ -13,7 +12,7 @@ import {
   mockFindMany,
   mockCreate,
   mockUpdate,
-} from './__mocks__/users.service.mock';
+} from '../__mocks__/users.service.mock';
 
 const userNo1 = getUser(1);
 const userNo2 = getUser(2);

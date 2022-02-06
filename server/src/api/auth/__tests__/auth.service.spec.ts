@@ -1,13 +1,12 @@
 import { Test, TestingModule } from '@nestjs/testing';
 
-import { Role } from '../common/types';
-import { UsersService } from '../users/users.service';
+import { Role } from '../../common/types';
+import { UsersService } from '../../users/users.service';
 import {
   usersServiceMock,
   getUser,
-} from '../users/__mocks__/users.service.mock';
-
-import { AuthService } from './auth.service';
+} from '../../users/__mocks__/users.service.mock';
+import { AuthService } from '../auth.service';
 
 const userNo1 = getUser(1);
 

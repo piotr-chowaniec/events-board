@@ -1,12 +1,11 @@
 import { Test, TestingModule } from '@nestjs/testing';
 
-import { UsersService } from '../users/users.service';
+import { UsersService } from '../../users/users.service';
 import {
   usersServiceMock,
   getUser,
-} from '../users/__mocks__/users.service.mock';
-
-import { ProfileController } from './profile.controller';
+} from '../../users/__mocks__/users.service.mock';
+import { ProfileController } from '../profile.controller';
 
 const userNo1 = getUser(1);
 
