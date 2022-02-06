@@ -4,10 +4,9 @@ import { configureStore } from '@reduxjs/toolkit';
 import { MemoryRouter, Routes, Route } from 'react-router-dom';
 import { render as rtlRender } from '@testing-library/react';
 
-import routes from '../routes';
-import rootReducer from '../store/rootReducer';
-
-import Authenticated from './authenticated';
+import routes from '../../routes';
+import rootReducer from '../../store/rootReducer';
+import Authenticated from '../authenticated';
 
 const protectedPath = '/protected';
 const ComponentToRender = () => <div>PROTECTED CONTENT</div>;

@@ -1,5 +1,7 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { PulseLoader } from 'react-spinners';
+
+import useDelay from '../../shared/hooks/useDelay.hook';
 
 import './loading.scss';
 
@@ -14,21 +16,7 @@ const Loading = ({
   loadingMessage = 'Loading...',
   delay = 50,
 }: LoadingParams): JSX.Element | null => {
-  const [show, setShow] = useState(false);
-
-  useEffect(() => {
-    if (isLoading) {
-      const timeout = setTimeout(() => {
-        setShow(true);
-      }, delay);
-
-      return () => {
-        clearTimeout(timeout);
-      };
-    }
-
-    setShow(false);
-  }, [isLoading, delay]);
+  const { show } = useDelay({ run: isLoading, delay });
 
   if (!show) {
     return null;
