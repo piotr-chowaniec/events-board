@@ -7,13 +7,14 @@ import { EventsService } from '../events.service';
 import {
   eventsServiceMock,
   events as eventsMock,
-  getEvent,
 } from '../__mocks__/events.service.mock';
 
-const eventNo1 = getEvent(1, 1);
-const eventNo2 = getEvent(2, 1);
-const eventNo6 = getEvent(6, 1);
-eventNo6.status = 'DRAFT';
+const eventNo1 = eventsMock[0];
+const eventNo2 = eventsMock[1];
+const eventNo6 = {
+  ...eventsMock[5],
+  status: 'DRAFT',
+};
 
 describe('EventsController', () => {
   let controller: EventsController;

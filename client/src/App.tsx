@@ -26,34 +26,32 @@ const App = () => {
   fetchUserData();
 
   return (
-    <>
-      <Routes>
-        <Route element={<Layout />}>
-          <Route path={routes.MAIN.PATH} element={<MainPage />} />
-          <Route path={routes.LOGIN.PATH} element={<Login />} />
-          <Route path={routes.REGISTER.PATH} element={<Register />} />
-          <Route path={routes.EVENT.PATH} element={<Event />} />
-          <Route path={routes.USER_EVENTS.PATH} element={<UserEvents />} />
-          <Route element={<Authenticated />}>
-            <Route path={routes.PROFILE.PATH} element={<Profile />} />
-            <Route path={routes.PASSWORD.PATH} element={<PasswordChange />} />
-            <Route
-              path={routes.PARTICIPANT_EVENTS.PATH}
-              element={<ParticipantEvents />}
-            />
-          </Route>
-          <Route element={<Authenticated isAdminRoute />}>
-            <Route path={routes.ALL_EVENTS.PATH} element={<AllEvents />} />
-            <Route path={routes.ALL_USERS.PATH} element={<AllUsers />} />
-            <Route
-              path={routes.ALL_PARTICIPANTS.PATH}
-              element={<AllParticipants />}
-            />
-          </Route>
+    <Routes>
+      <Route element={<Layout />}>
+        <Route path={routes.MAIN.PATH} element={<MainPage />} />
+        <Route path={routes.LOGIN.PATH} element={<Login />} />
+        <Route path={routes.REGISTER.PATH} element={<Register />} />
+        <Route path={routes.EVENT.PATH} element={<Event />} />
+        <Route path={routes.USER_EVENTS.PATH} element={<UserEvents />} />
+        <Route element={<Authenticated />}>
+          <Route path={routes.PROFILE.PATH} element={<Profile />} />
+          <Route path={routes.PASSWORD.PATH} element={<PasswordChange />} />
+          <Route
+            path={routes.PARTICIPANT_EVENTS.PATH}
+            element={<ParticipantEvents />}
+          />
         </Route>
-        <Route path="*" element={<Navigate to={routes.MAIN.PATH} />} />
-      </Routes>
-    </>
+        <Route element={<Authenticated isAdminRoute />}>
+          <Route path={routes.ALL_EVENTS.PATH} element={<AllEvents />} />
+          <Route path={routes.ALL_USERS.PATH} element={<AllUsers />} />
+          <Route
+            path={routes.ALL_PARTICIPANTS.PATH}
+            element={<AllParticipants />}
+          />
+        </Route>
+      </Route>
+      <Route path="*" element={<Navigate to={routes.MAIN.PATH} />} />
+    </Routes>
   );
 };
 
