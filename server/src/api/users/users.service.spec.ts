@@ -2,6 +2,7 @@ import { Test, TestingModule } from '@nestjs/testing';
 
 import { PrismaService } from '../common/prisma/prisma.service';
 import { prismaServiceMock } from '../common/prisma/__mocks__/prisma.service.mock';
+import { Role } from '../common/types';
 
 import { UsersService } from './users.service';
 import { mapUserToResponse } from './helpers';
@@ -144,6 +145,7 @@ describe('UsersService', () => {
       const user = {
         ...userNo1,
         firstName: 'Updated title',
+        role: Role.ADMIN,
       };
 
       // when

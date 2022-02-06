@@ -1,11 +1,13 @@
+import { Role } from '../../common/types';
 import { mapUserToResponse } from '../helpers';
 
 export const getUser = (index: number) => ({
   id: String(index),
   email: `user-${index}@users.com`,
-  password: 'hashed-password',
+  password: '$2b$10$bjuij5pOYfbK6jrVSxvT6eOzsMGzAmcPwv4DTn1DoGKU.syiNtqLW', // password: some-password
   firstName: `user-${index}-firstName`,
   lastName: `user-${index}-lastName`,
+  role: Role.USER,
 });
 
 const userNo1 = getUser(1);

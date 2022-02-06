@@ -1,6 +1,4 @@
-import { User } from '@common-packages/data-access-layer';
-
-export const mapUserToResponse = (user: User) => ({
+export const mapUserToResponse = (user) => ({
   ...user,
   password: 'encrypted',
 });
