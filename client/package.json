@@ -67,6 +67,9 @@
     "lint-staged": "^12.1.2",
     "sass": "^1.45.0"
   },
+  "jest": {
+    "resetMocks": false
+  },
   "lint-staged": {
     "*.{ts,tsx}": [
       "npm run lint:fix",
