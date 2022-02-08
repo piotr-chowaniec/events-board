@@ -65,6 +65,16 @@ h3, h4 {
   top: 4.5rem;
 }
 
+.view-mode {
+  margin-right: rem(20px);
+  color: $color-text-muted;
+
+  > span:hover,
+  .view-mode-active {
+    color: $BLACK;
+  }
+}
+
 .input-border-overlay {
   margin-top: -1.2rem;
   padding-top: 0.8rem;

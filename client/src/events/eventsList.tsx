@@ -1,15 +1,18 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Button } from 'react-bootstrap';
+import classnames from 'classnames';
 
 import { useAppSelector } from '../store/hooks';
 import { userDataSelector } from '../store/user/selectors';
 import Loading from '../displayComponents/loading/loading';
+import useViewMode from '../shared/hooks/viewMode.hook';
 import { EventFiltersType } from '../shared/types';
 import routes from '../routes';
 
 import { useFetchEvents, useCreateEvent } from './api/hooks';
 import EventCard from './eventCard';
+import EventListItem from './eventListItem';
 import { EventType } from './types';
 import './event.scss';
 
@@ -21,11 +24,13 @@ type EventListParams = {
 
 const EventsList = ({
   isCurrentUser = false,
-  eventsLisDescription = 'Events List',
+  eventsLisDescription = 'Events',
   filters,
 }: EventListParams): JSX.Element => {
   const navigate = useNavigate();
   const [events, setEvents] = useState<EventType[]>();
+  const { ViewModeButtons, isListView, isDefaultView, isLargeView } =
+    useViewMode();
 
   const { id: userId } = useAppSelector(userDataSelector);
 
@@ -46,6 +51,11 @@ const EventsList = ({
     fetchEventsData();
   }, [fetchEventsData]);
 
+  const className: string = classnames({
+    ['row row-cols-md-2 row-cols-lg-4']: isDefaultView,
+    ['row row-cols-md-1 row-cols-lg-2']: isLargeView,
+  });
+
   const isLoading = isFetchingEvents || isCreatingEvent;
 
   return (
@@ -53,15 +63,24 @@ const EventsList = ({
       <Loading isLoading={isLoading} />
       <div className="event-list-title">
         <h3>{eventsLisDescription}</h3>
-        {isCurrentUser && (
-          <Button variant="outline-primary" onClick={onEventCreate}>
-            Create new
-          </Button>
-        )}
+        <div>
+          <ViewModeButtons />
+          {isCurrentUser && (
+            <Button variant="outline-dark" onClick={onEventCreate}>
+              Create new
+            </Button>
+          )}
+        </div>
       </div>
-      <div className="row row-cols-md-2 row-cols-lg-4">
+      <div className={className}>
         {events?.length ? (
-          events.map((event) => <EventCard key={event.id} event={event} />)
+          events.map((event) =>
+            isListView ? (
+              <EventListItem key={event.id} event={event} />
+            ) : (
+              <EventCard key={event.id} event={event} />
+            ),
+          )
         ) : (
           <div>Sorry. There are no Events.</div>
         )}

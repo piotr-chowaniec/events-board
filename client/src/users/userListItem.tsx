@@ -7,9 +7,9 @@ import {
   SHORT_DATE_TIME_FORMAT,
 } from '../displayComponents/formatters/date';
 import UserImage from '../displayComponents/imageComponent/userImage';
+import { pluralize } from '../shared/helpers';
 import routes from '../routes';
 
-import { pluralize } from './helpers';
 import { UserType } from './types';
 
 type UserItemType = {

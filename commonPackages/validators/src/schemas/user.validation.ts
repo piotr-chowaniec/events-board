@@ -19,11 +19,11 @@ const Name = Yup.object().shape({
   firstName: Yup.string()
     .label('First Name')
     .required()
-    .min(5, 'First Name must be at least 5 characters long'),
+    .min(4, 'First Name must be at least 4 characters long'),
   lastName: Yup.string()
     .label('Last Name')
     .required()
-    .min(5, 'Last Name must be at least 5 characters long'),
+    .min(4, 'Last Name must be at least 4 characters long'),
 });
 
 const Role = Yup.object().shape({

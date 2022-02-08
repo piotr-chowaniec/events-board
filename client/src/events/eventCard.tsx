@@ -7,7 +7,7 @@ import {
   SHORT_DATE_TIME_FORMAT,
 } from '../displayComponents/formatters/date';
 import { getEventImageSrc } from '../displayComponents/imageComponent/getImageSrc';
-import { getIsPublished } from '../shared/helpers';
+import { getIsPublished, pluralize } from '../shared/helpers';
 import routes from '../routes';
 
 import { EventType } from './types';
@@ -47,9 +47,14 @@ const EventCard = ({ event }: EventCardParams): JSX.Element => {
             {transformToDate(String(event.eventDate), SHORT_DATE_TIME_FORMAT)}
           </div>
           <Card.Title>{event.title}</Card.Title>
-          <Card.Text>{event.shortDescription}</Card.Text>
-          {`Participants: `}
-          {event._count.participants}
+          <Card.Text>
+            {event.shortDescription}
+            <div className="pt-2">
+              {pluralize(event._count.participants, 'Participant')}
+              {`: `}
+              {event._count.participants}
+            </div>
+          </Card.Text>
         </Card.Body>
       </div>
     </Card>

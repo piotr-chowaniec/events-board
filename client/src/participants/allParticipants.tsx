@@ -51,7 +51,7 @@ const AllParticipants = (): JSX.Element => {
         <div className="participants-list">
           <Loading isLoading={isLoading} />
           <div className="participants-list-title">
-            <h3>All Users</h3>
+            <h3>All Participants</h3>
           </div>
           <Table hover responsive>
             <thead>
