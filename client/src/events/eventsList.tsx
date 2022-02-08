@@ -6,7 +6,7 @@ import classnames from 'classnames';
 import { useAppSelector } from '../store/hooks';
 import { userDataSelector } from '../store/user/selectors';
 import Loading from '../displayComponents/loading/loading';
-import useViewMode from '../shared/hooks/viewMode.hook';
+import useViewMode from '../shared/hooks/useViewMode.hook';
 import { EventFiltersType } from '../shared/types';
 import routes from '../routes';
 
