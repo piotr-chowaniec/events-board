@@ -12,6 +12,11 @@ export enum EVENT_STATUS {
 export type EventFiltersType = {
   status?: keyof typeof EVENT_STATUS;
   userId?: string;
+  participant?: string;
+};
+
+export type ParticipantFiltersType = {
+  eventId?: string;
 };
 
 export type ImageType = {

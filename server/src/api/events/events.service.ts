@@ -11,7 +11,7 @@ export class EventsService {
 
   findMany(filters): Promise<Event[]> {
     return this.prismaService.event.findMany({
-      where: filters,
+      ...(filters ? { where: filters } : {}),
       include: {
         image: {
           select: {

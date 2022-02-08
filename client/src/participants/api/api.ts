@@ -1,7 +1,14 @@
-import { httpGet, RequestParamsType } from '../../services/fetchService';
+import {
+  httpGet,
+  RequestParamsType,
+  applyQueryString,
+} from '../../services/fetchService';
+import { ParticipantFiltersType } from '../../shared/types';
 
-export const fetchParticipants = (requestParams: RequestParamsType) => () =>
-  httpGet({
-    ...requestParams,
-    route: '/participants',
-  });
+export const fetchParticipants =
+  (requestParams: RequestParamsType) =>
+  ({ filters }: { filters: ParticipantFiltersType }) =>
+    httpGet({
+      ...requestParams,
+      route: applyQueryString({ route: '/participants', filters }),
+    });

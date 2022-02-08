@@ -52,6 +52,11 @@ const adminRoutes = {
   ALL_PARTICIPANTS: {
     PATH: '/participants',
   },
+  PARTICIPANTS: {
+    PATH: '/participants/:eventId',
+    compileRoute: (params: { eventId: string }) =>
+      generatePath('/participants/:eventId', params),
+  },
 };
 
 const appRoutes = {

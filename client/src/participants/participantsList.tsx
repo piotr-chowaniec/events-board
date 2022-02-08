@@ -1,4 +1,5 @@
 import React, { useEffect, useCallback, useState } from 'react';
+import { useParams } from 'react-router-dom';
 import { Table } from 'react-bootstrap';
 
 import useModal from '../shared/hooks/useModal.hook';
@@ -11,7 +12,8 @@ import { useFetchParticipants } from './api/hooks';
 import { ParticipantType } from './types';
 import './participants.scss';
 
-const AllParticipants = (): JSX.Element => {
+const Participants = (): JSX.Element => {
+  const { eventId } = useParams();
   const { Modal, showModal } = useModal();
 
   const [participants, setParticipants] = useState<ParticipantType[]>();
@@ -22,9 +24,9 @@ const AllParticipants = (): JSX.Element => {
     useDeleteParticipant();
 
   const fetchParticipantsData = useCallback(async () => {
-    const users = await fetchParticipants({});
+    const users = await fetchParticipants({ filters: { eventId } });
     setParticipants(users);
-  }, [fetchParticipants]);
+  }, [fetchParticipants, eventId]);
 
   useEffect(() => {
     fetchParticipantsData();
@@ -45,37 +47,46 @@ const AllParticipants = (): JSX.Element => {
 
   const isLoading = isFetchParticipantsLoading || isDeleteParticipantLoading;
 
+  const title =
+    eventId && participants?.length
+      ? `${participants[0].event.title} Participants`
+      : 'All Participants';
+
   return (
     <>
       <div className="container">
         <div className="participants-list">
           <Loading isLoading={isLoading} />
           <div className="participants-list-title">
-            <h3>All Participants</h3>
+            <h3>{title}</h3>
           </div>
-          <Table hover responsive>
-            <thead>
-              <tr>
-                <th>User</th>
-                <th>Email</th>
-                <th>First Name</th>
-                <th>Last Name</th>
-                <th>Event</th>
-                <th>Title</th>
-                <th>Event Date</th>
-                <th>Delete</th>
-              </tr>
-            </thead>
-            <tbody>
-              {participants?.map((participant) => (
-                <ParticipantItem
-                  key={participant.id}
-                  participant={participant}
-                  onDeleteClick={showModal}
-                />
-              ))}
-            </tbody>
-          </Table>
+          {participants?.length ? (
+            <Table hover responsive>
+              <thead>
+                <tr>
+                  <th>User</th>
+                  <th>Email</th>
+                  <th>First Name</th>
+                  <th>Last Name</th>
+                  <th>Event</th>
+                  <th>Title</th>
+                  <th>Event Date</th>
+                  <th>Delete</th>
+                </tr>
+              </thead>
+              <tbody>
+                {participants?.map((participant) => (
+                  <ParticipantItem
+                    key={participant.id}
+                    participant={participant}
+                    onDeleteClick={showModal}
+                  />
+                ))}
+              </tbody>
+            </Table>
+          ) : (
+            <div>Sorry. There are no Participants.</div>
+          )}
         </div>
       </div>
       <Modal
@@ -88,4 +99,4 @@ const AllParticipants = (): JSX.Element => {
   );
 };
 
-export default AllParticipants;
+export default Participants;

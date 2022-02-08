@@ -140,6 +140,7 @@ const EventComponent = () => {
               event={event}
               isOwner={isOwner}
               isGoing={isGoing}
+              isAdmin={isAdmin}
               isAllowedToEdit={isAllowedToEdit}
               enableEditMode={enableEditMode}
               fetchEventData={fetchEventData}

@@ -32,7 +32,7 @@ describe('ParticipantsController', () => {
   describe('findMany()', () => {
     it('should return all participants', async () => {
       // when
-      const participants = await controller.findMany();
+      const participants = await controller.findMany(null);
 
       // then
       expect(participants).toEqual(participantsMock);

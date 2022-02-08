@@ -11,7 +11,7 @@ import ParticipationButton from '../displayComponents/participationButton/partic
 import { getEventImageSrc } from '../displayComponents/imageComponent/getImageSrc';
 import FaIcon from '../displayComponents/faIcon/faIcon';
 import useModal from '../shared/hooks/useModal.hook';
-import { getIsDraft } from '../shared/helpers';
+import { getIsDraft, pluralize } from '../shared/helpers';
 import { EVENT_STATUS } from '../shared/types';
 import routes from '../routes';
 
@@ -31,6 +31,7 @@ type EventDetailsProps = {
   event: EventType;
   isOwner: boolean;
   isGoing: boolean;
+  isAdmin: boolean;
   isAllowedToEdit: boolean;
   enableEditMode: () => void;
   fetchEventData: () => void;
@@ -42,6 +43,7 @@ const EventDetails = ({
   event,
   isOwner,
   isGoing,
+  isAdmin,
   isAllowedToEdit,
   enableEditMode,
   fetchEventData,
@@ -57,6 +59,11 @@ const EventDetails = ({
   const onDeleteClick = useCallback(() => {
     showModal();
   }, [showModal]);
+
+  const participantsText = `${pluralize(
+    event._count.participants,
+    'Participant',
+  )}: ${event._count.participants}`;
 
   return (
     <>
@@ -81,10 +88,18 @@ const EventDetails = ({
                   {event.user.firstName} {event.user.lastName}
                 </Link>
               </span>
-              <span>
-                {`Participants: `}
-                {event._count.participants}
-              </span>
+              {isAdmin && event._count.participants ? (
+                <Link
+                  to={routes.PARTICIPANTS.compileRoute({
+                    eventId: event.id,
+                  })}
+                  className="custom-link ms-0"
+                >
+                  {participantsText}
+                </Link>
+              ) : (
+                <span>{participantsText}</span>
+              )}
               <span className="last-updated">
                 {`Last updated: `}
                 {transformToDate(

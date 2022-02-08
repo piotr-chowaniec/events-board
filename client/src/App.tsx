@@ -14,7 +14,7 @@ import UserEvents from './events/userEvents';
 import ParticipantEvents from './events/participantEvents';
 import AllEvents from './events/allEvents';
 import AllUsers from './users/allUsers';
-import AllParticipants from './participants/allParticipants';
+import ParticipantsList from './participants/participantsList';
 import Layout from './layout';
 import routes from './routes';
 
@@ -46,7 +46,11 @@ const App = () => {
           <Route path={routes.ALL_USERS.PATH} element={<AllUsers />} />
           <Route
             path={routes.ALL_PARTICIPANTS.PATH}
-            element={<AllParticipants />}
+            element={<ParticipantsList />}
+          />
+          <Route
+            path={routes.PARTICIPANTS.PATH}
+            element={<ParticipantsList />}
           />
         </Route>
       </Route>
