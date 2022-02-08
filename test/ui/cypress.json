@@ -1,0 +1,10 @@
+{
+  "baseUrl": "http://localhost:3000",
+  "defaultCommandTimeout": 6000,
+  "viewportHeight": 1080,
+  "viewportWidth": 2048,
+  "numTestsKeptInMemory": 10,
+  "trashAssetsBeforeRuns": true,
+  "video": false,
+  "testFiles": "**/*.test.ts"
+}

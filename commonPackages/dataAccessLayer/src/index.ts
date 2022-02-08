@@ -1,3 +1,5 @@
 import { PrismaClient } from '@prisma/client';
 
-export { PrismaClient };
+import { truncate, seed } from './seed';
+
+export { PrismaClient, truncate, seed };

@@ -12,14 +12,16 @@
     "db:seed": "prisma db seed",
     "postinstall": "tsc && cp src/index.d.ts dist/index.d.ts"
   },
-
   "prisma": {
     "seed": "ts-node src/seed.ts"
   },
   "dependencies": {
-    "@prisma/client": "^3.6.0"
+    "@faker-js/faker": "^6.0.0-alpha.5",
+    "@prisma/client": "^3.6.0",
+    "lodash": "^4.17.21"
   },
   "devDependencies": {
+    "@types/lodash": "^4.14.178",
     "@types/node": "^16.11.11",
     "prisma": "^3.6.0",
     "ts-node": "^10.4.0",

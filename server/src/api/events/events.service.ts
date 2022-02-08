@@ -28,7 +28,7 @@ export class EventsService {
         },
       },
       orderBy: {
-        createdAt: 'asc',
+        createdAt: 'desc',
       },
     });
   }
