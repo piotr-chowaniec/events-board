@@ -12,7 +12,7 @@
     "db:dev": "npm run db:migrate:dev && npm run db:seed",
     "client:dev": "npm run start --prefix client",
     "server:dev": "npm run start:dev --prefix server",
-    "dev": "concurrently \"npm run server:dev\" \"npm run client:dev\"",
+    "dev": "npm run db:migrate:deploy && concurrently \"npm run server:dev\" \"npm run client:dev\"",
     "format": "prettier --write \"./**/*.{ts,tsx,json,scss,md}\"",
     "lint": "npm run lint --prefix server && npm run lint --prefix client",
     "lint:fix": "npm run lint:fix --prefix server && npm run lint:fix --prefix client",

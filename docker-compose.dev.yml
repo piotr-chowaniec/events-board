@@ -1,0 +1,10 @@
+version: '3.8'
+
+services:
+  events-db:
+    volumes:
+      - postgres:/var/lib/postgresql/data
+
+volumes:
+  postgres:
+    name: events-db-dev

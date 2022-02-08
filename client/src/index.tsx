@@ -40,7 +40,7 @@ ReactDOM.render(
       <BrowserRouter>
         <QueryClientProvider client={queryClient}>
           <App />
-          <ReactQueryDevtools initialIsOpen />
+          <ReactQueryDevtools />
         </QueryClientProvider>
       </BrowserRouter>
     </Provider>
