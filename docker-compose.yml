@@ -5,7 +5,7 @@ services:
     container_name: events-board
     restart: on-failure
     build: .
-    command: npm run dev
+    command: npm run start:dev
     volumes:
       - .:/app
       - /app/node_modules
@@ -13,6 +13,7 @@ services:
       - /app/server/node_modules
     ports:
       - 3000:3000
+      - 7000:7000
     env_file:
       - .env
     depends_on:

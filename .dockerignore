@@ -12,6 +12,7 @@ coverage
 # misc
 .DS_Store
 .env
+.ent.test
 node_modules
 npm-debug.log
 

@@ -2,9 +2,9 @@
   "name": "@common-packages/data-access-layer",
   "version": "0.1.0",
   "description": "",
+  "author": "Piotr Chowaniec",
   "main": "dist/index.js",
-  "author": "",
-  "license": "ISC",
+  "private": true,
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "db:migrate:dev": "prisma migrate dev",
@@ -18,10 +18,8 @@
   "dependencies": {
     "@faker-js/faker": "^6.0.0-alpha.5",
     "@prisma/client": "^3.6.0",
-    "lodash": "^4.17.21"
-  },
-  "devDependencies": {
     "@types/lodash": "^4.14.178",
+    "lodash": "^4.17.21",
     "@types/node": "^16.11.11",
     "prisma": "^3.6.0",
     "ts-node": "^10.4.0",

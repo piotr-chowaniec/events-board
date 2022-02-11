@@ -11,5 +11,3 @@ COPY ./commonPackages ./commonPackages
 
 # Install all dependencies
 RUN npm run install:all
-
-EXPOSE 7000
