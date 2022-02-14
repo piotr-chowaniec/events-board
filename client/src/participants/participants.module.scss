@@ -1,11 +1,11 @@
 @import '../styles/helpers/helpers';
 
-.participants-list {
+.participantsList {
   position: relative;
   flex: 1 0 auto;
   margin-top: rem(10px);
 
-  .participants-list-title {
+  .participantsListTitle {
     height: rem(42px);
     border-bottom: 1px solid $color-border-muted;
     margin-top: rem(20px);
@@ -17,7 +17,7 @@
     }
   }
 
-  .participant-list-image {
+  .participantListImage {
     width: rem(40px);
     height: rem(40px);
     object-fit: cover;

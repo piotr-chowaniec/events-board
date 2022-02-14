@@ -10,7 +10,7 @@ import ParticipantItem from './participantListItem';
 import DeleteParticipant from './deleteParticipant';
 import { useFetchParticipants } from './api/hooks';
 import { ParticipantType } from './types';
-import './participants.scss';
+import styles from './participants.module.scss';
 
 const Participants = (): JSX.Element => {
   const { eventId } = useParams();
@@ -55,9 +55,9 @@ const Participants = (): JSX.Element => {
   return (
     <>
       <div className="container">
-        <div className="participants-list">
+        <div className={styles.participantsList}>
           <Loading isLoading={isLoading} />
-          <div className="participants-list-title">
+          <div className={styles.participantsListTitle}>
             <h3>{title}</h3>
           </div>
           {participants?.length ? (

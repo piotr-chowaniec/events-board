@@ -11,6 +11,7 @@ import EventImage from '../displayComponents/imageComponent/eventImage';
 import routes from '../routes';
 
 import { ParticipantType } from './types';
+import styles from './participants.module.scss';
 
 type ParticipantItemType = {
   participant: ParticipantType;
@@ -23,7 +24,7 @@ const ParticipantItem = ({
   <tr>
     <td>
       <UserImage
-        className="participant-list-image"
+        className={styles.participantListImage}
         image={participant?.user?.image}
         width={50}
       />
@@ -33,7 +34,7 @@ const ParticipantItem = ({
     <td>{participant?.user?.lastName}</td>
     <td>
       <EventImage
-        className="participant-list-image"
+        className={styles.participantListImage}
         image={participant?.event?.image}
         width={100}
       />
