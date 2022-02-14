@@ -32,8 +32,6 @@ const ParticipationButton = ({
   const { call: deleteParticipant, isLoading: isDeleteParticipantLoading } =
     useDeleteParticipant();
 
-  const isLoading = isCreateParticipantLoading || isDeleteParticipantLoading;
-
   const onGoing = useCallback(async () => {
     if (!userId) {
       navigate(routes.LOGIN.PATH, {
@@ -60,6 +58,8 @@ const ParticipationButton = ({
   if (isOwner) {
     return null;
   }
+
+  const isLoading = isCreateParticipantLoading || isDeleteParticipantLoading;
 
   return (
     <>

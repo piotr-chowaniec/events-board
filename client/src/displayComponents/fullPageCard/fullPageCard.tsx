@@ -2,7 +2,7 @@ import React from 'react';
 
 import Loading from '../loading/loading';
 
-import './fullPageCard.scss';
+import styles from './fullPageCard.module.scss';
 
 type FullPageCardParams = {
   children?: React.ReactChild | React.ReactChild[];
@@ -16,7 +16,7 @@ const FullPageCard = ({
   loadingMessage,
 }: FullPageCardParams): JSX.Element => (
   <div className="full-height default-background d-flex align-items-center">
-    <div className="overlay" />
+    <div className={styles.overlay} />
     <div className="container">
       <div className="row justify-content-center">
         <div className="col-md-8 col-lg-6 col-xl-5">

@@ -2,9 +2,13 @@ import React from 'react';
 
 import FaIcon from '../displayComponents/faIcon/faIcon';
 
+import styles from './styles.module.scss';
+
 const Footer = () => {
   return (
-    <div className="footer d-flex justify-content-center align-items-center">
+    <div
+      className={`${styles.footer} d-flex justify-content-center align-items-center`}
+    >
       <span className="text-muted">© 2022 Piotr Chowaniec</span>
       <a
         className="custom-link"

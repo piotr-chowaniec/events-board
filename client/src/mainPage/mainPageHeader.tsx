@@ -1,9 +1,11 @@
 import React from 'react';
 
+import styles from './mainPage.module.scss';
+
 const MainPageHeader = () => {
   return (
-    <div className="showcase default-background mx-1">
-      <div className="header">
+    <div className={`default-background mx-1 ${styles.showcase}`}>
+      <div className={styles.header}>
         <h3>EVENTS BOARD</h3>
         <h2>YOUR EVENTS IN ONE PLACE</h2>
         <hr />

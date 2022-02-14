@@ -3,6 +3,7 @@ import React, { useState, useCallback } from 'react';
 import FaIcon from '../../displayComponents/faIcon/faIcon';
 
 import useWindowDimensions from './useWindowDimensions';
+import styles from './styles.module.scss';
 
 const MIN_WIDTH = 768;
 
@@ -47,21 +48,21 @@ const useViewMode = () => {
     }
 
     return (
-      <span className="view-mode">
+      <span className={styles.viewMode}>
         <span
-          className={isListView ? 'view-mode-active' : ''}
+          className={isListView ? styles.viewModeActive : null}
           onClick={onListClick}
         >
           <FaIcon icon="list-ul" size={16} />
         </span>
         <span
-          className={isDefaultView ? 'view-mode-active' : ''}
+          className={isDefaultView ? styles.viewModeActive : null}
           onClick={onDefaultClick}
         >
           <FaIcon icon="th" size={16} />
         </span>
         <span
-          className={isLargeView ? 'view-mode-active' : ''}
+          className={isLargeView ? styles.viewModeActive : null}
           onClick={onLargeClick}
         >
           <FaIcon icon="th-large" size={16} />

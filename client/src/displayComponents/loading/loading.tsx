@@ -3,7 +3,7 @@ import { PulseLoader } from 'react-spinners';
 
 import useDelay from '../../shared/hooks/useDelay.hook';
 
-import './loading.scss';
+import styles from './loading.module.scss';
 
 interface LoadingParams {
   isLoading: boolean;
@@ -23,7 +23,7 @@ const Loading = ({
   }
 
   return (
-    <div className="loading">
+    <div className={styles.loading}>
       <div className="text-center">
         <PulseLoader size={20} color={'#2d2e2e'} loading />
         <div className="mt-4">

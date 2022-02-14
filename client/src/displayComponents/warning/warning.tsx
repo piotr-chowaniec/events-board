@@ -2,7 +2,7 @@ import React from 'react';
 
 import useDelay from '../../shared/hooks/useDelay.hook';
 
-import './warning.scss';
+import styles from './warning.module.scss';
 
 interface WarningParams {
   isWarning: boolean;
@@ -22,7 +22,7 @@ const Warning = ({
   }
 
   return (
-    <div className="warning">
+    <div className={styles.warning}>
       <code className="text-muted">{warningMessage}</code>
     </div>
   );

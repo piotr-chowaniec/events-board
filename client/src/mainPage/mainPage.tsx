@@ -6,14 +6,13 @@ import { useAppSelector } from '../store/hooks';
 import { isAuthenticatedSelector } from '../store/user/selectors';
 
 import MainPageHeader from './mainPageHeader';
-
-import './mainPage.scss';
+import styles from './mainPage.module.scss';
 
 const MainPage = () => {
   const isAuthenticated = useAppSelector(isAuthenticatedSelector);
 
   return (
-    <div className="container full-height main-page">
+    <div className={`container full-height ${styles.mainPage}`}>
       <MainPageHeader />
       <EventsList
         isCurrentUser={isAuthenticated}

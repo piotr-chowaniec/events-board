@@ -1,0 +1,8 @@
+@import '../../styles/helpers/helpers';
+
+.userImage{
+  width: rem(200px);
+  height: rem(200px);
+  border-radius: 50%;
+  object-fit: cover;
+}

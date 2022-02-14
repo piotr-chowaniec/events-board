@@ -23,7 +23,7 @@ const ParticipantItem = ({
   <tr>
     <td>
       <UserImage
-        className="participant-list-image rounded-circle"
+        className="participant-list-image"
         image={participant?.user?.image}
         width={50}
       />

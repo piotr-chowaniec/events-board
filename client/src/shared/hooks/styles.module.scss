@@ -1,0 +1,11 @@
+@import '../../styles/helpers/helpers';
+
+.viewMode {
+  margin-right: rem(20px);
+  color: $color-text-muted;
+
+  > span:hover,
+  .viewModeActive {
+    color: $BLACK;
+  }
+}

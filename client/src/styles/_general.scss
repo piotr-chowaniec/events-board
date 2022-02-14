@@ -31,17 +31,6 @@ h3, h4 {
   flex: 1 0 auto;
 }
 
-.footer {
-  height: $footer-height;
-  flex-shrink: 0;
-}
-
-.user-image{
-  width: rem(200px);
-  height: rem(200px);
-  object-fit: cover;
-}
-
 .custom-link {
   color: $color-link;
   margin-left: rem(10px);
@@ -63,16 +52,6 @@ h3, h4 {
 
 .toast-top-right {
   top: 4.5rem;
-}
-
-.view-mode {
-  margin-right: rem(20px);
-  color: $color-text-muted;
-
-  > span:hover,
-  .view-mode-active {
-    color: $BLACK;
-  }
 }
 
 // icon sizes

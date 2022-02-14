@@ -31,10 +31,7 @@ const EditUser = ({
 
   return (
     <div className="text-center">
-      <UserImage
-        image={imagePreview || user?.image}
-        className="user-image rounded-circle"
-      />
+      <UserImage image={imagePreview || user?.image} />
       <div className="text-start">
         <Formik
           innerRef={formRef}

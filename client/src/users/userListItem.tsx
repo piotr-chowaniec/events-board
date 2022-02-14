@@ -29,11 +29,7 @@ const UserItem = ({
   return (
     <tr>
       <td>
-        <UserImage
-          className="user-list-image rounded-circle"
-          image={user?.image}
-          width={50}
-        />
+        <UserImage className="user-list-image" image={user?.image} width={50} />
       </td>
       <td>{user.email}</td>
       <td>{user.firstName}</td>
