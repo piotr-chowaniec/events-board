@@ -2,6 +2,8 @@ import React from 'react';
 import { FieldProps } from 'formik';
 import { Form } from 'react-bootstrap';
 
+import styles from './styles.module.scss';
+
 type InputParamsType = {
   label?: string;
   type?: string;
@@ -27,7 +29,7 @@ const InputFormik = ({
       </Form.Label>
       <Form.Control
         {...field}
-        className="input-border-overlay"
+        className={styles.inputBorderOverlay}
         id={field.name}
         type={type}
         placeholder={placeholder}

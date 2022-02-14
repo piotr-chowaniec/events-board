@@ -2,7 +2,7 @@ import React from 'react';
 import { FieldProps } from 'formik';
 import { Form } from 'react-bootstrap';
 
-import './styles.scss';
+import styles from './styles.module.scss';
 
 type SelectOptionType = { value: string; label: string };
 
@@ -29,7 +29,7 @@ const SelectFormik = ({
       </Form.Label>
       <Form.Select
         {...field}
-        className="input-border-overlay input-select"
+        className={`${styles.inputBorderOverlay} ${styles.inputSelect}`}
         size="sm"
         id={field.name}
         isValid={isValid}

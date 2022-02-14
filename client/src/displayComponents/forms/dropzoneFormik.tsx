@@ -4,7 +4,7 @@ import { FieldProps } from 'formik';
 import { Form } from 'react-bootstrap';
 import classnames from 'classnames';
 
-import './styles.scss';
+import styles from './styles.module.scss';
 
 type DropzoneParamsType = {
   label?: string;
@@ -57,10 +57,10 @@ const DropzoneFormik = ({
 
   const className: string = useMemo(
     () =>
-      classnames('dropzone dropzone-border-overlay', {
-        ['dropzone__hover']: dragHover,
-        ['dropzone__valid']: acceptedFiles.length,
-        ['dropzone__invalid']: fileRejections.length,
+      classnames(`${styles.dropzone} ${styles.dropzoneBorderOverlay}`, {
+        [styles.dropzoneHover]: dragHover,
+        [styles.dropzoneValid]: acceptedFiles.length,
+        [styles.dropzoneInvalid]: fileRejections.length,
       }),
     [dragHover, acceptedFiles, fileRejections],
   );
