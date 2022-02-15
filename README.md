@@ -57,7 +57,14 @@ Events Board app is developed using Node 16.10. To set the correct version you c
 
 ### Database
 
-Events Board app is running with PostgreSQL database. In order to connect to DB you need to provide config environment variables:
+Events Board app is running with PostgreSQL database and Prisma ORM. In order to connect to DB you need to provide config environment variable:
+
+```
+DATABASE_URL="postgresql://${POSTGRES_USER}:${POSTGRES_PASSWORD}@${POSTGRES_HOST}:${POSTGRES_PORT}/${POSTGRES_DB}?schema=public&sslmode=prefer
+
+```
+
+It's highly recommended to work locally using local DB instance. For that purpose you can provide development environment variables which you want PostgreSQL to be initializes with:
 
 ```
 POSTGRES_USER
@@ -66,8 +73,6 @@ POSTGRES_DB
 POSTGRES_HOST
 POSTGRES_PORT
 ```
-
-It's highly recommended to work locally using local DB instance. For that purpose you can provide development environment variables which you want PostgreSQL to be initializes with.
 
 You can also seed database instance for development by running:
 ```
