@@ -11,6 +11,7 @@ import { pluralize } from '../shared/helpers';
 import routes from '../routes';
 
 import { UserType } from './types';
+import styles from './users.module.scss';
 
 type UserItemType = {
   user: UserType;
@@ -29,7 +30,11 @@ const UserItem = ({
   return (
     <tr>
       <td>
-        <UserImage className="user-list-image" image={user?.image} width={50} />
+        <UserImage
+          className={styles.userListImage}
+          image={user?.image}
+          width={50}
+        />
       </td>
       <td>{user.email}</td>
       <td>{user.firstName}</td>

@@ -13,7 +13,7 @@ import DeleteUser from './deleteUser';
 import EditUser from './editUser';
 import { useFetchUsers } from './api/hooks';
 import { UserType } from './types';
-import './users.scss';
+import styles from './users.module.scss';
 
 const AllUsers = (): JSX.Element => {
   const { Modal: EditModal, showModal: showEditModal } = useModal({
@@ -64,9 +64,9 @@ const AllUsers = (): JSX.Element => {
   return (
     <>
       <div className="container">
-        <div className="users-list">
+        <div className={styles.usersList}>
           <Loading isLoading={isLoading} />
-          <div className="user-list-title">
+          <div className={styles.userListTitle}>
             <h3>All Users</h3>
           </div>
           <Table hover responsive>

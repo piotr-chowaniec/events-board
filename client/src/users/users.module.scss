@@ -1,11 +1,11 @@
 @import '../styles/helpers/helpers';
 
-.users-list {
+.usersList {
   position: relative;
   flex: 1 0 auto;
   margin-top: rem(10px);
 
-  .user-list-title {
+  .userListTitle {
     height: rem(42px);
     border-bottom: 1px solid $color-border-muted;
     margin-top: rem(20px);
@@ -17,7 +17,7 @@
     }
   }
 
-  .user-list-image {
+  .userListImage {
     width: rem(40px);
     height: rem(40px);
     object-fit: cover;
