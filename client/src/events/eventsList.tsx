@@ -14,7 +14,7 @@ import { useFetchEvents, useCreateEvent } from './api/hooks';
 import EventCard from './eventCard';
 import EventListItem from './eventListItem';
 import { EventType } from './types';
-import './event.scss';
+import styles from './styles.module.scss';
 
 type EventListParams = {
   isCurrentUser?: boolean;
@@ -59,9 +59,9 @@ const EventsList = ({
   const isLoading = isFetchingEvents || isCreatingEvent;
 
   return (
-    <div className="event-list">
+    <div className={styles.eventList}>
       <Loading isLoading={isLoading} />
-      <div className="event-list-title">
+      <div className={styles.eventListTitle}>
         <h3>{eventsLisDescription}</h3>
         <div>
           <ViewModeButtons />

@@ -16,6 +16,7 @@ import { EVENT_STATUS } from '../shared/types';
 import routes from '../routes';
 
 import { EventType } from './types';
+import styles from './styles.module.scss';
 
 const ModalBody = (
   <>
@@ -68,13 +69,13 @@ const EventDetails = ({
   return (
     <>
       <div
-        className="event-header event-image"
+        className={`${styles.eventHeader} ${styles.eventImage}`}
         style={{ backgroundImage: `url(${imageSrc}` }}
       >
-        <div className="row event-details">
+        <div className={`row ${styles.eventDetails}`}>
           <div className="col-md-9 col-lg-7 col-xl-7">
-            <div className="event-wrapper">
-              <h2 className="event-title">{event.title}</h2>
+            <div className={styles.eventWrapper}>
+              <h2 className={styles.eventTitle}>{event.title}</h2>
               <h4>{event.shortDescription}</h4>
               <p>{transformToDate(String(event.eventDate))}</p>
               <span>
@@ -100,7 +101,7 @@ const EventDetails = ({
               ) : (
                 <span>{participantsText}</span>
               )}
-              <span className="last-updated">
+              <span className={styles.lastUpdated}>
                 {`Last updated: `}
                 {transformToDate(
                   String(event.updatedAt),
@@ -110,7 +111,7 @@ const EventDetails = ({
             </div>
           </div>
         </div>
-        <div className="event-edit-buttons">
+        <div className={styles.eventEditButtons}>
           <ParticipationButton
             isGoing={isGoing}
             isOwner={isOwner}
@@ -139,7 +140,7 @@ const EventDetails = ({
           )}
         </div>
       </div>
-      <div className="event-description">
+      <div className={styles.eventDescription}>
         {event.description && Parser(event.description)}
       </div>
       <Modal

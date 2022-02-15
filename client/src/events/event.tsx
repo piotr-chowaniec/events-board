@@ -20,6 +20,7 @@ import {
 import EventDetails from './eventDetails';
 import EventEditForm from './eventEditForm';
 import { EventType } from './types';
+import styles from './styles.module.scss';
 
 const EventComponent = () => {
   const navigate = useNavigate();
@@ -123,7 +124,7 @@ const EventComponent = () => {
 
   return (
     <div className="container">
-      <div className="event mx-1">
+      <div className={`${styles.event} mx-1`}>
         {event &&
           (isEditMode ? (
             <Formik

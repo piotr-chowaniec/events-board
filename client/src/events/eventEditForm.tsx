@@ -8,6 +8,7 @@ import TextareaQuillFormik from '../displayComponents/forms/textareaQuillFormik'
 import { getEventImageSrc } from '../displayComponents/imageComponent/getImageSrc';
 
 import { EventFormValues } from './types';
+import styles from './styles.module.scss';
 
 type EventEditProps = {
   disableEditMode: () => void;
@@ -27,12 +28,12 @@ const EventEdit = ({
   return (
     <Form>
       <div
-        className="event-header event-image"
+        className={`${styles.eventHeader} ${styles.eventImage}`}
         style={{ backgroundImage: `url(${imageSrc}` }}
       >
-        <div className="row event-details">
+        <div className={`row ${styles.eventDetails}`}>
           <div className="col-md-9 col-lg-7 col-xl-7">
-            <div className="event-wrapper">
+            <div className={styles.eventWrapper}>
               <Field
                 label="Title"
                 name="title"
@@ -62,7 +63,7 @@ const EventEdit = ({
           </div>
         </div>
 
-        <div className="event-edit-buttons">
+        <div className={styles.eventEditButtons}>
           <Button type="submit" variant="success" disabled={!dirty}>
             Save Changes
           </Button>
@@ -71,7 +72,7 @@ const EventEdit = ({
           </Button>
         </div>
       </div>
-      <div className="event-description">
+      <div className={styles.eventDescription}>
         <Field name="description" component={TextareaQuillFormik} />
       </div>
     </Form>

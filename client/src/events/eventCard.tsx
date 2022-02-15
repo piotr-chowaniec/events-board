@@ -11,6 +11,7 @@ import { getIsPublished, pluralize } from '../shared/helpers';
 import routes from '../routes';
 
 import { EventType } from './types';
+import styles from './styles.module.scss';
 
 type EventCardParams = {
   event: EventType;
@@ -28,13 +29,13 @@ const EventCard = ({ event }: EventCardParams): JSX.Element => {
   });
 
   return (
-    <Card className="event-card" onClick={onEventCardClick}>
-      <div className="event-card-wrapper">
-        <div className="event-card-image-wrapper">
-          <Card.Img src={imageSrc} className="event-card-image" />
+    <Card className={styles.eventCard} onClick={onEventCardClick}>
+      <div className={styles.eventCardWrapper}>
+        <div className={styles.eventCardImageWrapper}>
+          <Card.Img src={imageSrc} className={styles.eventCardImage} />
           {!getIsPublished(event) && (
             <Card.ImgOverlay>
-              <div className="event-card-image-overlay">
+              <div className={styles.eventCardImageOverlay}>
                 <Badge pill bg="warning" text="dark">
                   {event.status}
                 </Badge>
@@ -42,8 +43,8 @@ const EventCard = ({ event }: EventCardParams): JSX.Element => {
             </Card.ImgOverlay>
           )}
         </div>
-        <Card.Body className="event-card-body">
-          <div className="event-card-date">
+        <Card.Body className={styles.eventCardBody}>
+          <div className={styles.eventCardDate}>
             {transformToDate(String(event.eventDate), SHORT_DATE_TIME_FORMAT)}
           </div>
           <Card.Title>{event.title}</Card.Title>
