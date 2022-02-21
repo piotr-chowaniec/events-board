@@ -28,9 +28,9 @@
     "prepare": "husky install"
   },
   "devDependencies": {
-    "concurrently": "^6.4.0",
-    "dotenv-cli": "^4.1.1",
+    "concurrently": "^7.0.0",
+    "dotenv-cli": "^5.0.0",
     "husky": "^7.0.0",
-    "prettier": "^2.5.0"
+    "prettier": "^2.5.1"
   }
 }

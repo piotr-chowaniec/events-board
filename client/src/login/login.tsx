@@ -22,8 +22,9 @@ const Login = (): JSX.Element => {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const location = useLocation();
+  const state = location.state as { from: Location };
 
-  const from = location.state?.from?.pathname || routes.MAIN.PATH;
+  const from = state?.from?.pathname || routes.MAIN.PATH;
 
   const { call: loginUser, isLoading: isLogging } = useLogin();
   const { call: fetchProfileData, isLoading: isFetchProfileLoading } =
