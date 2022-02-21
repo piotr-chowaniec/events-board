@@ -67,7 +67,7 @@ const EventDetails = ({
   )}: ${event._count.participants}`;
 
   return (
-    <>
+    <div data-testid="event-details">
       <div
         className={`${styles.eventHeader} ${styles.eventImage}`}
         style={{ backgroundImage: `url(${imageSrc}` }}
@@ -140,7 +140,10 @@ const EventDetails = ({
           )}
         </div>
       </div>
-      <div className={styles.eventDescription}>
+      <div
+        className={styles.eventDescription}
+        data-testid="event-details-description"
+      >
         {event.description && Parser(event.description)}
       </div>
       <Modal
@@ -149,7 +152,7 @@ const EventDetails = ({
         confirmButtonDescription="Remove Event"
         onConfirm={onEventDelete}
       />
-    </>
+    </div>
   );
 };
 

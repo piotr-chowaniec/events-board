@@ -59,14 +59,18 @@ const EventsList = ({
   const isLoading = isFetchingEvents || isCreatingEvent;
 
   return (
-    <div className={styles.eventList}>
+    <div className={styles.eventList} data-testid="event-list">
       <Loading isLoading={isLoading} />
       <div className={styles.eventListTitle}>
         <h3>{eventsLisDescription}</h3>
-        <div>
+        <div className={styles.eventListButtons}>
           <ViewModeButtons />
           {isCurrentUser && (
-            <Button variant="outline-dark" onClick={onEventCreate}>
+            <Button
+              variant="outline-dark"
+              onClick={onEventCreate}
+              data-testid="create-new-event-button"
+            >
               Create new
             </Button>
           )}

@@ -40,11 +40,17 @@ export async function seed(p: PrismaClient) {
       data: usersInput,
     });
 
-    const users = await p.user.findMany({
-      select: {
-        id: true,
-      },
-    });
+    const users = await p.user
+      .findMany({
+        select: {
+          id: true,
+          email: true,
+        },
+      })
+      // skip adding assets to user_1 in order to have clear state for e2e tests purposes
+      .then((users) =>
+        users.filter((user) => user.email !== 'user_1@events.com'),
+      );
 
     // CREATE EVENTS
 

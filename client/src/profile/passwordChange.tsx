@@ -32,7 +32,7 @@ const PasswordChange = (): JSX.Element => {
   );
 
   return (
-    <FullPageCard isLoading={isLoading}>
+    <FullPageCard isLoading={isLoading} dataTestid="profile-password-change">
       <h2 className="card-title my-3">{`${firstName} ${lastName}`}</h2>
       <p>
         <code className="text-muted">Change your password</code>

@@ -72,10 +72,18 @@ const FormModal = ({
           })}
       </Modal.Body>
       <Modal.Footer>
-        <Button onClick={handleCancel} variant="danger">
+        <Button
+          onClick={handleCancel}
+          variant="danger"
+          data-testid="form-modal-button-cancel"
+        >
           {cancelButtonDescription}
         </Button>
-        <Button onClick={onSubmit} variant="success">
+        <Button
+          onClick={onSubmit}
+          variant="success"
+          data-testid="form-modal-button-confirm"
+        >
           {confirmButtonDescription}
         </Button>
       </Modal.Footer>

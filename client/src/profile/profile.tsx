@@ -103,7 +103,11 @@ const Profile = (): JSX.Element => {
 
   return (
     <>
-      <FullPageCard isLoading={isLoading} loadingMessage={loadingMessage}>
+      <FullPageCard
+        isLoading={isLoading}
+        loadingMessage={loadingMessage}
+        dataTestid="profile"
+      >
         <UserImage image={imagePreview || image} />
         <h2 className="card-title my-3">{`${firstName} ${lastName}`}</h2>
         <p>

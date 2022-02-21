@@ -29,7 +29,11 @@ const EventCard = ({ event }: EventCardParams): JSX.Element => {
   });
 
   return (
-    <Card className={styles.eventCard} onClick={onEventCardClick}>
+    <Card
+      className={styles.eventCard}
+      onClick={onEventCardClick}
+      data-testid="event-card-item"
+    >
       <div className={styles.eventCardWrapper}>
         <div className={styles.eventCardImageWrapper}>
           <Card.Img src={imageSrc} className={styles.eventCardImage} />

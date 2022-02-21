@@ -38,6 +38,7 @@ Feel free to play with it 🙏.
 - [Yup](https://github.com/jquense/yup) - Object schema validator
 - [Passport](http://www.passportjs.org/) - Authentication with local strategy (email and password). Authorization with jwt token.
 - [Docker](https://docker.com) - for development purposes
+- [Cypress](https://www.cypress.io/) - for e2e tests
 
 ## Tools Used
 
@@ -134,4 +135,34 @@ If you wish to persist local DB data between development sessions you can run it
 
 ```
 docker-compose -f docker-compose.yml -f docker-compose.db-volume.yml -p events-board up -d
+```
+
+### Tests
+
+##### Unit and Integration
+
+There are unit and integration tests defined for server and client code.
+To run tem you just type at project root level:
+
+```
+npm run test
+```
+
+##### E2E
+
+You can also execute e2e tests of whole application which are written using cypress. In order to do so you first have to ensure application is running and you have access to testing instance of database. You can run docker-compose to achieve that - follow [docker](#docker) docs.
+
+Then you'll have to define testing env file `.env.test` in which you'll have to define Prisma database environment variable:
+
+```
+DATABASE_URL="postgresql://${POSTGRES_USER}:${POSTGRES_PASSWORD}@${POSTGRES_HOST}:${POSTGRES_PORT}/${POSTGRES_DB}?schema=public&sslmode=prefer
+
+```
+
+It should be mostly the same as previously defined in `.env` with a difference for `POSTGRES_HOST` value. Since docker networking uses container name for DHCP, accessing it the same way from outside of docker network won't work. You'll have to define it as `POSTGRES_HOST='localhost'` instead.
+
+Then type in root level either of following:
+```
+npm run test:ui // which runs cypress tests in headless mode
+npm run test:cypress // which opens cypress tools
 ```

@@ -26,7 +26,7 @@ const EventEdit = ({
   });
 
   return (
-    <Form>
+    <Form data-testid="event-details-form">
       <div
         className={`${styles.eventHeader} ${styles.eventImage}`}
         style={{ backgroundImage: `url(${imageSrc}` }}

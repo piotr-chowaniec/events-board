@@ -42,7 +42,7 @@ const Login = (): JSX.Element => {
   const isLoading = isLogging || isFetchProfileLoading;
 
   return (
-    <FullPageCard isLoading={isLoading}>
+    <FullPageCard isLoading={isLoading} dataTestid="login">
       <FaIcon icon="user" size={100} />
       <h2 className="card-title my-3">Login</h2>
       <div className="text-start">

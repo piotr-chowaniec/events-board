@@ -18,20 +18,23 @@ const NavbarAuthenticated = ({
     id="navbarAuthenticated"
     title={`Logged In As: ${userDisplayName}`}
     align="end"
+    data-testid="navbar-authenticated-dropdown-button"
   >
-    <Link className="dropdown-item" to={routes.PROFILE.PATH}>
-      <span className="pe-3">
-        <FaIcon icon="user" />
-      </span>
-      Profile
-    </Link>
-    <NavDropdown.Divider />
-    <NavDropdown.Item onClick={handleUserLogout}>
-      <span className="pe-3">
-        <FaIcon icon="sign-out-alt" />
-      </span>
-      Logout
-    </NavDropdown.Item>
+    <div data-testid="navbar-authenticated-dropdown">
+      <Link className="dropdown-item" to={routes.PROFILE.PATH}>
+        <span className="pe-3">
+          <FaIcon icon="user" />
+        </span>
+        Profile
+      </Link>
+      <NavDropdown.Divider />
+      <NavDropdown.Item onClick={handleUserLogout}>
+        <span className="pe-3">
+          <FaIcon icon="sign-out-alt" />
+        </span>
+        Logout
+      </NavDropdown.Item>
+    </div>
   </NavDropdown>
 );
 

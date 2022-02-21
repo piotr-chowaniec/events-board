@@ -8,6 +8,7 @@ const Footer = () => {
   return (
     <div
       className={`${styles.footer} d-flex justify-content-center align-items-center`}
+      data-testid="footer"
     >
       <span className="text-muted">© 2022 Piotr Chowaniec</span>
       <a

@@ -91,11 +91,19 @@ const MenuNavbar = (): JSX.Element => {
   return (
     <Navbar bg="light" variant="light" expand="lg" fixed="top">
       <Container>
-        <Link to={routes.MAIN.PATH} className="navbar-brand me-5">
+        <Link
+          to={routes.MAIN.PATH}
+          className="navbar-brand me-5"
+          data-testid="navbar-main-link"
+        >
           Events<strong>Board</strong>
         </Link>
         <Navbar.Toggle aria-controls="main-navbar" />
-        <Navbar.Collapse id="main-navbar" className="justify-content-between">
+        <Navbar.Collapse
+          id="main-navbar"
+          className="justify-content-between"
+          data-testid="navbar-buttons"
+        >
           <Nav>{renderNavbarButtons()}</Nav>
           <Nav>{renderUserDropdown()}</Nav>
         </Navbar.Collapse>

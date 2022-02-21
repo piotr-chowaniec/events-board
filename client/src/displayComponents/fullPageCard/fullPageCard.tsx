@@ -8,14 +8,19 @@ type FullPageCardParams = {
   children?: React.ReactChild | React.ReactChild[];
   isLoading?: boolean;
   loadingMessage?: string;
+  dataTestid?: string;
 };
 
 const FullPageCard = ({
   children,
   isLoading = false,
   loadingMessage,
+  dataTestid,
 }: FullPageCardParams): JSX.Element => (
-  <div className="full-height default-background d-flex align-items-center">
+  <div
+    className="full-height default-background d-flex align-items-center"
+    data-testid={dataTestid}
+  >
     <div className={styles.overlay} />
     <div className="container">
       <div className="row justify-content-center">

@@ -25,7 +25,11 @@ const EventListItem = ({ event }: EventListItemParams): JSX.Element => {
   }, [navigate, event.id]);
 
   return (
-    <div className={styles.eventListItem} onClick={onEventClick}>
+    <div
+      className={styles.eventListItem}
+      onClick={onEventClick}
+      data-testid="event-list-item"
+    >
       <div className={styles.eventListImageWrapper}>
         <EventImage
           className={styles.eventListImage}

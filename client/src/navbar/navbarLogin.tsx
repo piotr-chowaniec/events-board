@@ -24,7 +24,12 @@ const NavbarLogin = ({
   handleUserLogin,
   isLoading,
 }: NavbarLoginParams): JSX.Element => (
-  <NavDropdown id="navbarLogin" title="Login/Register" align="end">
+  <NavDropdown
+    id="navbarLogin"
+    data-testid="navbar-login-dropdown"
+    title="Login/Register"
+    align="end"
+  >
     <div className="px-4 py-3">
       <Loading isLoading={isLoading} loadingMessage="Logging..." />
       <Formik
@@ -35,7 +40,11 @@ const NavbarLogin = ({
       />
     </div>
     <NavDropdown.Divider />
-    <Link className="dropdown-item" to={routes.REGISTER.PATH}>
+    <Link
+      className="dropdown-item"
+      to={routes.REGISTER.PATH}
+      data-testid="register-link"
+    >
       New around here? Register!
     </Link>
   </NavDropdown>

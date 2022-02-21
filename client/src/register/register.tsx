@@ -45,7 +45,7 @@ const Register = (): JSX.Element => {
   const isLoading = isRegisterLoading || isFetchProfileLoading;
 
   return (
-    <FullPageCard isLoading={isLoading}>
+    <FullPageCard isLoading={isLoading} dataTestid="register">
       <FaIcon icon="user" size={100} />
       <h2 className="card-title my-3">Register</h2>
       <div className="text-start">

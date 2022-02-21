@@ -56,10 +56,18 @@ const ConfirmModal = ({
       </Modal.Header>
       <Modal.Body>{renderBody ? renderBody(modalData) : body}</Modal.Body>
       <Modal.Footer>
-        <Button onClick={handleCancel} variant="danger">
+        <Button
+          onClick={handleCancel}
+          variant="danger"
+          data-testid="modal-button-cancel"
+        >
           {cancelButtonDescription}
         </Button>
-        <Button onClick={handleConfirm} variant="success">
+        <Button
+          onClick={handleConfirm}
+          variant="success"
+          data-testid="modal-button-confirm"
+        >
           {confirmButtonDescription}
         </Button>
       </Modal.Footer>

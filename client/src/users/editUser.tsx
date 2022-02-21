@@ -30,7 +30,7 @@ const EditUser = ({
   );
 
   return (
-    <div className="text-center">
+    <div className="text-center" data-testid="edit-user-form">
       <UserImage image={imagePreview || user?.image} />
       <div className="text-start">
         <Formik

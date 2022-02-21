@@ -4,7 +4,10 @@ import styles from './mainPage.module.scss';
 
 const MainPageHeader = () => {
   return (
-    <div className={`default-background mx-1 ${styles.showcase}`}>
+    <div
+      className={`default-background mx-1 ${styles.showcase}`}
+      data-testid="main-page-header"
+    >
       <div className={styles.header}>
         <h3>EVENTS BOARD</h3>
         <h2>YOUR EVENTS IN ONE PLACE</h2>
