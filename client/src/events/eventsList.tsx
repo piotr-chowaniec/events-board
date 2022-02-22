@@ -7,7 +7,7 @@ import { useAppSelector } from '../store/hooks';
 import { userDataSelector } from '../store/user/selectors';
 import Loading from '../displayComponents/loading/loading';
 import useViewMode from '../shared/hooks/useViewMode.hook';
-import userPagination from '../shared/hooks/userPagination.hook';
+import usePagination from '../shared/hooks/usePagination.hook';
 import { EventFiltersType } from '../shared/types';
 import routes from '../routes';
 
@@ -33,7 +33,7 @@ const EventsList = ({
   const [count, setCount] = useState(0);
   const { ViewModeButtons, isListView, isDefaultView, isLargeView } =
     useViewMode();
-  const { maxItems, currentPage, PaginationButtons } = userPagination({
+  const { maxItems, currentPage, PaginationButtons } = usePagination({
     count,
   });
 
