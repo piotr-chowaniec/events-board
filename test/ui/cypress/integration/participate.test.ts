@@ -115,13 +115,23 @@ describe('Participate', () => {
 
     it('should successfully remove user participation', () => {
       // given
-      const participantToDelete = 20;
+      const participantUserToDelete = 'user_2@events.com';
 
       // when
       cy.get('[data-testid=all-participants]').within(() => {
-        cy.get('button').its('length').as('numberOfParticipants');
-        cy.get('button:visible:contains("Delete")')
-          .eq(participantToDelete)
+        cy.get('tr')
+          .contains(participantUserToDelete)
+          .should('be.visible')
+          .parent('tr')
+          .as('participantRow');
+
+        cy.get('@participantRow')
+          .find('a')
+          .invoke('text')
+          .as('participantEventToDelete');
+
+        cy.get('@participantRow')
+          .find('button:visible:contains("Delete")')
           .click({
             scrollBehavior: 'center',
           });
@@ -132,8 +142,17 @@ describe('Participate', () => {
 
       // then
       cy.get('[data-testid=all-participants]').within(() => {
-        cy.get('@numberOfParticipants').then((numberOfParticipants) => {
-          cy.get('button').should('have.length', +numberOfParticipants - 1);
+        cy.get('@participantEventToDelete').then((participantEventToDelete) => {
+          cy.get('tr').then(($tr) => {
+            if ($tr.text().includes(participantEventToDelete)) {
+              cy.contains(String(participantEventToDelete))
+                .parent('td')
+                .parent('tr')
+                .should('not.contain', participantUserToDelete);
+            } else {
+              cy.contains(String(participantEventToDelete)).should('not.exist');
+            }
+          });
         });
       });
     });
