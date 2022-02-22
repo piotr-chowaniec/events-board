@@ -9,7 +9,7 @@ const AllEvents = (): JSX.Element => {
   const isAdmin = useAppSelector(isAdminSelector);
 
   return (
-    <div className="container">
+    <div className="container full-height auto-fill">
       <EventsList isCurrentUser={isAdmin} eventsLisDescription="All Events" />
     </div>
   );

@@ -12,7 +12,7 @@ const MainPage = () => {
   const isAuthenticated = useAppSelector(isAuthenticatedSelector);
 
   return (
-    <div className={`container full-height ${styles.mainPage}`}>
+    <div className={`container full-height auto-fill ${styles.mainPage}`}>
       <MainPageHeader />
       <EventsList
         isCurrentUser={isAuthenticated}

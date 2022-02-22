@@ -1,8 +1,10 @@
 @import '../styles/helpers/helpers';
 
 .usersList {
-  position: relative;
   flex: 1 0 auto;
+  position: relative;
+  display: flex;
+  flex-direction: column;
   margin-top: rem(10px);
 
   .userListTitle {

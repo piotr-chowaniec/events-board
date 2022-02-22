@@ -63,7 +63,7 @@ const AllUsers = (): JSX.Element => {
 
   return (
     <>
-      <div className="container" data-testid="all-users">
+      <div className="container full-height auto-fill" data-testid="all-users">
         <div className={styles.usersList}>
           <Loading isLoading={isLoading} />
           <div className={styles.userListTitle}>

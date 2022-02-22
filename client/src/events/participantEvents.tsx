@@ -41,7 +41,7 @@ const ParticipantEvents = () => {
   }, [getDescription]);
 
   return (
-    <div className="container">
+    <div className="container full-height auto-fill">
       {initialized &&
         (isCurrentUser || isAdmin ? (
           <>

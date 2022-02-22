@@ -54,7 +54,10 @@ const Participants = (): JSX.Element => {
 
   return (
     <>
-      <div className="container" data-testid="all-participants">
+      <div
+        className="container full-height auto-fill"
+        data-testid="all-participants"
+      >
         <div className={styles.participantsList}>
           <Loading isLoading={isLoading} />
           <div className={styles.participantsListTitle}>

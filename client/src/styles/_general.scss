@@ -23,6 +23,11 @@ h3, h4 {
   min-height: $full-height;
 }
 
+.auto-fill {
+  display: flex;
+  flex-direction: column;
+}
+
 .navbar {
   box-shadow: $navbar-shadow;
 }
