@@ -44,9 +44,7 @@ export const mockFindMany = ({
 
 export const mockCount = (filters) =>
   Promise.resolve()
-    .then(() => {
-      return mockFindMany(filters);
-    })
+    .then(() => mockFindMany(filters))
     .then((result) => result.length);
 
 export const mockCreate = ({ data }) =>

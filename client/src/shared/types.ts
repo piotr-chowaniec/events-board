@@ -9,15 +9,22 @@ export enum EVENT_STATUS {
   'CANCELED' = 'CANCELED',
 }
 
+type PaginationFilterType = {
+  skip?: string;
+  take?: string;
+};
+
 export type EventFiltersType = {
   status?: keyof typeof EVENT_STATUS;
   userId?: string;
   participant?: string;
-};
+} & PaginationFilterType;
 
 export type ParticipantFiltersType = {
   eventId?: string;
-};
+} & PaginationFilterType;
+
+export type UserFiltersType = PaginationFilterType;
 
 export type ImageType = {
   cloudName: string;

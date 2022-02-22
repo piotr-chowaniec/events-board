@@ -11,8 +11,14 @@ import { mapUserToResponse } from './helpers';
 export class UsersService {
   constructor(private prismaService: PrismaService) {}
 
-  async findAll(): Promise<User[]> {
+  async count(): Promise<number> {
+    return this.prismaService.user.count();
+  }
+
+  async findMany(skip: number, take: number): Promise<User[]> {
     const users = await this.prismaService.user.findMany({
+      skip,
+      take,
       include: {
         image: {
           select: {

@@ -7,6 +7,7 @@ import {
   Param,
   Body,
   Request,
+  Query,
   UseInterceptors,
   UploadedFile,
 } from '@nestjs/common';
@@ -30,8 +31,14 @@ export class UsersController {
   ) {}
 
   @Get()
-  findAll() {
-    return this.usersService.findAll();
+  async findMany(@Query('skip') skip: string, @Query('take') take: string) {
+    const count = await this.usersService.count();
+    const users = await this.usersService.findMany(+skip, +take);
+
+    return {
+      count,
+      users,
+    };
   }
 
   @Public()

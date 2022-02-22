@@ -54,6 +54,7 @@ describe('EventsController', () => {
         count: eventsMock.length,
         events: eventsMock,
       });
+      expect(service.count).toHaveBeenCalledTimes(1);
       expect(service.findMany).toHaveBeenCalledTimes(1);
     });
 
@@ -69,6 +70,7 @@ describe('EventsController', () => {
         count: 3,
         events: [eventNo1, eventNo2, eventNo6],
       });
+      expect(service.count).toHaveBeenCalledTimes(1);
       expect(service.findMany).toHaveBeenCalledTimes(1);
     });
 
@@ -84,6 +86,7 @@ describe('EventsController', () => {
         count: 1,
         events: [eventNo6],
       });
+      expect(service.count).toHaveBeenCalledTimes(1);
       expect(service.findMany).toHaveBeenCalledTimes(1);
     });
 
@@ -106,6 +109,7 @@ describe('EventsController', () => {
         count: 2,
         events: [eventNo1, eventNo2],
       });
+      expect(service.count).toHaveBeenCalledTimes(1);
       expect(service.findMany).toHaveBeenCalledTimes(1);
     });
 

@@ -33,24 +33,21 @@ const Participants = (): JSX.Element => {
   const { call: deleteParticipant, isLoading: isDeleteParticipantLoading } =
     useDeleteParticipant();
 
-  const fetchParticipantsData = useCallback(
-    async ({ currentPage }) => {
-      const { count, participants } = await fetchParticipants({
-        filters: {
-          eventId,
-          skip: (currentPage - 1) * maxItems,
-          take: maxItems,
-        },
-      });
-      setCount(count);
-      setParticipants(participants);
-    },
-    [fetchParticipants, eventId],
-  );
+  const fetchParticipantsData = useCallback(async () => {
+    const { count, participants } = await fetchParticipants({
+      filters: {
+        eventId,
+        skip: (currentPage - 1) * maxItems,
+        take: maxItems,
+      },
+    });
+    setCount(count);
+    setParticipants(participants);
+  }, [fetchParticipants, eventId, currentPage]);
 
   useEffect(() => {
-    fetchParticipantsData({ currentPage });
-  }, [fetchParticipantsData, currentPage]);
+    fetchParticipantsData();
+  }, [fetchParticipantsData]);
 
   const onParticipantRemove = useCallback(
     async (participantToDelete: ParticipantType) => {
@@ -59,10 +56,10 @@ const Participants = (): JSX.Element => {
           userId: participantToDelete.userId,
           eventId: participantToDelete.eventId,
         });
-        fetchParticipantsData({ currentPage });
+        fetchParticipantsData();
       }
     },
-    [deleteParticipant, fetchParticipantsData, currentPage],
+    [deleteParticipant, fetchParticipantsData],
   );
 
   const isLoading = isFetchParticipantsLoading || isDeleteParticipantLoading;

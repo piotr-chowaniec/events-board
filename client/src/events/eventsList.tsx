@@ -42,20 +42,17 @@ const EventsList = ({
   const { call: fetchEvents, isLoading: isFetchingEvents } = useFetchEvents();
   const { call: createEvent, isLoading: isCreatingEvent } = useCreateEvent();
 
-  const fetchEventsData = useCallback(
-    async ({ currentPage }) => {
-      const { count, events } = await fetchEvents({
-        filters: {
-          ...filters,
-          skip: (currentPage - 1) * maxItems,
-          take: maxItems,
-        },
-      });
-      setCount(count);
-      setEvents(events);
-    },
-    [fetchEvents, filters, maxItems],
-  );
+  const fetchEventsData = useCallback(async () => {
+    const { count, events } = await fetchEvents({
+      filters: {
+        ...filters,
+        skip: (currentPage - 1) * maxItems,
+        take: maxItems,
+      },
+    });
+    setCount(count);
+    setEvents(events);
+  }, [fetchEvents, filters, currentPage, maxItems]);
 
   const onEventCreate = useCallback(async () => {
     const { id: eventId } = await createEvent({ userId });
@@ -63,8 +60,8 @@ const EventsList = ({
   }, [createEvent, navigate, userId]);
 
   useEffect(() => {
-    fetchEventsData({ currentPage });
-  }, [fetchEventsData, currentPage]);
+    fetchEventsData();
+  }, [fetchEventsData]);
 
   const className: string = classnames(styles.eventListContent, {
     ['row row-cols-md-2 row-cols-lg-4']: isDefaultView,

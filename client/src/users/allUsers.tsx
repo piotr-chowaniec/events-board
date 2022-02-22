@@ -4,6 +4,7 @@ import { Table } from 'react-bootstrap';
 import { useAppSelector } from '../store/hooks';
 import { userDataSelector } from '../store/user/selectors';
 import { useUpdateUser, useDeleteUser } from '../shared/api/hooks';
+import usePagination from '../shared/hooks/usePagination.hook';
 import useModal from '../shared/hooks/useModal.hook';
 import Loading from '../displayComponents/loading/loading';
 import FormModal from '../displayComponents/modals/formModal';
@@ -15,6 +16,9 @@ import { useFetchUsers } from './api/hooks';
 import { UserType } from './types';
 import styles from './users.module.scss';
 
+const USERS_MAX_ITEMS = 16;
+const maxItems = USERS_MAX_ITEMS;
+
 const AllUsers = (): JSX.Element => {
   const { Modal: EditModal, showModal: showEditModal } = useModal({
     ModalComponent: FormModal,
@@ -22,6 +26,12 @@ const AllUsers = (): JSX.Element => {
   const { Modal: DeleteModal, showModal: showDeleteModal } = useModal();
 
   const [users, setUsers] = useState<UserType[]>();
+  const [count, setCount] = useState(0);
+
+  const { currentPage, PaginationButtons } = usePagination({
+    count,
+    maxItems,
+  });
 
   const { id: currentUserId } = useAppSelector(userDataSelector);
 
@@ -32,9 +42,15 @@ const AllUsers = (): JSX.Element => {
     useDeleteUser();
 
   const fetchUsersData = useCallback(async () => {
-    const users = await fetchUsers({});
+    const { count, users } = await fetchUsers({
+      filters: {
+        skip: (currentPage - 1) * maxItems,
+        take: maxItems,
+      },
+    });
+    setCount(count);
     setUsers(users);
-  }, [fetchUsers]);
+  }, [fetchUsers, currentPage]);
 
   useEffect(() => {
     fetchUsersData();
@@ -97,6 +113,7 @@ const AllUsers = (): JSX.Element => {
             </tbody>
           </Table>
         </div>
+        <PaginationButtons />
       </div>
       <EditModal
         title="Edit User"

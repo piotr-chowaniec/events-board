@@ -39,9 +39,10 @@ describe('ParticipantsController', () => {
 
       // then
       expect(participants).toEqual({
-        count: 5,
+        count: participantsMock.length,
         participants: participantsMock,
       });
+      expect(service.count).toHaveBeenCalledTimes(1);
       expect(service.findMany).toHaveBeenCalledTimes(1);
     });
   });

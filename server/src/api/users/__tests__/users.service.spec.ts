@@ -12,6 +12,7 @@ import {
   mockFindMany,
   mockCreate,
   mockUpdate,
+  mockCount,
 } from '../__mocks__/users.service.mock';
 
 const userNo1 = getUser(1);
@@ -19,6 +20,9 @@ const userNo2 = getUser(2);
 const userNo3 = getUser(3);
 
 describe('UsersService', () => {
+  const skip = 0;
+  const take = 100;
+
   let service: UsersService;
   let prisma: PrismaService;
 
@@ -39,16 +43,27 @@ describe('UsersService', () => {
     prisma.user.findUnique = jest.fn().mockImplementation(mockFindUnique);
     prisma.user.create = jest.fn().mockImplementation(mockCreate);
     prisma.user.update = jest.fn().mockImplementation(mockUpdate);
+    prisma.user.count = jest.fn().mockImplementation(mockCount);
   });
 
   it('should be defined', () => {
     expect(service).toBeDefined();
   });
 
-  describe('findAll()', () => {
+  describe('count()', () => {
+    it('should return number of entries', async () => {
+      // when
+      const count = await service.count();
+
+      // then
+      expect(count).toEqual(usersMock.length);
+    });
+  });
+
+  describe('findMany()', () => {
     it('should return all users', async () => {
       // when
-      const users = await service.findAll();
+      const users = await service.findMany(skip, take);
 
       // then
       expect(users).toEqual(usersMock.map(mapUserToResponse));

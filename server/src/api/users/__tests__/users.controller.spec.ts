@@ -17,6 +17,9 @@ const userNo1 = getUser(1);
 const userNo2 = getUser(2);
 
 describe('UsersController', () => {
+  const skip = '0';
+  const take = '100';
+
   let controller: UsersController;
   let service: UsersService;
   let imagesService: ImagesService;
@@ -45,11 +48,15 @@ describe('UsersController', () => {
   describe('findAll()', () => {
     it('should return all users', async () => {
       // when
-      const users = await controller.findAll();
+      const users = await controller.findMany(skip, take);
 
       // then
-      expect(users).toEqual(usersMock.map(mapUserToResponse));
-      expect(service.findAll).toHaveBeenCalledTimes(1);
+      expect(users).toEqual({
+        count: usersMock.length,
+        users: usersMock.map(mapUserToResponse),
+      });
+      expect(service.count).toHaveBeenCalledTimes(1);
+      expect(service.findMany).toHaveBeenCalledTimes(1);
     });
   });
 

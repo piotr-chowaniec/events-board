@@ -30,6 +30,7 @@ export const mockFindUnique = ({
   );
 
 export const mockFindMany = () => Promise.resolve(users);
+export const mockCount = () => Promise.resolve(users.length);
 
 export const mockCreate = ({ data }) =>
   Promise.resolve({
@@ -53,7 +54,8 @@ export const mockUpdate = ({ where: { id: userId }, data }) =>
   });
 
 export const usersServiceMock = {
-  findAll: jest.fn().mockImplementation(async () => {
+  count: jest.fn().mockImplementation(mockCount),
+  findMany: jest.fn().mockImplementation(async () => {
     const allUsers = await mockFindMany();
 
     return allUsers.map(mapUserToResponse);
