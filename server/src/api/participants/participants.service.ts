@@ -18,8 +18,20 @@ export class ParticipantsService {
     });
   }
 
-  findMany(filters?): Promise<Participant[] | undefined> {
+  count(filters): Promise<number> {
+    return this.prismaService.participant.count({
+      ...(filters ? { where: filters } : {}),
+    });
+  }
+
+  findMany(
+    skip: number,
+    take: number,
+    filters?,
+  ): Promise<Participant[] | undefined> {
     return this.prismaService.participant.findMany({
+      skip,
+      take,
       ...(filters ? { where: filters } : {}),
       include: {
         user: {

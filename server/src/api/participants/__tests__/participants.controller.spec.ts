@@ -8,6 +8,9 @@ import {
 } from '../__mocks__/participants.service.mock';
 
 describe('ParticipantsController', () => {
+  const skip = '0';
+  const take = '100';
+
   let controller: ParticipantsController;
   let service: ParticipantsService;
 
@@ -32,10 +35,13 @@ describe('ParticipantsController', () => {
   describe('findMany()', () => {
     it('should return all participants', async () => {
       // when
-      const participants = await controller.findMany(null);
+      const participants = await controller.findMany(skip, take, null);
 
       // then
-      expect(participants).toEqual(participantsMock);
+      expect(participants).toEqual({
+        count: 5,
+        participants: participantsMock,
+      });
       expect(service.findMany).toHaveBeenCalledTimes(1);
     });
   });

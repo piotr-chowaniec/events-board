@@ -47,6 +47,13 @@ export const mockFindMany = ({
     ),
   );
 
+export const mockCount = (filters) =>
+  Promise.resolve()
+    .then(() => {
+      return mockFindMany(filters);
+    })
+    .then((result) => result.length);
+
 export const mockCreate = ({ data }) =>
   Promise.resolve({
     id: 'new-participant-id',
@@ -61,6 +68,9 @@ export const participantsServiceMock = {
       },
     }),
   ),
+  count: jest
+    .fn()
+    .mockImplementation((filters) => mockCount({ where: filters })),
   findMany: jest.fn().mockImplementation(() => Promise.resolve(participants)),
   create: jest
     .fn()

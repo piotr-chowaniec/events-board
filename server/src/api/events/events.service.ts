@@ -12,9 +12,6 @@ export class EventsService {
   count(filters): Promise<number> {
     return this.prismaService.event.count({
       ...(filters ? { where: filters } : {}),
-      orderBy: {
-        createdAt: 'desc',
-      },
     });
   }
 

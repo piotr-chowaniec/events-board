@@ -18,8 +18,24 @@ export class ParticipantsController {
   constructor(private readonly participantService: ParticipantsService) {}
 
   @Get()
-  findMany(@Query('eventId') eventId: string) {
-    return this.participantService.findMany(getFilters({ eventId }));
+  async findMany(
+    @Query('skip') skip: string,
+    @Query('take') take: string,
+    @Query('eventId') eventId: string,
+  ) {
+    const filters = getFilters({ eventId });
+    const count = await this.participantService.count(filters);
+
+    const participants = await this.participantService.findMany(
+      +skip,
+      +take,
+      filters,
+    );
+
+    return {
+      count,
+      participants,
+    };
   }
 
   @Post()

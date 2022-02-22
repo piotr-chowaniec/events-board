@@ -4,6 +4,7 @@ import { Table } from 'react-bootstrap';
 
 import useModal from '../shared/hooks/useModal.hook';
 import { useDeleteParticipant } from '../shared/api/hooks';
+import usePagination from '../shared/hooks/usePagination.hook';
 import Loading from '../displayComponents/loading/loading';
 
 import ParticipantItem from './participantListItem';
@@ -12,25 +13,44 @@ import { useFetchParticipants } from './api/hooks';
 import { ParticipantType } from './types';
 import styles from './participants.module.scss';
 
+const PARTICIPANTS_MAX_ITEMS = 16;
+const maxItems = PARTICIPANTS_MAX_ITEMS;
+
 const Participants = (): JSX.Element => {
   const { eventId } = useParams();
   const { Modal, showModal } = useModal();
 
   const [participants, setParticipants] = useState<ParticipantType[]>();
+  const [count, setCount] = useState(0);
+
+  const { currentPage, PaginationButtons } = usePagination({
+    count,
+    maxItems,
+  });
 
   const { call: fetchParticipants, isLoading: isFetchParticipantsLoading } =
     useFetchParticipants();
   const { call: deleteParticipant, isLoading: isDeleteParticipantLoading } =
     useDeleteParticipant();
 
-  const fetchParticipantsData = useCallback(async () => {
-    const users = await fetchParticipants({ filters: { eventId } });
-    setParticipants(users);
-  }, [fetchParticipants, eventId]);
+  const fetchParticipantsData = useCallback(
+    async ({ currentPage }) => {
+      const { count, participants } = await fetchParticipants({
+        filters: {
+          eventId,
+          skip: (currentPage - 1) * maxItems,
+          take: maxItems,
+        },
+      });
+      setCount(count);
+      setParticipants(participants);
+    },
+    [fetchParticipants, eventId],
+  );
 
   useEffect(() => {
-    fetchParticipantsData();
-  }, [fetchParticipantsData]);
+    fetchParticipantsData({ currentPage });
+  }, [fetchParticipantsData, currentPage]);
 
   const onParticipantRemove = useCallback(
     async (participantToDelete: ParticipantType) => {
@@ -39,10 +59,10 @@ const Participants = (): JSX.Element => {
           userId: participantToDelete.userId,
           eventId: participantToDelete.eventId,
         });
-        fetchParticipantsData();
+        fetchParticipantsData({ currentPage });
       }
     },
-    [deleteParticipant, fetchParticipantsData],
+    [deleteParticipant, fetchParticipantsData, currentPage],
   );
 
   const isLoading = isFetchParticipantsLoading || isDeleteParticipantLoading;
@@ -91,6 +111,7 @@ const Participants = (): JSX.Element => {
             <div>Sorry. There are no Participants.</div>
           )}
         </div>
+        <PaginationButtons />
       </div>
       <Modal
         title="Remove Participant"

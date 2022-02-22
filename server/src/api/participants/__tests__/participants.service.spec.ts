@@ -8,6 +8,7 @@ import {
   mockFindUnique,
   mockFindMany,
   mockCreate,
+  mockCount,
 } from '../__mocks__/participants.service.mock';
 
 const participantNo1 = getParticipant(1, 1, 1);
@@ -15,6 +16,9 @@ const participantNo2 = getParticipant(2, 1, 2);
 const participantNo4 = getParticipant(3, 2, 2);
 
 describe('ParticipantsService', () => {
+  const skip = 0;
+  const take = 100;
+
   let service: ParticipantsService;
   let prisma: PrismaService;
 
@@ -36,6 +40,7 @@ describe('ParticipantsService', () => {
       .mockImplementation(mockFindUnique);
     prisma.participant.findMany = jest.fn().mockImplementation(mockFindMany);
     prisma.participant.create = jest.fn().mockImplementation(mockCreate);
+    prisma.participant.count = jest.fn().mockImplementation(mockCount);
   });
 
   it('should be defined', () => {
@@ -64,13 +69,35 @@ describe('ParticipantsService', () => {
     });
   });
 
+  describe('count()', () => {
+    it('should return number of entries', async () => {
+      // given
+      const userId = 'user-1';
+
+      // when
+      const count = await service.count({ userId });
+
+      // then
+      expect(count).toEqual(2);
+    });
+
+    it('should not throw when there is no matching entry', async () => {
+      // given
+      const eventId = 'not-existing-event';
+
+      // when, then
+      expect(async () => await service.count({ eventId })).not.toThrow();
+      expect(prisma.participant.count).toHaveBeenCalledTimes(1);
+    });
+  });
+
   describe('findMany()', () => {
     it('should return all matching entries for given userId', async () => {
       // given
       const userId = 'user-1';
 
       // when
-      const participants = await service.findMany({ userId });
+      const participants = await service.findMany(skip, take, { userId });
 
       // then
       expect(participants).toEqual([participantNo1, participantNo2]);
@@ -81,7 +108,7 @@ describe('ParticipantsService', () => {
       const eventId = 'event-2';
 
       // when
-      const participants = await service.findMany({ eventId });
+      const participants = await service.findMany(skip, take, { eventId });
 
       // then
       expect(participants).toEqual([participantNo2, participantNo4]);
@@ -93,7 +120,10 @@ describe('ParticipantsService', () => {
       const eventId = 'event-2';
 
       // when
-      const participants = await service.findMany({ userId, eventId });
+      const participants = await service.findMany(skip, take, {
+        userId,
+        eventId,
+      });
 
       // then
       expect(participants).toEqual([participantNo2]);
@@ -104,7 +134,9 @@ describe('ParticipantsService', () => {
       const userId = 'non-existing-user';
 
       // when, then
-      expect(async () => await service.findMany({ userId })).not.toThrow();
+      expect(
+        async () => await service.findMany(skip, take, { userId }),
+      ).not.toThrow();
     });
   });
 
