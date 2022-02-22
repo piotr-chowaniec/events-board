@@ -7,6 +7,7 @@ import {
   getEvent,
   mockFindUnique,
   mockFindMany,
+  mockCount,
   mockCreate,
   mockUpdate,
   events as eventsMock,
@@ -20,6 +21,9 @@ const eventNo6 = {
 };
 
 describe('EventsService', () => {
+  const skip = 0;
+  const take = 100;
+
   let service: EventsService;
   let prisma: PrismaService;
 
@@ -40,6 +44,7 @@ describe('EventsService', () => {
     prisma.event.findMany = jest.fn().mockImplementation(mockFindMany);
     prisma.event.create = jest.fn().mockImplementation(mockCreate);
     prisma.event.update = jest.fn().mockImplementation(mockUpdate);
+    prisma.event.count = jest.fn().mockImplementation(mockCount);
   });
 
   it('should be defined', () => {
@@ -65,13 +70,35 @@ describe('EventsService', () => {
     });
   });
 
+  describe('count()', () => {
+    it('should return number of entries', async () => {
+      // given
+      const userId = eventNo1.userId;
+
+      // when
+      const count = await service.count({ userId });
+
+      // then
+      expect(count).toEqual(3);
+    });
+
+    it('should not throw when there is no matching entry', async () => {
+      // given
+      const eventId = 'not-existing-event';
+
+      // when, then
+      expect(async () => await service.count({ eventId })).not.toThrow();
+      expect(prisma.event.count).toHaveBeenCalledTimes(1);
+    });
+  });
+
   describe('findMany()', () => {
     it('should return all matching entries for given userId', async () => {
       // given
       const userId = eventNo1.userId;
 
       // when
-      const events = await service.findMany({ userId });
+      const events = await service.findMany(skip, take, { userId });
 
       // then
       expect(events).toEqual([eventNo1, eventNo2, eventNo6]);
@@ -82,7 +109,7 @@ describe('EventsService', () => {
       const status = eventNo6.status;
 
       // when
-      const events = await service.findMany({ status });
+      const events = await service.findMany(skip, take, { status });
 
       // then
       expect(events).toEqual([eventNo6]);
@@ -93,7 +120,7 @@ describe('EventsService', () => {
       const { userId, status } = eventNo1;
 
       // when
-      const events = await service.findMany({ userId, status });
+      const events = await service.findMany(skip, take, { userId, status });
 
       // then
       expect(events).toEqual([eventNo1, eventNo2]);
@@ -104,7 +131,9 @@ describe('EventsService', () => {
       const eventId = 'not-existing-event';
 
       // when, then
-      expect(async () => await service.findMany({ eventId })).not.toThrow();
+      expect(
+        async () => await service.findMany(skip, take, { eventId }),
+      ).not.toThrow();
     });
   });
 

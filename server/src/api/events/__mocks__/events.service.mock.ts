@@ -42,6 +42,13 @@ export const mockFindMany = ({
     ),
   );
 
+export const mockCount = (filters) =>
+  Promise.resolve()
+    .then(() => {
+      return mockFindMany(filters);
+    })
+    .then((result) => result.length);
+
 export const mockCreate = ({ data }) =>
   Promise.resolve({
     ...data,
@@ -63,9 +70,14 @@ export const mockUpdate = ({ where: { id: eventId }, data }) =>
   });
 
 export const eventsServiceMock = {
+  count: jest
+    .fn()
+    .mockImplementation((filters) => mockCount({ where: filters })),
   findMany: jest
     .fn()
-    .mockImplementation((filters) => mockFindMany({ where: filters })),
+    .mockImplementation((skip, take, filters) =>
+      mockFindMany({ where: filters }),
+    ),
   find: jest.fn().mockImplementation((eventId) =>
     mockFindUnique({
       where: {

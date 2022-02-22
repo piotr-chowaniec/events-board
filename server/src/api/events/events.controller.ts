@@ -31,14 +31,21 @@ export class EventsController {
 
   @Public()
   @Get()
-  findMany(
+  async findMany(
+    @Query('skip') skip: string,
+    @Query('take') take: string,
     @Query('userId') userId: string,
     @Query('status') status: string,
     @Query('participant') participant: string,
   ) {
-    return this.eventsService.findMany(
-      getFilters({ userId, status, participant }),
-    );
+    const filters = getFilters({ userId, status, participant });
+    const count = await this.eventsService.count(filters);
+    const events = await this.eventsService.findMany(+skip, +take, filters);
+
+    return {
+      count,
+      events,
+    };
   }
 
   @Post()

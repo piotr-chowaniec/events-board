@@ -7,6 +7,7 @@ import { useAppSelector } from '../store/hooks';
 import { userDataSelector } from '../store/user/selectors';
 import Loading from '../displayComponents/loading/loading';
 import useViewMode from '../shared/hooks/useViewMode.hook';
+import userPagination from '../shared/hooks/userPagination.hook';
 import { EventFiltersType } from '../shared/types';
 import routes from '../routes';
 
@@ -29,18 +30,32 @@ const EventsList = ({
 }: EventListParams): JSX.Element => {
   const navigate = useNavigate();
   const [events, setEvents] = useState<EventType[]>();
+  const [count, setCount] = useState(0);
   const { ViewModeButtons, isListView, isDefaultView, isLargeView } =
     useViewMode();
+  const { maxItems, currentPage, PaginationButtons } = userPagination({
+    count,
+  });
 
   const { id: userId } = useAppSelector(userDataSelector);
 
   const { call: fetchEvents, isLoading: isFetchingEvents } = useFetchEvents();
   const { call: createEvent, isLoading: isCreatingEvent } = useCreateEvent();
 
-  const fetchEventsData = useCallback(async () => {
-    const events = await fetchEvents({ filters });
-    setEvents(events);
-  }, [fetchEvents, filters]);
+  const fetchEventsData = useCallback(
+    async ({ currentPage }) => {
+      const { count, events } = await fetchEvents({
+        filters: {
+          ...filters,
+          skip: (currentPage - 1) * maxItems,
+          take: maxItems,
+        },
+      });
+      setCount(count);
+      setEvents(events);
+    },
+    [fetchEvents, filters, maxItems],
+  );
 
   const onEventCreate = useCallback(async () => {
     const { id: eventId } = await createEvent({ userId });
@@ -48,10 +63,10 @@ const EventsList = ({
   }, [createEvent, navigate, userId]);
 
   useEffect(() => {
-    fetchEventsData();
-  }, [fetchEventsData]);
+    fetchEventsData({ currentPage });
+  }, [fetchEventsData, currentPage]);
 
-  const className: string = classnames({
+  const className: string = classnames(styles.eventListContent, {
     ['row row-cols-md-2 row-cols-lg-4']: isDefaultView,
     ['row row-cols-md-1 row-cols-lg-2']: isLargeView,
   });
@@ -89,6 +104,7 @@ const EventsList = ({
           <div>Sorry. There are no Events.</div>
         )}
       </div>
+      <PaginationButtons />
     </div>
   );
 };

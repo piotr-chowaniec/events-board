@@ -9,8 +9,19 @@ import { PrismaService } from '../common/prisma/prisma.service';
 export class EventsService {
   constructor(private prismaService: PrismaService) {}
 
-  findMany(filters): Promise<Event[]> {
+  count(filters): Promise<number> {
+    return this.prismaService.event.count({
+      ...(filters ? { where: filters } : {}),
+      orderBy: {
+        createdAt: 'desc',
+      },
+    });
+  }
+
+  findMany(skip: number, take: number, filters): Promise<Event[]> {
     return this.prismaService.event.findMany({
+      skip,
+      take,
       ...(filters ? { where: filters } : {}),
       include: {
         image: {

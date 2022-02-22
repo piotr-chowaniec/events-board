@@ -17,6 +17,9 @@ const eventNo6 = {
 };
 
 describe('EventsController', () => {
+  const skip = '0';
+  const take = '100';
+
   let controller: EventsController;
   let service: EventsService;
   let imagesService: ImagesService;
@@ -44,10 +47,13 @@ describe('EventsController', () => {
   describe('findMany()', () => {
     it('should return all events', async () => {
       // when
-      const events = await controller.findMany(null, null, null);
+      const events = await controller.findMany(skip, take, null, null, null);
 
       // then
-      expect(events).toEqual(eventsMock);
+      expect(events).toEqual({
+        count: eventsMock.length,
+        events: eventsMock,
+      });
       expect(service.findMany).toHaveBeenCalledTimes(1);
     });
 
@@ -56,10 +62,13 @@ describe('EventsController', () => {
       const userId = eventNo1.userId;
 
       // when
-      const events = await controller.findMany(userId, null, null);
+      const events = await controller.findMany(skip, take, userId, null, null);
 
       // then
-      expect(events).toEqual([eventNo1, eventNo2, eventNo6]);
+      expect(events).toEqual({
+        count: 3,
+        events: [eventNo1, eventNo2, eventNo6],
+      });
       expect(service.findMany).toHaveBeenCalledTimes(1);
     });
 
@@ -68,10 +77,13 @@ describe('EventsController', () => {
       const status = 'DRAFT';
 
       // when
-      const events = await controller.findMany(null, status, null);
+      const events = await controller.findMany(skip, take, null, status, null);
 
       // then
-      expect(events).toEqual([eventNo6]);
+      expect(events).toEqual({
+        count: 1,
+        events: [eventNo6],
+      });
       expect(service.findMany).toHaveBeenCalledTimes(1);
     });
 
@@ -81,10 +93,19 @@ describe('EventsController', () => {
       const status = eventNo1.status;
 
       // when
-      const events = await controller.findMany(userId, status, null);
+      const events = await controller.findMany(
+        skip,
+        take,
+        userId,
+        status,
+        null,
+      );
 
       // then
-      expect(events).toEqual([eventNo1, eventNo2]);
+      expect(events).toEqual({
+        count: 2,
+        events: [eventNo1, eventNo2],
+      });
       expect(service.findMany).toHaveBeenCalledTimes(1);
     });
 
@@ -94,7 +115,7 @@ describe('EventsController', () => {
 
       // when, then
       expect(
-        async () => await controller.findMany(userId, null, null),
+        async () => await controller.findMany(skip, take, userId, null, null),
       ).not.toThrow();
     });
   });

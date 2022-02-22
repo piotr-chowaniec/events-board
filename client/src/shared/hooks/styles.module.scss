@@ -6,6 +6,32 @@
 
   > span:hover,
   .viewModeActive {
-    color: $BLACK;
+    color: $color-dark;
+  }
+}
+
+.pagination {
+  display: flex;
+  justify-content: center;
+  margin: 1rem;
+
+  :global {
+    .page-link {
+      color: $color-dark;
+    }
+
+    .page-link:hover {
+      color: $color-link-hover;
+      background-color: $WHITE
+    }
+
+    .page-item.active .page-link {
+      background-color: $color-dark;
+      border-color: $color-dark;
+    }
+
+    ul {
+      margin-bottom: 0;
+    }
   }
 }
