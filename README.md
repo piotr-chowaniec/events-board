@@ -26,9 +26,9 @@ Feel free to play with it 🙏.
 ## Technologies used
 - [Node.js v16.10](https://nodejs.org) - Check allowed functionalities for this version of Node on [node.green](http://node.green/)
 - [Typescript v4](https://www.typescriptlang.org/)
-- [NestJs v8](https://nestjs.com/) -  Web server
+- [NestJs v8.3](https://nestjs.com/) -  Web server
 - [PostgreSQL v14](https://www.postgresql.org/) - DB
-- [Prisma v2](https://www.prisma.io/) - DB ORM
+- [Prisma v3.9](https://www.prisma.io/) - DB ORM
 - [React v17](https://reactjs.org/) - UI library
 - [Redux](http://redux.js.org/docs/basics/UsageWithReact.html) – UI state management
 - [React Router v6](https://reactrouter.com/docs/en/v6) –  UI routing
@@ -54,7 +54,7 @@ There are some common things which both API and UI uses which are separated to `
 
 ### Node version
 
-Events Board app is developed using Node 16.10. To set the correct version you can use [nvm](https://github.com/creationix/nvm) and just run `nvm use` in the main directory. The command will use `.nvmrc` file to set proper Node version.
+Events Board app is developed using Node 16.10. To set the correct version you can use [nvm](https://github.com/creationix/nvm) and just run `nvm use` in the project root directory. The command will use `.nvmrc` file to set proper Node version.
 
 ### Database
 
@@ -99,7 +99,7 @@ First, make sure that you completed the following steps:
 - [Provide DB config environment variable values](#database)
 - [Provide Cloudinary config environment variable values](#cloudinary)
 
-Then install NPM packages by running the following command in project's root directory:
+Then install NPM packages by running the following command in project root directory:
 ```
 npm run install:all
 ```
@@ -112,7 +112,7 @@ npm run start:dev
 
 ### Docker
 
-You can either run it with already existing PostgreSQL instance to which you have access to, or running `PostgreSQL v14` docker image in parallel with Events Board taking advantage of docker containers. 
+You can either run application with already existing PostgreSQL instance to which you have access to (start with `npm run start:dev`), or running `PostgreSQL v14` docker image in parallel with Events Board taking advantage of docker containers. 
 You can do so by running docker-compose command:
 
 ```
@@ -142,7 +142,7 @@ docker-compose -f docker-compose.yml -f docker-compose.db-volume.yml -p events-b
 ##### Unit and Integration
 
 There are unit and integration tests defined for server and client code.
-To run tem you just type at project root level:
+To run them you just type at project root level:
 
 ```
 npm run test
@@ -159,7 +159,7 @@ DATABASE_URL="postgresql://${POSTGRES_USER}:${POSTGRES_PASSWORD}@${POSTGRES_HOST
 
 ```
 
-It should be mostly the same as previously defined in `.env` with a difference for `POSTGRES_HOST` value. Since docker networking uses container name for DHCP, accessing it the same way from outside of docker network won't work. You'll have to define it as `POSTGRES_HOST='localhost'` instead.
+It should be mostly the same as previously defined in `.env` with a difference for `POSTGRES_HOST` value. Since docker networking uses container names for DHCP, accessing it the same way from outside of docker network won't work. You'll have to define it as `POSTGRES_HOST='localhost'` instead.
 
 Then type in root level either of following:
 ```
