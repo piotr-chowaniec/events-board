@@ -35,7 +35,7 @@ const updateProfileSchema = Name.concat(Email);
 const updatePasswordSchema = Password.concat(ConfirmPasswordSchema);
 
 const registerUserSchema = updateProfileSchema.concat(Password);
-const registerUserFormSchema = updatePasswordSchema
+const registerUserFormSchema = updateProfileSchema
   .concat(Password)
   .concat(updatePasswordSchema);
 
