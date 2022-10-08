@@ -1,0 +1,16 @@
+{
+  "version": 2,
+  "name": "events-board",
+  "builds": [
+      {
+          "src": "server/dist/main.js",
+          "use": "@vercel/node"
+      }
+  ],
+  "routes": [
+      {
+          "src": "/(.*)",
+          "dest": "server/dist/main.js"
+      }
+  ]
+}
