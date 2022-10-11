@@ -21,8 +21,8 @@ jobs:
           node-version: "16.10"
           cache: "npm"
 
-      - name: Install client packages
-        run: npm ci --prefix client
+      - name: Install packages
+        run: npm run install:ci
 
       - uses: superfly/flyctl-actions/setup-flyctl@master
       - name: Deploy events-board-app to Fly.io
