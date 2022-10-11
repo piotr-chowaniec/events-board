@@ -16,5 +16,5 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - uses: superfly/flyctl-actions/setup-flyctl@master
-        run: flyctl deploy --dockerfile ./dockerfile.prod --remote-only --no-cache
+      - run: flyctl deploy --dockerfile ./dockerfile.prod --remote-only --no-cache
 
