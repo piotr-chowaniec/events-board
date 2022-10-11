@@ -2,7 +2,7 @@
 
 ## Demo
 
-You can access demo [here](https://events-board-app.herokuapp.com/)
+You can access demo [here](https://events-board-app.fly.dev/)
 
 By default, all users can view all published events at a home page as well as event details.
 
