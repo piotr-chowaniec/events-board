@@ -1,0 +1,29 @@
+name: PR pre-merge verification
+
+on:
+  pull_request:
+    branches: [ main ]
+
+  workflow_dispatch:
+
+jobs:
+  pr:
+    name: Run lint and tests before merge
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+
+      - uses: actions/setup-node@v3
+        with:
+          node-version: "16.10"
+          cache: "npm"
+
+      - name: Install packages
+        run: npm run install:all
+
+      - name: Run linting
+        run: npm run lint
+
+      - name: Run unit tests
+        run: npm run test
+
