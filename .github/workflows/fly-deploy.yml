@@ -15,15 +15,6 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-      - uses: actions/setup-node@v3
-        with:
-          node-version: "16.10"
-          cache: "npm"
-
-      - name: Install packages
-        run: npm run install:all
-
       - uses: superfly/flyctl-actions/setup-flyctl@master
-      - name: Deploy to Fly.io
-        run: flyctl deploy --dockerfile ./dockerfile.prod --remote-only --no-cache
+      - run: flyctl deploy --dockerfile ./dockerfile.prod --remote-only --no-cache
 
